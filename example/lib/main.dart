@@ -17,10 +17,46 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return CarbonApp(
       title: 'Carbon Examples',
-      home: CFormExample(),
-      theme: CarbonThemeData.gray10(),
-      darkTheme: CarbonThemeData.white(),
-      themeMode: ThemeMode.dark,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Carbon Design Flutter"),
+        ),
+        body: Builder(builder: (context) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CButton(
+                  label: "Forms",
+                  icon: Icon(Icons.format_align_center),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CFormExample(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Buttons",
+                  icon: Icon(Icons.smart_button),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CButtonExample(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
+      theme: CarbonThemeData.white(),
+      darkTheme: CarbonThemeData.gray100(),
+      themeMode: ThemeMode.light,
     );
   }
 }

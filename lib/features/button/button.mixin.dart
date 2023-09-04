@@ -2,25 +2,29 @@ part of 'button.widget.dart';
 
 typedef _Styles = CButtonStyles;
 
-mixin _CButtonStateBase<T extends _CButtonBase> on State<T> {
+abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> with MaterialStateMixin {
   late CButtonKind kind;
   late Size dimensions;
-
-  CWidgetState state = CWidgetState.enabled;
-
-  bool focused = false;
 
   bool get isEnabled {
     return context.inheritedEnable ? widget.props.enable : false;
   }
 
+  void _setPressed() {
+    addMaterialState(MaterialState.focused);
+    addMaterialState(MaterialState.pressed);
+  }
+
+  void _unsetPressed() {
+    removeMaterialState(MaterialState.focused);
+    removeMaterialState(MaterialState.pressed);
+  }
+
   void _setStateVariables() {
     if (!isEnabled) {
-      state = CWidgetState.disabled;
-    } else if (isEnabled && focused) {
-      state = CWidgetState.focused;
+      addMaterialState(MaterialState.disabled);
     } else {
-      state = CWidgetState.enabled;
+      removeMaterialState(MaterialState.disabled);
     }
 
     kind = widget.props.kind;

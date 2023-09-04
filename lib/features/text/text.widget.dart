@@ -9,7 +9,9 @@ class CText extends StatelessWidget {
     this.enable = true,
     this.isRequired = false,
     this.style,
-    this.disableStyle,
+    this.disableStyle = const TextStyle(
+      color: CColors.gray30,
+    ),
     this.strutStyle,
     this.textAlign,
     this.textDirection,
@@ -36,7 +38,7 @@ class CText extends StatelessWidget {
   final TextStyle? style;
 
   /// The style to use for this text when [enable] is `false`.
-  final TextStyle? disableStyle;
+  final TextStyle disableStyle;
 
   /// How the text should be aligned horizontally.
   final TextAlign? textAlign;

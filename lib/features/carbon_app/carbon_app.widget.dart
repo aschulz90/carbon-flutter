@@ -3,10 +3,10 @@ import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
 
 class CarbonApp extends StatelessWidget {
-  const CarbonApp({
+  CarbonApp({
     super.key,
     this.title = '',
-    this.theme = const CarbonThemeData.gray10(),
+    CarbonThemeData? theme,
     this.darkTheme,
     this.highContrastTheme,
     this.highContrastDarkTheme,
@@ -40,13 +40,14 @@ class CarbonApp extends StatelessWidget {
     this.restorationScopeId,
     this.scaffoldMessengerKey,
     this.scrollBehavior,
-  })  : routeInformationProvider = null,
+  })  : theme = theme ?? CarbonThemeData.gray10(),
+        routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
         routerConfig = null,
         backButtonDispatcher = null;
 
-  const CarbonApp.router({
+  CarbonApp.router({
     super.key,
     required RouterDelegate<Object> this.routerDelegate,
     required RouteInformationParser<Object> this.routeInformationParser,
@@ -54,7 +55,7 @@ class CarbonApp extends StatelessWidget {
     this.routerConfig,
     this.backButtonDispatcher,
     this.title = '',
-    this.theme = const CarbonThemeData.gray10(),
+    CarbonThemeData? theme,
     this.darkTheme,
     this.highContrastTheme,
     this.highContrastDarkTheme,
@@ -80,7 +81,8 @@ class CarbonApp extends StatelessWidget {
     this.restorationScopeId,
     this.scaffoldMessengerKey,
     this.scrollBehavior,
-  })  : navigatorObservers = null,
+  })  : theme = theme ?? CarbonThemeData.gray10(),
+        navigatorObservers = null,
         navigatorKey = null,
         onGenerateRoute = null,
         home = null,

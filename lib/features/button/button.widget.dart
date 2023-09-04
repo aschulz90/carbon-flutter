@@ -1,4 +1,6 @@
 import 'package:carbon_flutter/features/inherited_styles/index.dart';
+import 'package:carbon_flutter/features/theme/index.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:carbon_flutter/shared/index.dart';
@@ -79,13 +81,9 @@ class CButtonState extends State<CButton> {
   }
 }
 
-//
-
 abstract class _CButtonBase extends StatefulWidget {
   CButtonBaseProps get props;
 }
-
-//
 
 class _CButtonRegular extends _CButtonBase {
   _CButtonRegular({required this.props});
@@ -97,13 +95,11 @@ class _CButtonRegular extends _CButtonBase {
   _CButtonRegularState createState() => _CButtonRegularState();
 }
 
-class _CButtonRegularState extends State<_CButtonRegular>
-    with _CButtonStateBase {
-  List<Widget> _buildTrailing() {
+class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
+  List<Widget> _buildTrailing(CarbonButtonStyle style) {
     final result = <Widget>[];
 
     /// determine the [Sizedbox] width
-
     if (widget.props.expand) {
       result.add(const Expanded(child: SizedBox()));
     } else if (widget.props.kind == CButtonKind.ghost) {
@@ -117,9 +113,13 @@ class _CButtonRegularState extends State<_CButtonRegular>
     }
 
     /// add button icon
-
     if (widget.props.icon != null) {
-      result.add(widget.props.icon!);
+      result.add(IconTheme(
+        data: IconThemeData(
+          color: style.contentColor.resolve(materialStates),
+        ),
+        child: widget.props.icon!,
+      ));
     }
 
     return result;
@@ -128,18 +128,27 @@ class _CButtonRegularState extends State<_CButtonRegular>
   @override
   Widget build(BuildContext context) {
     _setStateVariables();
+    final carbonTheme = CarbonTheme.of(context);
+    final buttonStyle = switch (kind) {
+      CButtonKind.primary => carbonTheme.buttonTheme.primary,
+      CButtonKind.secondary => carbonTheme.buttonTheme.secondary,
+      CButtonKind.danger => carbonTheme.buttonTheme.primary,
+      CButtonKind.tertiary => carbonTheme.buttonTheme.tertiary,
+      CButtonKind.ghost => carbonTheme.buttonTheme.ghost,
+    };
 
-    return CInheritedStyles(
-      styles: {'button-content-color': _Styles.contentColor[kind]![state]!},
-      child: CEnable(
-        value: isEnabled,
-        child: IgnorePointer(
-          ignoring: !isEnabled,
+    return CEnable(
+      value: isEnabled,
+      child: IgnorePointer(
+        ignoring: !isEnabled,
+        child: MouseRegion(
+          onEnter: (event) => addMaterialState(MaterialState.hovered),
+          onExit: (event) => removeMaterialState(MaterialState.hovered),
           child: GestureDetector(
             onTap: widget.props.onTap,
-            onTapDown: (_) => setState(() => focused = true),
-            onTapUp: (_) => setState(() => focused = false),
-            onTapCancel: () => setState(() => focused = false),
+            onTapDown: (_) => _setPressed(),
+            onTapUp: (_) => _unsetPressed(),
+            onTapCancel: _unsetPressed,
             child: Stack(
               children: [
                 Positioned.fill(
@@ -148,8 +157,8 @@ class _CButtonRegularState extends State<_CButtonRegular>
                     duration: _Styles.backgroundColorAnimation['duration'],
                     curve: _Styles.backgroundColorAnimation['curve'],
                     decoration: BoxDecoration(
-                        color: _Styles
-                            .backgroundColor[widget.props.kind]![state]!),
+                      color: buttonStyle.color.resolve(materialStates),
+                    ),
                   ),
                 ),
                 Positioned.fill(
@@ -158,7 +167,8 @@ class _CButtonRegularState extends State<_CButtonRegular>
                     duration: _Styles.firstBorderAnimation[kind]!['duration'],
                     curve: _Styles.firstBorderAnimation[kind]!['curve'],
                     decoration: BoxDecoration(
-                        border: _Styles.firstBorder[kind]![state]!),
+                      border: buttonStyle.innerBoarder.resolve(materialStates),
+                    ),
                   ),
                 ),
                 Positioned.fill(
@@ -167,14 +177,16 @@ class _CButtonRegularState extends State<_CButtonRegular>
                     duration: _Styles.secondBorderAnimation['duration'],
                     curve: _Styles.secondBorderAnimation['curve'],
                     decoration: BoxDecoration(
-                        border: _Styles.secondBorder[kind]![state]!),
+                      border: buttonStyle.outerBorder.resolve(materialStates),
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: dimensions.height,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: _Styles.padding[widget.props.size]!),
+                      horizontal: _Styles.padding[widget.props.size]!,
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -184,10 +196,10 @@ class _CButtonRegularState extends State<_CButtonRegular>
                           data: widget.props.label,
                           style: TextStyle(
                             fontSize: widget.props.labelSize,
-                            color: _Styles.contentColor[kind]![state]!,
+                            color: buttonStyle.contentColor.resolve(materialStates),
                           ),
                         ),
-                        ..._buildTrailing()
+                        ..._buildTrailing(buttonStyle),
                       ],
                     ),
                   ),
@@ -213,23 +225,32 @@ class _CButtonIconOnly extends _CButtonBase {
   _CButtonIconOnlyState createState() => _CButtonIconOnlyState();
 }
 
-class _CButtonIconOnlyState extends State<_CButtonIconOnly>
-    with _CButtonStateBase {
+class _CButtonIconOnlyState extends _CButtonStateBase<_CButtonIconOnly> {
+
   @override
   Widget build(BuildContext context) {
     _setStateVariables();
+    final carbonTheme = CarbonTheme.of(context);
+    final buttonStyle = switch (kind) {
+      CButtonKind.primary => carbonTheme.buttonTheme.primary,
+      CButtonKind.secondary => carbonTheme.buttonTheme.secondary,
+      CButtonKind.danger => carbonTheme.buttonTheme.primary,
+      CButtonKind.tertiary => carbonTheme.buttonTheme.tertiary,
+      CButtonKind.ghost => carbonTheme.buttonTheme.ghost,
+    };
 
-    return CInheritedStyles(
-      styles: {'button-content-color': _Styles.contentColor[kind]![state]!},
-      child: CEnable(
-        value: isEnabled,
-        child: IgnorePointer(
-          ignoring: !isEnabled,
+    return CEnable(
+      value: isEnabled,
+      child: IgnorePointer(
+        ignoring: !isEnabled,
+        child: MouseRegion(
+          onEnter: (event) => addMaterialState(MaterialState.hovered),
+          onExit: (event) => removeMaterialState(MaterialState.hovered),
           child: GestureDetector(
             onTap: widget.props.onTap,
-            onTapDown: (_) => setState(() => focused = true),
-            onTapUp: (_) => setState(() => focused = false),
-            onTapCancel: () => setState(() => focused = false),
+            onTapDown: (_) => _setPressed(),
+            onTapUp: (_) => _unsetPressed(),
+            onTapCancel: _unsetPressed,
             child: Stack(
               children: [
                 AnimatedContainer(
@@ -238,16 +259,17 @@ class _CButtonIconOnlyState extends State<_CButtonIconOnly>
                   duration: _Styles.backgroundColorAnimation['duration'],
                   curve: _Styles.backgroundColorAnimation['curve'],
                   decoration: BoxDecoration(
-                      color:
-                          _Styles.backgroundColor[widget.props.kind]![state]!),
+                    color: buttonStyle.color.resolve(materialStates),
+                  ),
                 ),
                 AnimatedContainer(
                   width: dimensions.width,
                   height: dimensions.height,
                   duration: _Styles.firstBorderAnimation[kind]!['duration'],
                   curve: _Styles.firstBorderAnimation[kind]!['curve'],
-                  decoration:
-                      BoxDecoration(border: _Styles.firstBorder[kind]![state]!),
+                  decoration: BoxDecoration(
+                    border: buttonStyle.innerBoarder.resolve(materialStates),
+                  ),
                 ),
                 AnimatedContainer(
                   width: dimensions.width,
@@ -255,13 +277,21 @@ class _CButtonIconOnlyState extends State<_CButtonIconOnly>
                   duration: _Styles.secondBorderAnimation['duration'],
                   curve: _Styles.secondBorderAnimation['curve'],
                   decoration: BoxDecoration(
-                      border: _Styles.secondBorder[kind]![state]!),
+                    border: buttonStyle.outerBorder.resolve(materialStates),
+                  ),
                 ),
                 SizedBox(
                   width: dimensions.width,
                   height: dimensions.height,
                   child: Align(
-                      alignment: Alignment.center, child: widget.props.icon),
+                    alignment: Alignment.center,
+                    child: IconTheme(
+                      data: IconThemeData(
+                        color: buttonStyle.contentColor.resolve(materialStates),
+                      ),
+                      child: widget.props.icon,
+                    ),
+                  ),
                 ),
               ],
             ),

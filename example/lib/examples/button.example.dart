@@ -7,6 +7,9 @@ class CButtonExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Carbon Button'),
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -15,22 +18,13 @@ class CButtonExample extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 16),
-              CText(
-                data: 'Carbon Button',
-                style: TextStyle(
-                  color: CColors.gray10,
-                  fontSize: 32,
-                ),
-              ),
               const SizedBox(height: 48),
               Row(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CButton(
-                    label: 'Carbon Button',
+                    label: 'Primary',
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16, color: ctx.styles['button-content-color']),
                     ),
@@ -52,7 +46,7 @@ class CButtonExample extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CButton(
-                    label: 'Carbon Button',
+                    label: 'Danger',
                     kind: CButtonKind.danger,
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16, color: ctx.styles['button-content-color']),
@@ -76,7 +70,7 @@ class CButtonExample extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CButton(
-                    label: 'Carbon Button',
+                    label: 'Secondary',
                     kind: CButtonKind.secondary,
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16, color: ctx.styles['button-content-color']),
@@ -100,7 +94,7 @@ class CButtonExample extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CButton(
-                    label: 'Carbon Button',
+                    label: 'Tertiary',
                     kind: CButtonKind.tertiary,
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16, color: ctx.styles['button-content-color']),
@@ -124,7 +118,7 @@ class CButtonExample extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CButton(
-                    label: 'Carbon Button',
+                    label: 'Ghost',
                     kind: CButtonKind.ghost,
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16, color: ctx.styles['button-content-color']),
@@ -136,6 +130,31 @@ class CButtonExample extends StatelessWidget {
                     kind: CButtonKind.ghost,
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16, color: ctx.styles['button-content-color']),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CButton(
+                    label: 'Disabled',
+                    enable: false,
+                    icon: Builder(
+                      builder: (ctx) => Icon(CIcons.add, size: 16),
+                    ),
+                    onTap: () {},
+                  ),
+                  const SizedBox(width: 16),
+                  CButton.icon(
+                    kind: CButtonKind.ghost,
+                    enable: false,
+                    icon: Builder(
+                      builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
                     onTap: () {},
                   ),

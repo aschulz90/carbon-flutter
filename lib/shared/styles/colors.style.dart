@@ -108,3 +108,48 @@ abstract class CColors {
   static const yellow30 = Color(0xfff1c21b);
   static const yellow20 = Color(0xfffdd13a);
 }
+
+class CarbonStateColor extends MaterialStateColor {
+  CarbonStateColor({
+    required this.color,
+    required this.hoveredColor,
+    required this.focusedColor,
+    required this.pressedColor,
+    this.disabledColor = CColors.gray40,
+  }) : super(color.value);
+
+  CarbonStateColor.all(
+      this.color, {
+        this.disabledColor = CColors.gray40,
+      })  : hoveredColor = color,
+        focusedColor = color,
+        pressedColor = color,
+        super(color.value);
+
+  final Color color;
+  final Color hoveredColor;
+  final Color focusedColor;
+  final Color pressedColor;
+  final Color disabledColor;
+
+  @override
+  Color resolve(Set<MaterialState> states) {
+    if (states.contains(MaterialState.disabled)) {
+      return disabledColor;
+    }
+
+    if (states.contains(MaterialState.pressed)) {
+      return pressedColor;
+    }
+
+    if (states.contains(MaterialState.hovered)) {
+      return hoveredColor;
+    }
+
+    if (states.contains(MaterialState.focused)) {
+      return focusedColor;
+    }
+
+    return color;
+  }
+}

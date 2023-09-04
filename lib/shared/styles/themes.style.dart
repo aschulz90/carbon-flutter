@@ -11,13 +11,14 @@ class CThemes {
       };
 
   static final AppBarTheme _appBarTheme = AppBarTheme(
+    color: CColors.gray100,
     elevation: 0,
-    shape: Border(
-      bottom: BorderSide(
-        color: CColors.gray90,
-        width: 2,
-      ),
-    ),
+  );
+
+  static final ButtonThemeData _buttonTheme = ButtonThemeData(
+    hoverColor: CColors.blue70,
+    disabledColor: CColors.gray50,
+    focusColor: CColors.blue60,
   );
 
   static final _white = ThemeData(
@@ -31,9 +32,7 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
-    appBarTheme: _appBarTheme.copyWith(
-      color: CColors.gray100,
-    ),
+    appBarTheme: _appBarTheme,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray90,
       selectionColor: CColors.blue70,
@@ -67,7 +66,7 @@ class CThemes {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
-        borderSide: BorderSide(color: CColors.red50, width: 2),
+        borderSide: BorderSide(color: CColors.red60, width: 2),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
@@ -81,9 +80,14 @@ class CThemes {
       bodyColor: CColors.gray90,
     ),
     colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: CColors.blue60,
+      onPrimary: CColors.white0,
       secondary: CColors.gray70,
+      onSecondary: CColors.white0,
+      tertiary: CColors.white0,
+      onTertiary: CColors.blue60,
       background: CColors.white0,
-      error: CColors.red40,
+      error: CColors.red60,
     ),
   );
 
@@ -98,9 +102,7 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
-    appBarTheme: _appBarTheme.copyWith(
-      color: CColors.gray100,
-    ),
+    appBarTheme: _appBarTheme,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray90,
       selectionColor: CColors.blue70,
@@ -136,7 +138,7 @@ class CThemes {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
-        borderSide: BorderSide(color: CColors.red50, width: 2),
+        borderSide: BorderSide(color: CColors.red60, width: 2),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
@@ -150,9 +152,14 @@ class CThemes {
       bodyColor: CColors.gray90,
     ),
     colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: CColors.blue60,
+      onPrimary: CColors.white0,
       secondary: CColors.gray70,
+      onSecondary: CColors.white0,
+      tertiary: CColors.white0,
+      onTertiary: CColors.blue60,
       background: CColors.gray10,
-      error: CColors.red40,
+      error: CColors.red60,
     ),
   );
 
@@ -167,9 +174,7 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
-    appBarTheme: _appBarTheme.copyWith(
-      color: CColors.gray100,
-    ),
+    appBarTheme: _appBarTheme,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray10,
       selectionColor: CColors.blue70,
@@ -203,7 +208,7 @@ class CThemes {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
-        borderSide: BorderSide(color: CColors.red50, width: 2),
+        borderSide: BorderSide(color: CColors.red60, width: 2),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
@@ -219,9 +224,14 @@ class CThemes {
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(
+      primary: CColors.blue60,
+      onPrimary: CColors.white0,
       secondary: CColors.gray70,
+      onSecondary: CColors.white0,
+      tertiary: CColors.white0,
+      onTertiary: CColors.blue60,
       background: CColors.gray90,
-      error: CColors.red40,
+      error: CColors.red60,
     ),
   );
 
@@ -237,7 +247,12 @@ class CThemes {
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
     appBarTheme: _appBarTheme.copyWith(
-      color: CColors.gray100,
+      shape: Border(
+        bottom: BorderSide(
+          color: CColors.gray50,
+          width: 1,
+        ),
+      ),
     ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray10,
@@ -272,7 +287,7 @@ class CThemes {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
-        borderSide: BorderSide(color: CColors.red50, width: 2),
+        borderSide: BorderSide(color: CColors.red60, width: 2),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
@@ -285,12 +300,18 @@ class CThemes {
       displayColor: CColors.gray10,
       bodyColor: CColors.gray10,
     ),
+    buttonTheme: _buttonTheme,
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(
+      primary: CColors.blue60,
+      onPrimary: CColors.white0,
       secondary: CColors.gray70,
+      onSecondary: CColors.white0,
+      tertiary: CColors.white0,
+      onTertiary: CColors.blue60,
       background: CColors.gray100,
-      error: CColors.red40,
+      error: CColors.red60,
     ),
   );
 }
