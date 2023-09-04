@@ -1,4 +1,6 @@
 import 'package:carbon_flutter/features/text_field/index.dart';
+import 'package:carbon_flutter/features/theme/index.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
 import 'package:carbon_flutter/features/inherited_styles/index.dart';
@@ -34,7 +36,7 @@ class CForm extends StatefulWidget {
   CFormState createState() => CFormState();
 
   static CFormState? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_InteritedCForm>()?.state;
+    return context.dependOnInheritedWidgetOfExactType<_InheritedCForm>()?.state;
   }
 }
 
@@ -74,15 +76,13 @@ class CFormState extends State<CForm> {
   Widget build(BuildContext context) {
     _setStateVariables();
 
-    return CInheritedStyles(
-      styles: {
-        'textfield-background-color': _Styles.textfieldBackgroundColor[_type],
-      },
-      child: CEnable(
+    Widget content = Builder(builder: (context) {
+      final theme = Theme.of(context);
+      return CEnable(
         value: _isEnabled,
         child: IgnorePointer(
           ignoring: !_isEnabled,
-          child: _InteritedCForm(
+          child: _InheritedCForm(
             state: this,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -90,7 +90,7 @@ class CFormState extends State<CForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  color: _Styles.backgroundColor[_type]![_state],
+                  color: theme.colorScheme.background,
                   padding: _Styles.padding[_type],
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -104,13 +104,21 @@ class CFormState extends State<CForm> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
+
+    if (_type == CFormType.group) {
+      return CarbonThemeLayer(
+        builder: (context, layerIndex, layerColor) => content,
+      );
+    } else {
+      return content;
+    }
   }
 }
 
-class _InteritedCForm extends InheritedWidget {
-  const _InteritedCForm({Key? key, this.state, required Widget child}) : super(key: key, child: child);
+class _InheritedCForm extends InheritedWidget {
+  const _InheritedCForm({Key? key, this.state, required Widget child}) : super(key: key, child: child);
 
   final CFormState? state;
 

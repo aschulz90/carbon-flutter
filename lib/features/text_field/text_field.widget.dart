@@ -233,31 +233,18 @@ class CTextFieldState extends State<CTextField> {
               onEditingComplete: widget.onEditingComplete,
               onSubmitted: widget.onSubmitted,
               inputFormatters: widget.inputFormatters,
-              cursorColor: _Styles.cursorColor,
               keyboardAppearance: widget.keyboardAppearance,
               onTap: widget.onTap,
               scrollController: widget.scrollController,
               scrollPhysics: widget.scrollPhysics,
               autofillHints: widget.autofillHints,
-              style: TextStyle(
-                fontSize: _Styles.textFontSize,
-                fontFamily: _Styles.textFontFamily,
-                color: _Styles.textColor[_state],
-              ),
               decoration: InputDecoration(
-                filled: true,
                 contentPadding: EdgeInsets.only(
                   left: 14,
                   top: isEnabled && _isFocused ? 8 : 8,
                   bottom: isEnabled && _isFocused ? 12.5 : 15,
                 ),
-                fillColor: inheritedBackgroundColor ?? _Styles.backgroundColor[_state],
                 hintText: widget.hint,
-                hintStyle: TextStyle(
-                  fontSize: _Styles.hintFontSize,
-                  fontFamily: _Styles.hintFontFamily,
-                  color: _Styles.hintColor[_state],
-                ),
                 prefixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46), // 44 + 2 (width of border)
                 suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46), // 44 + 2 (width of border)
                 prefixIcon: (() {
@@ -276,10 +263,6 @@ class CTextFieldState extends State<CTextField> {
                     child: _validationResult?.icon ?? widget.suffixIcon!,
                   );
                 })(),
-                border: _Styles.border[_kind]![_state],
-                enabledBorder: _Styles.border[_kind]![_state],
-                focusedBorder: _Styles.border[_kind]![_state],
-                disabledBorder: _Styles.border[_kind]![_state],
               ),
             ),
           ),

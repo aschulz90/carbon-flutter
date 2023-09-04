@@ -1,9 +1,8 @@
-import 'package:carbon_flutter/shared/index.dart';
+import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:pmvvm/pmvvm.dart';
 
 extension CThemeContextExtension on BuildContext {
   get cTheme {
-    return fetch<CTheme>();
+    return CarbonTheme.of(this).style;
   }
 }
