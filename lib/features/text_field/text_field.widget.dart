@@ -245,8 +245,14 @@ class CTextFieldState extends State<CTextField> {
                   bottom: isEnabled && _isFocused ? 12.5 : 15,
                 ),
                 hintText: widget.hint,
-                prefixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46), // 44 + 2 (width of border)
-                suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46), // 44 + 2 (width of border)
+                enabledBorder: switch (_validationResult?.kind) {
+                  CValidationKind.error => Theme.of(context).inputDecorationTheme.errorBorder,
+                  _ => null,
+                },
+                prefixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
+                // 44 + 2 (width of border)
+                suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
+                // 44 + 2 (width of border)
                 prefixIcon: (() {
                   if (widget.prefixIcon == null) return null;
 
@@ -256,11 +262,15 @@ class CTextFieldState extends State<CTextField> {
                   );
                 })(),
                 suffixIcon: (() {
-                  if (widget.prefixIcon == null && _validationResult?.icon == null) return null;
+                  if (widget.suffixIcon == null && _validationResult?.icon == null) return null;
 
-                  return IconTheme(
-                    data: IconThemeData(color: _Styles.iconColor[_state]!),
-                    child: _validationResult?.icon ?? widget.suffixIcon!,
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: _validationResult?.icon ??
+                        IconTheme(
+                          data: IconThemeData(color: _Styles.iconColor[_state]!),
+                          child: widget.suffixIcon!,
+                        ),
                   );
                 })(),
               ),

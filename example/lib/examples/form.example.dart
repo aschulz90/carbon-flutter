@@ -19,12 +19,16 @@ class _CFormExampleState extends State<CFormExample> {
               width: MediaQuery.of(context).size.width * 0.6,
               child: CForm(
                 type: CFormType.group,
-                action: CButton(
-                  label: 'Action Button',
-                  onTap: () {
-
-                  },
-                  icon: Icon(CIcons.add, size: 16),
+                action: Builder(
+                  builder: (context) {
+                    return CButton(
+                      label: 'Action Button',
+                      onTap: () {
+                          CForm.of(context)?.validate();
+                      },
+                      icon: Icon(CIcons.add, size: 16),
+                    );
+                  }
                 ),
                 children: [
                   CTextField(
@@ -40,6 +44,7 @@ class _CFormExampleState extends State<CFormExample> {
                     validator: (value) {
                       return CValidationResult(
                         kind: CValidationKind.error,
+                        icon: Icon(Icons.error, color: CColors.red40,),
                         message: 'Your input is incorrect',
                       );
                     },
@@ -64,6 +69,7 @@ class _CFormExampleState extends State<CFormExample> {
                     validator: (value) {
                       return CValidationResult(
                         kind: CValidationKind.warning,
+                        icon: Icon(Icons.warning, color: CColors.yellow20,),
                         message: 'Your input is missing something.',
                       );
                     },

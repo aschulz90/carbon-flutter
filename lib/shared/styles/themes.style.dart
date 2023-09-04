@@ -56,6 +56,10 @@ class CThemes {
         borderRadius: BorderRadius.circular(0),
         borderSide: BorderSide(color: CColors.red50, width: 2),
       ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: BorderSide(color: CColors.blue60, width: 2),
+      ),
       disabledBorder: InputBorder.none,
       iconColor: CColors.gray10,
     ),
@@ -118,6 +122,10 @@ class CThemes {
         borderRadius: BorderRadius.circular(0),
         borderSide: BorderSide(color: CColors.red50, width: 2),
       ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: BorderSide(color: CColors.blue60, width: 2),
+      ),
       disabledBorder: InputBorder.none,
       iconColor: CColors.gray10,
     ),
@@ -177,6 +185,10 @@ class CThemes {
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
         borderSide: BorderSide(color: CColors.red50, width: 2),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: BorderSide(color: CColors.blue60, width: 2),
       ),
       disabledBorder: InputBorder.none,
       iconColor: CColors.gray10,
@@ -239,6 +251,10 @@ class CThemes {
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
         borderSide: BorderSide(color: CColors.red50, width: 2),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: BorderSide(color: CColors.blue60, width: 2),
       ),
       disabledBorder: InputBorder.none,
       iconColor: CColors.gray10,
