@@ -9,9 +9,6 @@ import 'package:carbon_flutter/features/inherited_styles/index.dart';
 
 import 'text_field.models.dart';
 import 'text_field.styles.dart';
-import 'text_field.extensions.dart';
-
-typedef _Styles = CTextfieldStyles;
 
 enum CValidationKind { success, warning, error }
 
@@ -100,7 +97,6 @@ class CTextFieldState extends State<CTextField> {
   CFormState? _cform;
   CValidationResult? _validationResult;
 
-  CTextfieldKind _kind = CTextfieldKind.primary;
   String? _value;
 
   void _focusNodeListener() {
@@ -151,10 +147,6 @@ class CTextFieldState extends State<CTextField> {
 
   void _validate(String? text) {
     _validationResult = widget.validator!(text);
-
-    if (_validationResult != null) {
-      _kind = _validationResult!.kind.toTextFieldKind;
-    }
   }
 
   bool validate() {
@@ -183,6 +175,7 @@ class CTextFieldState extends State<CTextField> {
   @override
   Widget build(BuildContext context) {
     final isEnabled = _isEnabled;
+    final theme = Theme.of(context);
 
     _setStateVariables();
 
@@ -196,11 +189,7 @@ class CTextFieldState extends State<CTextField> {
             CText(
               data: widget.label!,
               isRequired: widget.isRequired,
-              style: TextStyle(
-                fontSize: _Styles.labelFontSize,
-                fontFamily: _Styles.labelFontFamily,
-                color: _Styles.labelColor[_state],
-              ),
+              style: theme.inputDecorationTheme.labelStyle,
             ),
             const SizedBox(height: 8)
           ],
@@ -253,24 +242,13 @@ class CTextFieldState extends State<CTextField> {
                 // 44 + 2 (width of border)
                 suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
                 // 44 + 2 (width of border)
-                prefixIcon: (() {
-                  if (widget.prefixIcon == null) return null;
-
-                  return IconTheme(
-                    data: IconThemeData(color: _Styles.iconColor[_state]!),
-                    child: widget.prefixIcon!,
-                  );
-                })(),
+                prefixIcon: widget.prefixIcon,
                 suffixIcon: (() {
                   if (widget.suffixIcon == null && _validationResult?.icon == null) return null;
 
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: _validationResult?.icon ??
-                        IconTheme(
-                          data: IconThemeData(color: _Styles.iconColor[_state]!),
-                          child: widget.suffixIcon!,
-                        ),
+                    child: _validationResult?.icon ?? widget.suffixIcon,
                   );
                 })(),
               ),
@@ -280,11 +258,7 @@ class CTextFieldState extends State<CTextField> {
             const SizedBox(height: 8),
             CText(
               data: _validationResult == null ? widget.description! : _validationResult!.message,
-              style: TextStyle(
-                fontSize: _Styles.descriptionFontSize,
-                fontFamily: _Styles.descriptionFontFamily,
-                color: _Styles.descriptionColor[_kind]![_state],
-              ),
+              style: theme.inputDecorationTheme.helperStyle,
             ),
           ],
         ],

@@ -12,13 +12,17 @@ class _CFormExampleState extends State<CFormExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      appBar: AppBar(
+        title: Text("Forms"),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
               child: CForm(
-                type: CFormType.group,
+                type: CFormType.blank,
                 action: Builder(
                   builder: (context) {
                     return CButton(

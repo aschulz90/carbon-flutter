@@ -10,6 +10,16 @@ class CThemes {
         CTheme.gray100 => _gray100,
       };
 
+  static final AppBarTheme _appBarTheme = AppBarTheme(
+    elevation: 0,
+    shape: Border(
+      bottom: BorderSide(
+        color: CColors.gray90,
+        width: 2,
+      ),
+    ),
+  );
+
   static final _white = ThemeData(
     brightness: Brightness.light,
     primaryColor: CColors.blue60,
@@ -21,6 +31,9 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
+    appBarTheme: _appBarTheme.copyWith(
+      color: CColors.gray100,
+    ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray90,
       selectionColor: CColors.blue70,
@@ -32,17 +45,17 @@ class CThemes {
       labelStyle: TextStyle(
         fontSize: 14.0,
         fontFamily: CFonts.primaryRegular,
-        color: CColors.gray30,
+        color: CColors.gray60,
       ),
       helperStyle: TextStyle(
         fontSize: 14.0,
         fontFamily: CFonts.primaryRegular,
-        color: CColors.gray30,
+        color: CColors.gray60,
       ),
       hintStyle: TextStyle(
         fontSize: 15.0,
         fontFamily: CFonts.primaryRegular,
-        color: CColors.gray60,
+        color: CColors.gray40,
       ),
       enabledBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(0),
@@ -85,6 +98,9 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
+    appBarTheme: _appBarTheme.copyWith(
+      color: CColors.gray100,
+    ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray90,
       selectionColor: CColors.blue70,
@@ -98,17 +114,17 @@ class CThemes {
       labelStyle: TextStyle(
         fontSize: 14.0,
         fontFamily: CFonts.primaryRegular,
-        color: CColors.gray30,
+        color: CColors.gray70,
       ),
       helperStyle: TextStyle(
         fontSize: 14.0,
         fontFamily: CFonts.primaryRegular,
-        color: CColors.gray30,
+        color: CColors.gray70,
       ),
       hintStyle: TextStyle(
         fontSize: 15.0,
         fontFamily: CFonts.primaryRegular,
-        color: CColors.gray60,
+        color: CColors.gray30,
       ),
       enabledBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(0),
@@ -151,6 +167,9 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
+    appBarTheme: _appBarTheme.copyWith(
+      color: CColors.gray100,
+    ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray10,
       selectionColor: CColors.blue70,
@@ -217,6 +236,9 @@ class CThemes {
     hintColor: CColors.gray10,
     fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
     iconTheme: IconThemeData(color: CColors.gray10),
+    appBarTheme: _appBarTheme.copyWith(
+      color: CColors.gray100,
+    ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: CColors.gray10,
       selectionColor: CColors.blue70,
