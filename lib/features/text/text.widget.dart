@@ -3,9 +3,8 @@ import 'package:carbon_flutter/shared/index.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
 
 class CText extends StatelessWidget {
-  const CText({
+  const CText(this.data, {
     Key? key,
-    required this.data,
     this.enable = true,
     this.isRequired = false,
     this.style,
@@ -127,7 +126,7 @@ class CText extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Flexible(child: _buildText(context)),
-          Flexible(child: CText(data: ' *', style: TextStyle(color: CColors.red60))),
+          Flexible(child: CText(' *', style: TextStyle(color: CColors.red60))),
         ],
       );
     }

@@ -33,7 +33,7 @@ class CBreadcrumb extends StatelessWidget {
 
   List<Widget> _displayAllBreadcrumbs() {
     final divider = CText(
-      data: '/',
+      '/',
       style: TextStyle(
         color: _Styles.slashColor,
         fontSize: 14,
@@ -68,7 +68,7 @@ class CBreadcrumb extends StatelessWidget {
       items: _buildMenuItems(hiddenItems),
       child: CBreadcrumbItem(
         key: _menuKey,
-        child: CText(data: '...'),
+        child: CText('...'),
         onTap: () {
           _menu.open();
         },
@@ -76,7 +76,7 @@ class CBreadcrumb extends StatelessWidget {
     );
 
     final divider = CText(
-      data: '/',
+      '/',
       style: TextStyle(
         color: _Styles.slashColor,
         fontSize: 14,

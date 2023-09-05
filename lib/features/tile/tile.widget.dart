@@ -14,7 +14,7 @@ class CTile extends StatelessWidget {
     double labelSize = 12,
     double titleSize = 20,
     double descriptionSize = 14,
-    Widget? content,
+    Widget? child,
   })  : props = CTileProps(
           enable: enable,
           label: label,
@@ -23,7 +23,7 @@ class CTile extends StatelessWidget {
           labelSize: labelSize,
           titleSize: titleSize,
           descriptionSize: descriptionSize,
-          content: content,
+          content: child,
         ),
         super(key: key);
 
@@ -49,7 +49,7 @@ class CTile extends StatelessWidget {
               children: [
                 if (props.label != null) ...[
                   CText(
-                    data: props.label!,
+                    props.label!,
                     style: TextStyle(
                       fontSize: props.labelSize,
                     ),
@@ -59,7 +59,7 @@ class CTile extends StatelessWidget {
                 if (props.label != null) ...[
                   if (props.label == null) const SizedBox(height: 8),
                   CText(
-                    data: props.label!,
+                    props.label!,
                     style: TextStyle(
                       fontSize: props.titleSize,
                     ),
@@ -68,7 +68,7 @@ class CTile extends StatelessWidget {
                 ],
                 if (props.description != null) ...[
                   CText(
-                    data: props.description!,
+                    props.description!,
                     style: TextStyle(
                       fontSize: props.descriptionSize,
                     ),

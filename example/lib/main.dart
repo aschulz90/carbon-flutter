@@ -1,6 +1,7 @@
 import 'package:carbon_flutter/carbon.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:example/examples/index.dart';
+import 'package:example/examples/tiles.example.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -45,6 +46,18 @@ class MyAppState extends State<MyApp> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => CButtonExample(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Tiles",
+                  icon: Icon(Icons.square),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CTilesExample(),
                       ),
                     );
                   },

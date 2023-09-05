@@ -197,7 +197,7 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CText(
-                            data: widget.props.label,
+                            widget.props.label,
                             style: TextStyle(
                               fontSize: widget.props.labelSize,
                               color: contentColor.resolve(materialStates),

@@ -57,7 +57,7 @@ class CLinkState extends State<CLink> {
       child: GestureDetector(
         onTap: () => widget.props.onTap(widget.props.url),
         child: CText(
-          data: widget.props.caption ?? widget.props.url,
+          widget.props.caption ?? widget.props.url,
           style: TextStyle(
             color: _Styles.textColor[_state],
             fontSize: widget.props.fontSize,

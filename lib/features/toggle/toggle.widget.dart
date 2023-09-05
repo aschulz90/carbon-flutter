@@ -92,7 +92,7 @@ class CToggleState extends State<CToggle> {
       children: [
         if (widget.props.labelText != null) ...[
           CText(
-            data: widget.props.labelText!,
+            widget.props.labelText!,
             style: TextStyle(
               fontSize: 12,
               fontFamily: CFonts.primaryRegular,
@@ -162,7 +162,7 @@ class CToggleState extends State<CToggle> {
             if (widget.props.showStatusLabel) ...[
               const SizedBox(width: 8),
               CText(
-                data: _value ? 'On' : 'Off',
+              _value ? 'On' : 'Off',
                 style: TextStyle(
                   fontSize: 14,
                   fontFamily: CFonts.primaryRegular,

@@ -22,7 +22,7 @@ class _CCheckboxExamplePageState extends State<CCheckboxExamplePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CText(
-              data: 'Checkbox',
+              'Checkbox',
               style: TextStyle(fontSize: 32),
             ),
             const SizedBox(height: 64),

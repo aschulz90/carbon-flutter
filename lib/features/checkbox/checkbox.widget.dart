@@ -125,7 +125,7 @@ class CCheckboxState extends State<CCheckbox> {
             if (widget.props.label != null) ...[
               const SizedBox(width: 10),
               CText(
-                data: widget.props.label!,
+              widget.props.label!,
                 style: TextStyle(fontSize: 14, color: _Styles.labelColor[_state]),
               ),
             ],

@@ -16,7 +16,7 @@ class CBreadcrumbExample extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             CText(
-              data: 'Carbon Breadcrumb',
+              'Carbon Breadcrumb',
               style: TextStyle(
                 color: CColors.gray10,
                 fontSize: 32,
@@ -25,22 +25,22 @@ class CBreadcrumbExample extends StatelessWidget {
             const SizedBox(height: 48),
             CBreadcrumb(
               children: [
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
               ],
             ),
             const SizedBox(height: 48),
             CBreadcrumb(
               children: [
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText(data: 'Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
                 CBreadcrumbItem(
                   onTap: () {},
                   isCurrentPage: true,
-                  child: CText(data: 'Item'),
+                  child: CText('Item'),
                 ),
               ],
             ),

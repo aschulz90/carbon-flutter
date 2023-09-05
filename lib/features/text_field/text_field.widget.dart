@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/features/form/index.dart';
+import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,7 +9,6 @@ import 'package:carbon_flutter/features/enable/index.dart';
 import 'package:carbon_flutter/features/inherited_styles/index.dart';
 
 import 'text_field.models.dart';
-import 'text_field.styles.dart';
 
 enum CValidationKind { success, warning, error }
 
@@ -187,7 +187,7 @@ class CTextFieldState extends State<CTextField> {
         children: <Widget>[
           if (widget.label != null) ...[
             CText(
-              data: widget.label!,
+               widget.label!,
               isRequired: widget.isRequired,
               style: theme.inputDecorationTheme.labelStyle,
             ),
@@ -257,7 +257,7 @@ class CTextFieldState extends State<CTextField> {
           if (widget.description != null) ...[
             const SizedBox(height: 8),
             CText(
-              data: _validationResult == null ? widget.description! : _validationResult!.message,
+               _validationResult == null ? widget.description! : _validationResult!.message,
               style: theme.inputDecorationTheme.helperStyle,
             ),
           ],
