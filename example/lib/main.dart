@@ -30,7 +30,7 @@ class MyAppState extends State<MyApp> {
               children: [
                 CButton(
                   label: "Forms",
-                  icon: Icon(Icons.format_align_center),
+                  icon: Icon(CIcons.dataFormat),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -54,7 +54,7 @@ class MyAppState extends State<MyApp> {
                 const SizedBox(height: 8),
                 CButton(
                   label: "Tiles",
-                  icon: Icon(Icons.square),
+                  icon: Icon(CIcons.shapeExcept),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -66,7 +66,7 @@ class MyAppState extends State<MyApp> {
                 const SizedBox(height: 8),
                 CButton(
                   label: "Breadcrumbs",
-                  icon: Icon(Icons.cruelty_free),
+                  icon: Icon(CIcons.account),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -78,7 +78,7 @@ class MyAppState extends State<MyApp> {
                 const SizedBox(height: 8),
                 CButton(
                   label: "Links",
-                  icon: Icon(Icons.link),
+                  icon: Icon(CIcons.link),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -90,7 +90,7 @@ class MyAppState extends State<MyApp> {
                 const SizedBox(height: 8),
                 CButton(
                   label: "Notifications",
-                  icon: Icon(Icons.notification_important),
+                  icon: Icon(CIcons.notification),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -102,11 +102,23 @@ class MyAppState extends State<MyApp> {
                 const SizedBox(height: 8),
                 CButton(
                   label: "Checkboxes",
-                  icon: Icon(Icons.check),
+                  icon: Icon(CIcons.checkboxChecked),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => CCheckboxExamplePage(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Toggles",
+                  icon: Icon(CIcons.checkmark),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CToggleExamplePage(),
                       ),
                     );
                   },
@@ -117,8 +129,8 @@ class MyAppState extends State<MyApp> {
         }),
       ),
       theme: CarbonThemeData.gray10(),
-      darkTheme: CarbonThemeData.gray90(),
-      themeMode: ThemeMode.light,
+      darkTheme: CarbonThemeData.gray100(),
+      themeMode: ThemeMode.dark,
     );
   }
 }

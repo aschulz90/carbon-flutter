@@ -1,7 +1,5 @@
-import 'package:carbon_flutter/shared/index.dart';
+import 'package:carbon_flutter/carbon.dart';
 import 'package:flutter/widgets.dart';
-
-import 'notification.widget.dart';
 
 abstract class CNotificationStyles {
   static const contentPadding = EdgeInsets.only(top: 14.5, bottom: 14);
@@ -50,23 +48,22 @@ abstract class CNotificationStyles {
 }
 
 abstract class CNotificationAssets {
-  static const Map<CNotificationContrast, String> closeIcon = {
-    CNotificationContrast.high: 'assets/svg/notification/close-highcontrast.svg',
-    CNotificationContrast.low: 'assets/svg/notification/close-lowcontrast.svg',
+  static const Map<CNotificationContrast, IconData> closeIcon = {
+    CNotificationContrast.high: CIcons.close,
+    CNotificationContrast.low: CIcons.close,
   };
 
-  static const Map<CNotificationContrast, Map<CNotificationKind, String>> kindIcon = {
-    CNotificationContrast.high: {
-      CNotificationKind.error: 'assets/svg/notification/error-highcontrast.svg',
-      CNotificationKind.info: 'assets/svg/notification/info-highcontrast.svg',
-      CNotificationKind.success: 'assets/svg/notification/success-highcontrast.svg',
-      CNotificationKind.warning: 'assets/svg/notification/warning-highcontrast.svg',
-    },
-    CNotificationContrast.low: {
-      CNotificationKind.error: 'assets/svg/notification/error-lowcontrast.svg',
-      CNotificationKind.info: 'assets/svg/notification/info-lowcontrast.svg',
-      CNotificationKind.success: 'assets/svg/notification/success-lowcontrast.svg',
-      CNotificationKind.warning: 'assets/svg/notification/warning-lowcontrast.svg',
-    },
+  static const Map<CNotificationKind, IconData> kindIcon = {
+    CNotificationKind.error: CIcons.errorFilled,
+    CNotificationKind.info: CIcons.informationFilled,
+    CNotificationKind.success: CIcons.checkmarkFilled,
+    CNotificationKind.warning: CIcons.warningFilled,
+  };
+
+  static const Map<CNotificationKind, Color> kindIconColor = {
+    CNotificationKind.error: CColors.red60,
+    CNotificationKind.info: CColors.blue60,
+    CNotificationKind.success: CColors.green60,
+    CNotificationKind.warning: CColors.yellow30,
   };
 }

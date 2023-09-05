@@ -1,11 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'package:carbon_flutter/features/text/index.dart';
 import 'package:carbon_flutter/features/outline/index.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
-
-import 'package:carbon_flutter/shared/index.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'toggle.props.dart';
 import 'toggle.styles.dart';
@@ -44,13 +41,11 @@ class CToggle extends StatefulWidget {
   CToggleState createState() => CToggleState();
 }
 
-class CToggleState extends State<CToggle> {
+class CToggleState extends State<CToggle> with MaterialStateMixin {
   bool _outlined = false;
   bool _value = false;
 
   late Size _dimensions;
-  CWidgetState _state = CWidgetState.enabled;
-  CToggleCheckStatus _checkStatus = CToggleCheckStatus.unchecked;
 
   @override
   void initState() {
@@ -73,17 +68,24 @@ class CToggleState extends State<CToggle> {
 
   void _setStateVariables() {
     if (!_isEnabled) {
-      _state = CWidgetState.disabled;
+      addMaterialState(MaterialState.disabled);
     } else {
-      _state = CWidgetState.enabled;
+      removeMaterialState(MaterialState.disabled);
     }
 
-    _checkStatus = _value ? CToggleCheckStatus.checked : CToggleCheckStatus.unchecked;
+    if(_value) {
+      addMaterialState(MaterialState.selected);
+    }
+    else {
+      removeMaterialState(MaterialState.selected);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     _setStateVariables();
+    final theme = Theme.of(context);
+    final toggleTheme = theme.switchTheme;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -93,11 +95,7 @@ class CToggleState extends State<CToggle> {
         if (widget.props.labelText != null) ...[
           CText(
             widget.props.labelText!,
-            style: TextStyle(
-              fontSize: 12,
-              fontFamily: CFonts.primaryRegular,
-              color: _Styles.labelColor[_state],
-            ),
+            style: theme.textTheme.labelMedium,
           ),
           const SizedBox(height: 16),
         ],
@@ -133,7 +131,7 @@ class CToggleState extends State<CToggle> {
                     duration: _Styles.animation['duration'],
                     curve: _Styles.animation['curve'],
                     decoration: BoxDecoration(
-                      color: _Styles.fillColor[_state]![_checkStatus],
+                      color: toggleTheme.trackColor?.resolve(materialStates),
                       borderRadius: BorderRadius.circular(1000),
                     ),
                     child: AnimatedContainer(
@@ -143,15 +141,14 @@ class CToggleState extends State<CToggle> {
                       duration: _Styles.animation['duration'],
                       curve: _Styles.animation['curve'],
                       decoration: BoxDecoration(
-                        color: _Styles.indicatorColor[_state],
+                        color: toggleTheme.thumbColor?.resolve(materialStates),
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       child: widget.props.size == CToggleSize.sm
-                          ? SvgPicture.asset(
-                              'assets/svg/toggle-checkmark.svg',
-                              color: _Styles.checkmarkColor[_state]![_checkStatus],
-                              package: 'carbon_flutter',
-                              width: 6,
+                          ? Icon(
+                              Icons.check,
+                              size: 6,
+                              color: toggleTheme.trackColor?.resolve(materialStates),
                             )
                           : null,
                     ),
@@ -162,11 +159,9 @@ class CToggleState extends State<CToggle> {
             if (widget.props.showStatusLabel) ...[
               const SizedBox(width: 8),
               CText(
-              _value ? 'On' : 'Off',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: CFonts.primaryRegular,
-                  color: _Styles.labelColor[_state],
+                _value ? 'On' : 'Off',
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: _isEnabled ? null : theme.disabledColor,
                 ),
               ),
             ]

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon.dart';
 
@@ -7,7 +8,9 @@ class CToggleExamplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CColors.gray100,
+      appBar: AppBar(
+        title: Text('Toggle'),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -15,9 +18,8 @@ class CToggleExamplePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             CText(
-               'Large Toggles',
+              'Large Toggles',
               style: TextStyle(
-                color: CColors.gray10,
                 fontSize: 32,
               ),
             ),
@@ -25,9 +27,8 @@ class CToggleExamplePage extends StatelessWidget {
             _LargeToggles(),
             SizedBox(height: 24),
             CText(
-               'Small Toggles',
+              'Small Toggles',
               style: TextStyle(
-                color: CColors.gray10,
                 fontSize: 32,
               ),
             ),
@@ -35,9 +36,8 @@ class CToggleExamplePage extends StatelessWidget {
             _SmallToggles(),
             SizedBox(height: 24),
             CText(
-               'Labelled Toggles',
+              'Labelled Toggles',
               style: TextStyle(
-                color: CColors.gray10,
                 fontSize: 32,
               ),
             ),

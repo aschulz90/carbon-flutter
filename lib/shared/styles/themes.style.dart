@@ -74,6 +74,10 @@ class CThemes {
       bodyColor: CColors.gray90,
     ),
     checkboxTheme: checkboxTheme(selected: CColors.gray100, cursor: CColors.white0),
+    switchTheme: switchTheme(
+      disabledTrackColor: CColors.gray10,
+      disabledThumbColor: CColors.gray30,
+    ),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: CColors.blue60,
       onPrimary: CColors.white0,
@@ -147,6 +151,10 @@ class CThemes {
       bodyColor: CColors.gray90,
     ),
     checkboxTheme: checkboxTheme(selected: CColors.gray100, cursor: CColors.white0),
+    switchTheme: switchTheme(
+      disabledTrackColor: CColors.gray20,
+      disabledThumbColor: CColors.gray40,
+    ),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: CColors.blue60,
       onPrimary: CColors.white0,
@@ -218,6 +226,10 @@ class CThemes {
       bodyColor: CColors.gray10,
     ),
     checkboxTheme: checkboxTheme(selected: CColors.white0, cursor: CColors.gray90),
+    switchTheme: switchTheme(
+      disabledTrackColor: CColors.gray80,
+      disabledThumbColor: CColors.gray60,
+    ),
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(
@@ -298,6 +310,7 @@ class CThemes {
       bodyColor: CColors.gray10,
     ),
     checkboxTheme: checkboxTheme(selected: CColors.white0, cursor: CColors.gray90),
+    switchTheme: switchTheme(),
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(

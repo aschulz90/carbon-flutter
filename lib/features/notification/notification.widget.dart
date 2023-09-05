@@ -2,10 +2,8 @@ import 'package:carbon_flutter/features/button/button.widget.dart';
 import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pmvvm/pmvvm.dart';
 
-import 'action_button.widget.dart';
 import 'notification.props.dart';
 import 'notification.styles.dart';
 
@@ -177,7 +175,9 @@ class _CNotificationInline extends _NotificationWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.all(14),
-                  child: SvgPicture.asset(_Assets.kindIcon[contrast]![kind]!, package: 'carbon_flutter'),
+                  child: Icon(_Assets.kindIcon[kind]!,
+                    color: _Assets.kindIconColor[kind],
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -188,7 +188,7 @@ class _CNotificationInline extends _NotificationWidget {
                           style: TextStyle(
                             color: contentColor,
                             fontFamily: CFonts.primarySemibold,
-                            package: 'carbon_flutter',
+                            package: assetsPackage,
                           ),
                           child: props.title,
                         ),
@@ -197,7 +197,7 @@ class _CNotificationInline extends _NotificationWidget {
                           style: TextStyle(
                             color: contentColor,
                             fontFamily: CFonts.primaryRegular,
-                            package: 'carbon_flutter',
+                            package: assetsPackage,
                           ),
                           child: props.subtitle,
                         ),
@@ -227,10 +227,9 @@ class _CNotificationInline extends _NotificationWidget {
                   CButton.icon(
                     kind: CButtonKind.ghost,
                     icon: Builder(
-                      builder: (ctx) => SvgPicture.asset(
+                      builder: (ctx) => Icon(
                         _Assets.closeIcon[contrast]!,
-                        package: 'carbon_flutter',
-                        height: 20,
+                        size: 20,
                         color: contentColor,
                       ),
                     ),
@@ -290,7 +289,9 @@ class _CNotificationToast extends _NotificationWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.all(14),
-                  child: SvgPicture.asset(_Assets.kindIcon[contrast]![kind]!, package: 'carbon_flutter'),
+                  child: Icon(_Assets.kindIcon[kind]!,
+                    color: _Assets.kindIconColor[kind],
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -305,7 +306,7 @@ class _CNotificationToast extends _NotificationWidget {
                             style: TextStyle(
                               color: contentColor,
                               fontFamily: CFonts.primarySemibold,
-                              package: 'carbon_flutter',
+                              package: assetsPackage,
                             ),
                             child: props.title,
                           ),
@@ -315,7 +316,7 @@ class _CNotificationToast extends _NotificationWidget {
                             style: TextStyle(
                               color: contentColor,
                               fontFamily: CFonts.primaryRegular,
-                              package: 'carbon_flutter',
+                              package: assetsPackage,
                             ),
                             child: props.subtitle,
                           ),
@@ -326,7 +327,7 @@ class _CNotificationToast extends _NotificationWidget {
                             style: TextStyle(
                               color: contentColor,
                               fontFamily: CFonts.primaryRegular,
-                              package: 'carbon_flutter',
+                              package: assetsPackage,
                             ),
                             child: props.caption!,
                           ),
@@ -340,10 +341,9 @@ class _CNotificationToast extends _NotificationWidget {
                   CButton.icon(
                     kind: CButtonKind.ghost,
                     icon: Builder(
-                      builder: (ctx) => SvgPicture.asset(
+                      builder: (ctx) => Icon(
                         _Assets.closeIcon[contrast]!,
-                        package: 'carbon_flutter',
-                        height: 20,
+                        size: 20,
                         color: contentColor,
                       ),
                     ),

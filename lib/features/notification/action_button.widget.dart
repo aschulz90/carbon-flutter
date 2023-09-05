@@ -53,7 +53,7 @@ class CNotificationActionButtonState extends State<CNotificationActionButton> {
         style: TextStyle(
           color: _Styles.textColor[_contrast],
           fontFamily: CFonts.primaryRegular,
-          package: 'carbon_flutter',
+          package: assetsPackage,
         ),
         child: AnimatedContainer(
           duration: _Styles.animation['duration'],

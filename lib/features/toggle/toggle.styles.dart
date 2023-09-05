@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:carbon_flutter/shared/index.dart';
@@ -48,4 +49,30 @@ abstract class CToggleStyles {
       CToggleCheckStatus.unchecked: CColors.gray70,
     },
   };
+}
+
+SwitchThemeData switchTheme({
+  Color disabledTrackColor = CColors.gray90,
+  Color disabledThumbColor = CColors.gray70
+}) {
+  return SwitchThemeData(
+    thumbColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.disabled)) {
+        return disabledThumbColor;
+      }
+
+      return CColors.white0;
+    }),
+    trackColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.disabled)) {
+        return disabledTrackColor;
+      }
+
+      if (states.contains(MaterialState.selected)) {
+        return CColors.green40;
+      }
+
+      return CColors.gray50;
+    }),
+  );
 }
