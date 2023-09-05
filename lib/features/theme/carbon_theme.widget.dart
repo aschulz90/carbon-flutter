@@ -23,7 +23,7 @@ class CarbonButtonTheme {
   final CarbonButtonStyle tertiary;
   final CarbonButtonStyle ghost;
 
-  CarbonButtonTheme({
+  const CarbonButtonTheme({
     required this.primary,
     required this.secondary,
     required this.tertiary,

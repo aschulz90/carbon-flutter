@@ -1,3 +1,4 @@
+import 'package:carbon_flutter/features/button/button.styles.dart';
 import 'package:flutter/widgets.dart';
 
 import 'button.widget.dart';
@@ -8,27 +9,36 @@ class CButtonBaseProps {
   /// @required
   final VoidCallback onTap;
 
-  /// Whether the toggle is enabled or not.
+  /// Whether the button is enabled or not.
   ///
   /// @default: `true`
-  final bool enable;
+  final bool isEnabled;
+
+  /// Whether the button is dangerous or not. Not applicable to secondary buttons.
+  ///
+  /// @default: `false`
+  final bool isDangerous;
 
   /// The kind that the button represents. It can be `primary,
-  /// secondary, danger, tertiary, ghost`.
+  /// secondary, tertiary, ghost`.
   ///
   /// @default: `CButtonKind.primary`
   final CButtonKind kind;
 
   /// The size of this button. It can be `regular, sm, md`.
   ///
-  /// @default: `CToggleSize.regular`
+  /// @default: `CButtonSize.regular`
   final CButtonSize size;
 
+  final FocusNode? focusNode;
+
   CButtonBaseProps({
-    required this.enable,
+    required this.isEnabled,
+    this.isDangerous = false,
     required this.kind,
     required this.size,
     required this.onTap,
+    this.focusNode,
   });
 }
 
@@ -58,9 +68,11 @@ class CButtonRegularProps extends CButtonBaseProps {
     required this.expand,
     required this.label,
     required this.labelSize,
-    required super.enable,
+    required super.isEnabled,
+    super.isDangerous,
     required super.kind,
     required super.size,
+    super.focusNode,
     required super.onTap,
   });
 }
@@ -73,9 +85,11 @@ class CButtonIconOnlyProps extends CButtonBaseProps {
 
   CButtonIconOnlyProps({
     required this.icon,
-    required super.enable,
+    required super.isEnabled,
+    super.isDangerous,
     required super.kind,
     required super.size,
+    super.focusNode,
     required super.onTap,
   });
 }

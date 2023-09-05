@@ -1,25 +1,36 @@
+import 'package:carbon_flutter/carbon.dart';
 import 'package:flutter/material.dart';
 
 class CarbonStateBorder extends Border implements MaterialStateProperty<Border> {
   const CarbonStateBorder({
-    this.color = Colors.transparent,
-    required this.enabledColor,
+    required this.color,
     required this.width,
+    this.animationDuration = const Duration(milliseconds: 0),
+    this.animationCurve = Curves.easeInOut,
   });
 
-  final Color color;
-  final Color enabledColor;
+  final CarbonStateColor color;
   final double width;
+
+  final Duration animationDuration;
+  final Curve animationCurve;
 
   @override
   Border resolve(Set<MaterialState> states) {
-    if (states.intersection({
-      MaterialState.focused,
-      MaterialState.pressed,
-    }).isNotEmpty) {
-      return Border.all(color: enabledColor, width: width);
-    }
+    return Border.all(color: color.resolve(states), width: width);
+  }
 
-    return Border.all(color: color, width: 0);
+  CarbonStateBorder copyWith({
+    CarbonStateColor? color,
+    double? width,
+    Duration? animationDuration,
+    Curve? animationCurve,
+  }) {
+    return CarbonStateBorder(
+      color: color ?? this.color,
+      width: width ?? this.width,
+      animationDuration: animationDuration ?? this.animationDuration,
+      animationCurve: animationCurve ?? this.animationCurve,
+    );
   }
 }

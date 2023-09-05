@@ -116,15 +116,30 @@ class CarbonStateColor extends MaterialStateColor {
     required this.focusedColor,
     required this.pressedColor,
     this.disabledColor = CColors.gray40,
+    this.animationDuration = const Duration(milliseconds: 80),
+    this.animationCurve = Curves.easeInOut,
   }) : super(color.value);
 
   CarbonStateColor.all(
-      this.color, {
-        this.disabledColor = CColors.gray40,
-      })  : hoveredColor = color,
+    this.color, {
+      this.disabledColor = CColors.gray40,
+    this.animationDuration = const Duration(milliseconds: 80),
+    this.animationCurve = Curves.easeInOut,
+  })  : hoveredColor = color,
         focusedColor = color,
         pressedColor = color,
         super(color.value);
+
+  CarbonStateColor.focus(
+      Color color, {
+        this.animationDuration = const Duration(milliseconds: 80),
+        this.animationCurve = Curves.easeInOut,
+      })  : color = Colors.transparent,
+        hoveredColor = Colors.transparent,
+        focusedColor = color,
+        pressedColor = Colors.transparent,
+        disabledColor = CColors.gray40,
+        super(Colors.transparent.value);
 
   final Color color;
   final Color hoveredColor;
@@ -132,10 +147,17 @@ class CarbonStateColor extends MaterialStateColor {
   final Color pressedColor;
   final Color disabledColor;
 
+  final Duration animationDuration;
+  final Curve animationCurve;
+
   @override
   Color resolve(Set<MaterialState> states) {
     if (states.contains(MaterialState.disabled)) {
       return disabledColor;
+    }
+
+    if (states.contains(MaterialState.focused)) {
+      return focusedColor;
     }
 
     if (states.contains(MaterialState.pressed)) {
@@ -146,10 +168,26 @@ class CarbonStateColor extends MaterialStateColor {
       return hoveredColor;
     }
 
-    if (states.contains(MaterialState.focused)) {
-      return focusedColor;
-    }
-
     return color;
+  }
+
+  CarbonStateColor copyWith({
+    Color? color,
+    Color? hoveredColor,
+    Color? focusedColor,
+    Color? pressedColor,
+    Color? disabledColor,
+    Duration? animationDuration,
+    Curve? animationCurve,
+  }) {
+    return CarbonStateColor(
+      color: color ?? this.color,
+      hoveredColor: hoveredColor ?? this.hoveredColor,
+      focusedColor: focusedColor ?? this.focusedColor,
+      pressedColor: pressedColor ?? this.pressedColor,
+      disabledColor: disabledColor ?? this.disabledColor,
+      animationDuration: animationDuration ?? this.animationDuration,
+      animationCurve: animationCurve ?? this.animationCurve,
+    );
   }
 }
