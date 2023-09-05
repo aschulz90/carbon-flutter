@@ -14,7 +14,9 @@ class _CLinkExamplePageState extends State<CLinkExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CColors.gray100,
+      appBar: AppBar(
+        title: Text("Links"),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

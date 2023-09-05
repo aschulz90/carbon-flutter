@@ -3,15 +3,22 @@ import 'package:flutter/widgets.dart';
 import 'action_button.widget.dart';
 import 'notification.widget.dart';
 
+class NotificationAction {
+  final VoidCallback onTap;
+  final String label;
+
+  NotificationAction({
+    required this.onTap,
+    required this.label,
+  });
+}
+
 class CNotificationBaseProps {
   /// The title to display.
   final Widget title;
 
   /// The subtitle to display.
   final Widget subtitle;
-
-  /// Whether the close button should be disabled, or not.
-  final bool hideCloseButton;
 
   /// The state that the [CNotification] represents. It can be `error`,
   /// `info`, `success`, or `warning`.
@@ -32,15 +39,18 @@ class CNotificationBaseProps {
   /// When the duration is finished, [onClose] is called.
   final int? timeout;
 
+  /// A list of [CNotificationActionButton] to display.
+  final List<NotificationAction>? actions;
+
   CNotificationBaseProps({
     required this.title,
     required this.subtitle,
-    required this.hideCloseButton,
     required this.kind,
     required this.contrast,
     required this.onCloseButtonTap,
     required this.onClose,
     required this.timeout,
+    this.actions,
   });
 }
 
@@ -52,29 +62,25 @@ class CNotificationToastProps extends CNotificationBaseProps {
     required this.caption,
     required super.title,
     required super.subtitle,
-    required super.hideCloseButton,
     required super.kind,
     required super.contrast,
     required super.onCloseButtonTap,
     required super.onClose,
     required super.timeout,
+    super.actions,
   });
 }
 
 class CNotificationInlineProps extends CNotificationBaseProps {
-  /// A list of [CNotificationActionButton] to display in a row when
-  /// the [CNotification] is `inline`.
-  final List<CNotificationActionButton>? actions;
 
   CNotificationInlineProps({
-    required this.actions,
     required super.title,
     required super.subtitle,
-    required super.hideCloseButton,
     required super.kind,
     required super.contrast,
     required super.onCloseButtonTap,
     required super.onClose,
     required super.timeout,
+    super.actions,
   });
 }

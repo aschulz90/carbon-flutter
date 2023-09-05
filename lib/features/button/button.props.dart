@@ -30,6 +30,8 @@ class CButtonBaseProps {
   /// @default: `CButtonSize.regular`
   final CButtonSize size;
 
+  final CarbonButtonStyle? style;
+
   final FocusNode? focusNode;
 
   CButtonBaseProps({
@@ -39,6 +41,7 @@ class CButtonBaseProps {
     required this.size,
     required this.onTap,
     this.focusNode,
+    this.style,
   });
 }
 
@@ -73,6 +76,7 @@ class CButtonRegularProps extends CButtonBaseProps {
     required super.kind,
     required super.size,
     super.focusNode,
+    super.style,
     required super.onTap,
   });
 }
@@ -90,6 +94,7 @@ class CButtonIconOnlyProps extends CButtonBaseProps {
     required super.kind,
     required super.size,
     super.focusNode,
+    super.style,
     required super.onTap,
   });
 }

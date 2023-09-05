@@ -150,7 +150,7 @@ class CToggleState extends State<CToggle> {
                           ? SvgPicture.asset(
                               'assets/svg/toggle-checkmark.svg',
                               color: _Styles.checkmarkColor[_state]![_checkStatus],
-                              package: 'carbon',
+                              package: 'carbon_flutter',
                               width: 6,
                             )
                           : null,

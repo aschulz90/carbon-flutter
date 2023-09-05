@@ -117,7 +117,7 @@ class CCheckboxState extends State<CCheckbox> {
                     'assets/svg/checkmark.svg',
                     color: _value ? _Styles.checkmarkColor[_state] : CColors.transparent,
                     height: 8,
-                    package: 'carbon',
+                    package: 'carbon_flutter',
                   ),
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
+import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:example/examples/index.dart';
 import 'package:example/examples/tiles.example.dart';
@@ -74,13 +75,37 @@ class MyAppState extends State<MyApp> {
                     );
                   },
                 ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Links",
+                  icon: Icon(Icons.link),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CLinkExamplePage(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Notifications",
+                  icon: Icon(Icons.notification_important),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CNotificationExample(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           );
         }),
       ),
       theme: CarbonThemeData.gray10(),
-      darkTheme: CarbonThemeData.gray90(),
+      darkTheme: CarbonThemeData.gray100(),
       themeMode: ThemeMode.light,
     );
   }

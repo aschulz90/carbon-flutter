@@ -1,3 +1,4 @@
+import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';

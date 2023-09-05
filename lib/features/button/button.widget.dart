@@ -30,6 +30,7 @@ class CButton extends StatefulWidget {
     CButtonKind kind = CButtonKind.primary,
     CButtonSize size = CButtonSize.regular,
     FocusNode? focusNode,
+    CarbonButtonStyle? style,
     Widget? icon,
   })  : type = CButtonType.regular,
         props = CButtonRegularProps(
@@ -43,6 +44,7 @@ class CButton extends StatefulWidget {
           size: size,
           focusNode: focusNode,
           onTap: onTap,
+          style: style,
         ),
         super(key: key);
 
@@ -55,6 +57,7 @@ class CButton extends StatefulWidget {
     CButtonKind kind = CButtonKind.primary,
     CButtonSize size = CButtonSize.regular,
     FocusNode? focusNode,
+    CarbonButtonStyle? style,
   })  : type = CButtonType.icon,
         props = CButtonIconOnlyProps(
           isEnabled: isEnabled,
@@ -64,6 +67,7 @@ class CButton extends StatefulWidget {
           kind: kind,
           focusNode: focusNode,
           size: size,
+          style: style,
         ),
         super(key: key);
 
@@ -132,7 +136,7 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
   @override
   Widget build(BuildContext context) {
     _setStateVariables();
-    final buttonStyle = _getStyle(context);
+    final buttonStyle = widget.props.style ?? _getStyle(context);
     final backgroundColor = isDangerous ? buttonStyle.dangerColor : buttonStyle.color;
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
     final outerBorder = isDangerous ? buttonStyle.dangerOuterBorder : buttonStyle.outerBorder;
@@ -235,7 +239,7 @@ class _CButtonIconOnlyState extends _CButtonStateBase<_CButtonIconOnly> {
   @override
   Widget build(BuildContext context) {
     _setStateVariables();
-    final buttonStyle = _getStyle(context);
+    final buttonStyle = widget.props.style ?? _getStyle(context);
     final backgroundColor = isDangerous ? buttonStyle.dangerColor : buttonStyle.color;
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
 

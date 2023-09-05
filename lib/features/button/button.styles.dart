@@ -159,7 +159,7 @@ final tertiaryDark = CarbonButtonStyle(
 
 final ghostLight = CarbonButtonStyle(
   color: CarbonStateColor(
-    color: CColors.transparent,
+    color: CColors.white0,
     hoveredColor: CColors.gray10,
     focusedColor: CColors.gray10,
     pressedColor: CColors.gray20,
@@ -177,7 +177,7 @@ final ghostLight = CarbonButtonStyle(
 
 final ghostDark = CarbonButtonStyle(
   color: CarbonStateColor(
-    color: CColors.transparent,
+    color: CColors.gray100,
     hoveredColor: CColors.gray80,
     focusedColor: CColors.gray80,
     pressedColor: CColors.gray70,

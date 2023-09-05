@@ -106,7 +106,8 @@ abstract class CColors {
   static const warmGray90 = Color(0xff272525);
   static const warmGray100 = Color(0xff171414);
   static const yellow30 = Color(0xfff1c21b);
-  static const yellow20 = Color(0xfffdd13a);
+  static const yellow20 = Color(0xfffddc69);
+  static const yellow10 = Color(0xfffdf6dd);
 }
 
 class CarbonStateColor extends MaterialStateColor {

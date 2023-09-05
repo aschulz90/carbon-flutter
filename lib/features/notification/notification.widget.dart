@@ -1,5 +1,7 @@
+import 'package:carbon_flutter/features/button/button.widget.dart';
+import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:carbon_flutter/shared/index.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pmvvm/pmvvm.dart';
 
@@ -26,19 +28,18 @@ class CNotification extends StatelessWidget {
     required Widget title,
     required Widget subtitle,
     Widget? caption,
-    bool hideCloseButton = false,
     CNotificationKind kind = CNotificationKind.info,
     CNotificationContrast contrast = CNotificationContrast.low,
     VoidCallback? onCloseButtonTap,
     VoidCallback? onClose,
     int? timeout,
+    List<NotificationAction>? actions,
   })  : assert((timeout == null && onClose == null) || (timeout != null && onClose != null)),
-        assert((hideCloseButton && onCloseButtonTap == null) || (!hideCloseButton && onCloseButtonTap != null)),
         props = CNotificationToastProps(
+          actions: actions,
           caption: caption,
           title: title,
           subtitle: subtitle,
-          hideCloseButton: hideCloseButton,
           kind: kind,
           contrast: contrast,
           onCloseButtonTap: onCloseButtonTap,
@@ -53,20 +54,17 @@ class CNotification extends StatelessWidget {
     required Widget title,
     required Widget subtitle,
     Widget? caption,
-    bool hideCloseButton = false,
     CNotificationKind kind = CNotificationKind.info,
     CNotificationContrast contrast = CNotificationContrast.low,
     VoidCallback? onCloseButtonTap,
     VoidCallback? onClose,
     int? timeout,
-    List<CNotificationActionButton>? actions,
+    List<NotificationAction>? actions,
   })  : assert((timeout == null && onClose == null) || (timeout != null && onClose != null)),
-        assert((hideCloseButton && onCloseButtonTap == null) || (!hideCloseButton && onCloseButtonTap != null)),
         props = CNotificationInlineProps(
           actions: actions,
           title: title,
           subtitle: subtitle,
-          hideCloseButton: hideCloseButton,
           kind: kind,
           contrast: contrast,
           onCloseButtonTap: onCloseButtonTap,
@@ -91,10 +89,39 @@ class CNotification extends StatelessWidget {
   }
 }
 
-class _CNotificationInline extends StatelessWidget {
+abstract class _NotificationWidget extends StatelessWidget {
+  const _NotificationWidget({super.key});
+
+  bool get isHighContrast;
+
+  CNotificationKind get kind;
+
+  Color _getBackgroundColor(BuildContext context) {
+    final theme = CarbonTheme.of(context);
+
+    if (isHighContrast) {
+      return theme.notificationTheme.highContrastColor;
+    }
+
+    return switch (kind) {
+      CNotificationKind.error => theme.notificationTheme.errorBackgroundColor ?? CarbonTheme.layerColor(context),
+      CNotificationKind.info => theme.notificationTheme.infoBackgroundColor ?? CarbonTheme.layerColor(context),
+      CNotificationKind.success => theme.notificationTheme.successBackgroundColor ?? CarbonTheme.layerColor(context),
+      CNotificationKind.warning => theme.notificationTheme.warningBackgroundColor ?? CarbonTheme.layerColor(context),
+    };
+  }
+}
+
+class _CNotificationInline extends _NotificationWidget {
   const _CNotificationInline({Key? key, required this.props}) : super(key: key);
 
   final CNotificationInlineProps props;
+
+  @override
+  bool get isHighContrast => props.contrast == CNotificationContrast.high;
+
+  @override
+  CNotificationKind get kind => props.kind;
 
   void _startTimer() {
     Future.delayed(Duration(milliseconds: props.timeout!), () {
@@ -106,7 +133,16 @@ class _CNotificationInline extends StatelessWidget {
     final result = <Widget>[];
 
     for (var action in props.actions!) {
-      result.addAll([action, const SizedBox(width: 8)]);
+      result.addAll(
+        [
+          CButton(
+            kind: CButtonKind.ghost,
+            label: action.label,
+            onTap: action.onTap,
+          ),
+          const SizedBox(width: 8),
+        ],
+      );
     }
 
     result.removeLast();
@@ -123,82 +159,102 @@ class _CNotificationInline extends StatelessWidget {
 
     return Provider.value(
       value: contrast,
-      child: Container(
-        decoration: BoxDecoration(
-          color: _Styles.backgroundColor[contrast],
-          border: _Styles.inlineNotificationBorder[contrast]![kind]!,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(14),
-              child: SvgPicture.asset(_Assets.kindIcon[contrast]![kind]!, package: 'carbon'),
+      child: CarbonThemeLayer(
+        builder: (context, layerIndex, layerColor) {
+          final carbonTheme = CarbonTheme.of(context);
+          final backgroundColor = _getBackgroundColor(context);
+          final contentColor = isHighContrast ? carbonTheme.notificationTheme.highContrastContentColor : Theme.of(context).textTheme.bodyMedium?.color;
+
+          return Container(
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              border: _Styles.inlineNotificationBorder[contrast]![kind]!,
             ),
-            Expanded(
-              child: Padding(
-                padding: _Styles.contentPadding,
-                child: Wrap(
-                  children: [
-                    DefaultTextStyle(
-                      style: TextStyle(
-                        color: _Styles.textColor[contrast],
-                        fontFamily: CFonts.primarySemibold,
-                        package: 'carbon',
-                      ),
-                      child: props.title,
-                    ),
-                    const SizedBox(width: 4),
-                    DefaultTextStyle(
-                      style: TextStyle(
-                        color: _Styles.textColor[contrast],
-                        fontFamily: CFonts.primaryRegular,
-                        package: 'carbon',
-                      ),
-                      child: props.subtitle,
-                    ),
-                  ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(14),
+                  child: SvgPicture.asset(_Assets.kindIcon[contrast]![kind]!, package: 'carbon_flutter'),
                 ),
-              ),
-            ),
-            if (props.actions != null) ...[
-              const SizedBox(width: 14),
-              SizedBox(
-                height: 48,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: _buildActions(),
+                Expanded(
+                  child: Padding(
+                    padding: _Styles.contentPadding,
+                    child: Wrap(
+                      children: [
+                        DefaultTextStyle(
+                          style: TextStyle(
+                            color: contentColor,
+                            fontFamily: CFonts.primarySemibold,
+                            package: 'carbon_flutter',
+                          ),
+                          child: props.title,
+                        ),
+                        const SizedBox(width: 4),
+                        DefaultTextStyle(
+                          style: TextStyle(
+                            color: contentColor,
+                            fontFamily: CFonts.primaryRegular,
+                            package: 'carbon_flutter',
+                          ),
+                          child: props.subtitle,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 14),
-            ],
-            if (!props.hideCloseButton)
-              CNotificationActionButton(
-                onTap: props.onCloseButtonTap!,
-                width: 48,
-                height: 48,
-                child: SvgPicture.asset(_Assets.closeIcon[contrast]!, package: 'carbon', height: 20),
-              ),
-          ],
-        ),
+                if (props.actions != null) ...[
+                  const SizedBox(width: 14),
+                  SizedBox(
+                    height: 48,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: IntrinsicHeight(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: _buildActions(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                ],
+                if (props.onCloseButtonTap != null)
+                  CButton.icon(
+                    kind: CButtonKind.ghost,
+                    icon: Builder(
+                      builder: (ctx) => SvgPicture.asset(
+                        _Assets.closeIcon[contrast]!,
+                        package: 'carbon_flutter',
+                        height: 20,
+                        color: contentColor,
+                      ),
+                    ),
+                    onTap: props.onCloseButtonTap!,
+                  ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 }
 
-class _CNotificationToast extends StatelessWidget {
+class _CNotificationToast extends _NotificationWidget {
   const _CNotificationToast({Key? key, required this.props}) : super(key: key);
 
   final CNotificationToastProps props;
+
+  @override
+  bool get isHighContrast => props.contrast == CNotificationContrast.high;
+
+  @override
+  CNotificationKind get kind => props.kind;
 
   void _startTimer() {
     Future.delayed(Duration(milliseconds: props.timeout!), () {
@@ -215,74 +271,88 @@ class _CNotificationToast extends StatelessWidget {
 
     return Provider.value(
       value: contrast,
-      child: Container(
-        width: 288,
-        decoration: BoxDecoration(
-          color: _Styles.backgroundColor[contrast],
-          border: _Styles.toastNotificationBorder[kind]!,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(14),
-              child: SvgPicture.asset(_Assets.kindIcon[contrast]![kind]!, package: 'carbon'),
+      child: CarbonThemeLayer(
+        builder: (context, layerIndex, layerColor) {
+          final carbonTheme = CarbonTheme.of(context);
+          final backgroundColor = _getBackgroundColor(context);
+          final contentColor = isHighContrast ? carbonTheme.notificationTheme.highContrastContentColor : Theme.of(context).textTheme.bodyMedium?.color;
+
+          return Container(
+            width: 288,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              border: _Styles.toastNotificationBorder[kind]!,
             ),
-            Expanded(
-              child: Padding(
-                padding: _Styles.contentPadding,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      child: DefaultTextStyle(
-                        style: TextStyle(
-                          color: _Styles.textColor[contrast],
-                          fontFamily: CFonts.primarySemibold,
-                          package: 'carbon',
-                        ),
-                        child: props.title,
-                      ),
-                    ),
-                    Flexible(
-                      child: DefaultTextStyle(
-                        style: TextStyle(
-                          color: _Styles.textColor[contrast],
-                          fontFamily: CFonts.primaryRegular,
-                          package: 'carbon',
-                        ),
-                        child: props.subtitle,
-                      ),
-                    ),
-                    if (props.caption != null) ...[
-                      const SizedBox(height: 24),
-                      DefaultTextStyle(
-                        style: TextStyle(
-                          color: _Styles.textColor[contrast],
-                          fontFamily: CFonts.primaryRegular,
-                          package: 'carbon',
-                        ),
-                        child: props.caption!,
-                      ),
-                    ]
-                  ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(14),
+                  child: SvgPicture.asset(_Assets.kindIcon[contrast]![kind]!, package: 'carbon_flutter'),
                 ),
-              ),
+                Expanded(
+                  child: Padding(
+                    padding: _Styles.contentPadding,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              color: contentColor,
+                              fontFamily: CFonts.primarySemibold,
+                              package: 'carbon_flutter',
+                            ),
+                            child: props.title,
+                          ),
+                        ),
+                        Flexible(
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              color: contentColor,
+                              fontFamily: CFonts.primaryRegular,
+                              package: 'carbon_flutter',
+                            ),
+                            child: props.subtitle,
+                          ),
+                        ),
+                        if (props.caption != null) ...[
+                          const SizedBox(height: 24),
+                          DefaultTextStyle(
+                            style: TextStyle(
+                              color: contentColor,
+                              fontFamily: CFonts.primaryRegular,
+                              package: 'carbon_flutter',
+                            ),
+                            child: props.caption!,
+                          ),
+                        ]
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 14),
+                if (props.onCloseButtonTap != null)
+                  CButton.icon(
+                    kind: CButtonKind.ghost,
+                    icon: Builder(
+                      builder: (ctx) => SvgPicture.asset(
+                        _Assets.closeIcon[contrast]!,
+                        package: 'carbon_flutter',
+                        height: 20,
+                        color: contentColor,
+                      ),
+                    ),
+                    onTap: props.onCloseButtonTap!,
+                  ),
+              ],
             ),
-            const SizedBox(width: 14),
-            if (!props.hideCloseButton)
-              CNotificationActionButton(
-                onTap: props.onCloseButtonTap!,
-                width: 48,
-                height: 48,
-                child: SvgPicture.asset(_Assets.closeIcon[contrast]!, package: 'carbon', height: 20),
-              ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

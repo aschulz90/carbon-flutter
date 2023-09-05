@@ -1,132 +1,5 @@
-import 'package:carbon_flutter/features/button/button.styles.dart';
-import 'package:carbon_flutter/shared/enums/index.dart';
-import 'package:carbon_flutter/shared/styles/colors.style.dart';
+import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
 import 'package:flutter/material.dart';
-
-final lightButtonTheme = CarbonButtonTheme(
-  primary: primaryLight,
-  secondary: secondaryLight,
-  tertiary: tertiaryLight,
-  ghost: ghostLight,
-);
-
-final darkButtonTheme = CarbonButtonTheme(
-  primary: primaryDark,
-  secondary: secondaryDark,
-  tertiary: tertiaryDark,
-  ghost: ghostDark,
-);
-
-class CarbonButtonTheme {
-  final CarbonButtonStyle primary;
-  final CarbonButtonStyle secondary;
-  final CarbonButtonStyle tertiary;
-  final CarbonButtonStyle ghost;
-
-  const CarbonButtonTheme({
-    required this.primary,
-    required this.secondary,
-    required this.tertiary,
-    required this.ghost,
-  });
-
-  CarbonButtonTheme copyWith({
-    CarbonButtonStyle? primary,
-    CarbonButtonStyle? secondary,
-    CarbonButtonStyle? tertiary,
-    CarbonButtonStyle? ghost,
-  }) {
-    return CarbonButtonTheme(
-      primary: primary ?? this.primary,
-      secondary: secondary ?? this.secondary,
-      tertiary: tertiary ?? this.tertiary,
-      ghost: ghost ?? this.ghost,
-    );
-  }
-}
-
-class CarbonThemeData {
-  final CTheme style;
-
-  final List<Color> layers;
-  final List<Color> onLayers;
-  final CarbonButtonTheme buttonTheme;
-
-  CarbonThemeData({
-    required this.style,
-    required this.layers,
-    required this.onLayers,
-  }) : buttonTheme = lightButtonTheme;
-
-  CarbonThemeData.white()
-      : style = CTheme.white,
-        buttonTheme = lightButtonTheme,
-        layers = const [
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-        ],
-        onLayers = const [];
-
-  CarbonThemeData.gray10()
-      : style = CTheme.gray10,
-        buttonTheme = lightButtonTheme,
-        layers = const [
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-        ],
-        onLayers = const [];
-
-  CarbonThemeData.gray90()
-      : style = CTheme.gray90,
-        buttonTheme = darkButtonTheme,
-        layers = const [
-          CColors.gray90,
-          CColors.gray80,
-          CColors.gray70,
-          CColors.gray60,
-          CColors.gray50,
-          CColors.gray40,
-          CColors.gray30,
-          CColors.gray20,
-          CColors.gray10,
-          CColors.white0,
-        ],
-        onLayers = const [];
-
-  CarbonThemeData.gray100()
-      : style = CTheme.gray100,
-        buttonTheme = darkButtonTheme,
-        layers = const [
-          CColors.gray100,
-          CColors.gray90,
-          CColors.gray80,
-          CColors.gray70,
-          CColors.gray60,
-          CColors.gray50,
-          CColors.gray40,
-          CColors.gray30,
-          CColors.gray20,
-          CColors.gray10,
-          CColors.white0,
-        ],
-        onLayers = const [];
-}
 
 class CarbonTheme extends StatelessWidget {
   final MaterialStateOutlineInputBorder? border = null;
@@ -204,7 +77,11 @@ class CarbonThemeLayer extends StatelessWidget {
             surface: newNextLayerColor,
           ),
         ),
-        child: builder.call(context, newLayerIndex, newLayerColor),
+        child: Builder(
+          builder: (context) {
+            return builder.call(context, newLayerIndex, newLayerColor);
+          }
+        ),
       ),
     );
   }

@@ -53,7 +53,7 @@ class CNotificationActionButtonState extends State<CNotificationActionButton> {
         style: TextStyle(
           color: _Styles.textColor[_contrast],
           fontFamily: CFonts.primaryRegular,
-          package: 'carbon',
+          package: 'carbon_flutter',
         ),
         child: AnimatedContainer(
           duration: _Styles.animation['duration'],
@@ -62,7 +62,6 @@ class CNotificationActionButtonState extends State<CNotificationActionButton> {
           width: widget.props.width,
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(color: _Styles.backgroundColor[_state]![_contrast]),
           child: widget.props.child,
         ),
       ),

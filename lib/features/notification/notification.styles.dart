@@ -6,16 +6,6 @@ import 'notification.widget.dart';
 abstract class CNotificationStyles {
   static const contentPadding = EdgeInsets.only(top: 14.5, bottom: 14);
 
-  static const Map<CNotificationContrast, Color> backgroundColor = {
-    CNotificationContrast.high: CColors.gray10,
-    CNotificationContrast.low: CColors.gray90,
-  };
-
-  static const Map<CNotificationContrast, Color> textColor = {
-    CNotificationContrast.high: CColors.gray100,
-    CNotificationContrast.low: CColors.gray10,
-  };
-
   static const Map<CNotificationKind, Border> toastNotificationBorder = {
     CNotificationKind.error: Border(left: BorderSide(width: 3, color: CColors.red50)),
     CNotificationKind.info: Border(left: BorderSide(width: 3, color: CColors.blue50)),

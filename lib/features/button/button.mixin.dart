@@ -16,18 +16,18 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> with M
       CButtonKind.secondary => carbonTheme.buttonTheme.secondary,
       CButtonKind.tertiary => carbonTheme.buttonTheme.tertiary.copyWith(
           color: carbonTheme.buttonTheme.tertiary.color.copyWith(
-            color: CarbonTheme.layerColor(context),
+            color: CarbonTheme.layerColor(context).withAlpha(0),
           ),
           dangerColor: carbonTheme.buttonTheme.tertiary.dangerColor.copyWith(
-            color: CarbonTheme.layerColor(context),
+            color: CarbonTheme.layerColor(context).withAlpha(0),
           ),
         ),
       CButtonKind.ghost => carbonTheme.buttonTheme.ghost.copyWith(
           color: carbonTheme.buttonTheme.ghost.color.copyWith(
-            color: CarbonTheme.layerColor(context),
+            color: CarbonTheme.layerColor(context).withAlpha(0),
           ),
           dangerColor: carbonTheme.buttonTheme.ghost.dangerColor.copyWith(
-            color: CarbonTheme.layerColor(context),
+            color: CarbonTheme.layerColor(context).withAlpha(0),
           ),
         ),
     };
