@@ -7,6 +7,9 @@ class CBreadcrumbExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Carbon Breadcrumb'),
+      ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -14,33 +17,25 @@ class CBreadcrumbExample extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 16),
-            CText(
-              'Carbon Breadcrumb',
-              style: TextStyle(
-                color: CColors.gray10,
-                fontSize: 32,
-              ),
-            ),
             const SizedBox(height: 48),
             CBreadcrumb(
               children: [
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 1'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 2'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 3'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 4'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 5'), onTap: () {}),
               ],
             ),
             const SizedBox(height: 48),
             CBreadcrumb(
               children: [
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 1'), onTap: () {}),
+                CBreadcrumbItem(child: CText('Item 2'), onTap: () {}),
                 CBreadcrumbItem(
                   onTap: () {},
                   isCurrentPage: true,
-                  child: CText('Item'),
+                  child: CText('Item 3'),
                 ),
               ],
             ),

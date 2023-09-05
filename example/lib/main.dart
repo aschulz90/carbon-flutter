@@ -62,13 +62,25 @@ class MyAppState extends State<MyApp> {
                     );
                   },
                 ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Breadcrumbs",
+                  icon: Icon(Icons.cruelty_free),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CBreadcrumbExample(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           );
         }),
       ),
-      theme: CarbonThemeData.white(),
-      darkTheme: CarbonThemeData.gray100(),
+      theme: CarbonThemeData.gray10(),
+      darkTheme: CarbonThemeData.gray90(),
       themeMode: ThemeMode.light,
     );
   }

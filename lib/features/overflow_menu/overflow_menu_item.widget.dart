@@ -89,7 +89,6 @@ class COverflowMenuItemState extends State<COverflowMenuItem> with AfterInitMixi
             alignment: Alignment.centerLeft,
             padding: _Styles.padding[_size],
             decoration: BoxDecoration(
-              color: _Styles.backgroundColor[_kind]![_state],
               border: Border(
                 bottom: widget.props.hasDivider ? BorderSide(color: _Styles.dividerColor) : BorderSide.none,
               ),

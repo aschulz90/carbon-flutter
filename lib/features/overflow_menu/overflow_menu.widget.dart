@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:core';
+import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:pmvvm/pmvvm.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
@@ -152,29 +153,34 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
           Positioned(
             left: _menuOffset.dx,
             top: _menuOffset.dy,
-            child: Material(
-              color: CColors.transparent,
-              child: FadeTransition(
-                opacity: _animation,
-                child: Container(
-                  width: _menuWidth,
-                  height: _menuHeight,
-                  decoration: BoxDecoration(
-                    color: _Styles.backgroundColor,
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, _isBottom ? 6 : -6),
-                        color: CColors.black100.withOpacity(0.3),
-                        blurRadius: 6,
+            child: CarbonThemeLayer(
+              builder: (context, layerIndex, layerColor) {
+                return Material(
+                  color: CColors.transparent,
+                  child: FadeTransition(
+                    opacity: _animation,
+                    child: Container(
+                      width: _menuWidth,
+                      height: _menuHeight,
+                      decoration: BoxDecoration(
+                        color: layerColor,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, _isBottom ? 4 : -4),
+                            color: CColors.black100.withOpacity(0.3),
+                            blurRadius: 4,
+                            blurStyle: BlurStyle.normal,
+                          ),
+                        ],
                       ),
-                    ],
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: widget.props.items,
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: widget.props.items,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         ],

@@ -35,7 +35,6 @@ class CBreadcrumb extends StatelessWidget {
     final divider = CText(
       '/',
       style: TextStyle(
-        color: _Styles.slashColor,
         fontSize: 14,
       ),
     );
@@ -50,17 +49,18 @@ class CBreadcrumb extends StatelessWidget {
   }
 
   List<Widget> _displayOverflowedBreadcrumbs() {
+    final breadCrumbs = [...props.children];
     var leadingItems = <CBreadcrumbItem>[];
     var hiddenItems = <CBreadcrumbItem>[];
     var trailingItems = <CBreadcrumbItem>[];
 
-    leadingItems.add(props.children.removeAt(0));
-    trailingItems.add(props.children.removeLast());
-    trailingItems.add(props.children.removeLast());
+    leadingItems.add(breadCrumbs.removeAt(0));
+    trailingItems.add(breadCrumbs.removeLast());
+    trailingItems.add(breadCrumbs.removeLast());
 
     trailingItems = List.from(trailingItems.reversed);
 
-    hiddenItems.addAll(props.children);
+    hiddenItems.addAll(breadCrumbs);
 
     final overflowItem = COverflowMenu(
       controller: _menu,
@@ -78,7 +78,6 @@ class CBreadcrumb extends StatelessWidget {
     final divider = CText(
       '/',
       style: TextStyle(
-        color: _Styles.slashColor,
         fontSize: 14,
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:carbon_flutter/shared/index.dart';
 
@@ -43,6 +44,7 @@ class CBreadcrumbItemState extends State<CBreadcrumbItem> {
   @override
   Widget build(BuildContext context) {
     _setStateVariables();
+    final theme = Theme.of(context);
 
     return GestureDetector(
       onTap: widget.props.onTap,
@@ -50,10 +52,6 @@ class CBreadcrumbItemState extends State<CBreadcrumbItem> {
       onTapUp: (_) => setState(() => _focused = false),
       onTapCancel: () => setState(() => _focused = false),
       child: AnimatedContainer(
-        decoration: BoxDecoration(
-          color: _Styles.backgroundColor[_state],
-          borderRadius: BorderRadius.circular(_Styles.borderRadius),
-        ),
         margin: EdgeInsets.symmetric(horizontal: _Styles.itemSpacing),
         padding: EdgeInsets.symmetric(
           horizontal: _Styles.itemSpacing,
@@ -62,8 +60,8 @@ class CBreadcrumbItemState extends State<CBreadcrumbItem> {
         duration: _Styles.animation['duration'],
         curve: _Styles.animation['curve'],
         child: DefaultTextStyle(
-          style: TextStyle(
-            color: _Styles.textColor[widget.props.isCurrentPage],
+          style: theme.textTheme.bodyMedium!.copyWith(
+            color: widget.props.isCurrentPage ? null : CColors.blue40,
           ),
           child: widget.props.child,
         ),
