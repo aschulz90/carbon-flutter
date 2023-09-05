@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class CCheckboxProps {
   /// Called when the value of the checkbox change.
   ///
@@ -5,7 +7,7 @@ class CCheckboxProps {
   /// internally.
   ///
   /// @required
-  final void Function(bool value) onChange;
+  final ValueChanged<bool?>? onChanged;
 
   /// Whether the checkbox is enabled or not.
   ///
@@ -26,6 +28,6 @@ class CCheckboxProps {
     required this.enable,
     required this.value,
     required this.label,
-    required this.onChange,
+    required this.onChanged,
   });
 }

@@ -99,13 +99,25 @@ class MyAppState extends State<MyApp> {
                     );
                   },
                 ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Checkboxes",
+                  icon: Icon(Icons.check),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CCheckboxExamplePage(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           );
         }),
       ),
       theme: CarbonThemeData.gray10(),
-      darkTheme: CarbonThemeData.gray100(),
+      darkTheme: CarbonThemeData.gray90(),
       themeMode: ThemeMode.light,
     );
   }

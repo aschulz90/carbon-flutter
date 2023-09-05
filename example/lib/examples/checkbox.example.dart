@@ -14,48 +14,38 @@ class _CCheckboxExamplePageState extends State<CCheckboxExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CColors.gray100,
+      appBar: AppBar(
+        title: Text('Checkbox'),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CText(
-              'Checkbox',
-              style: TextStyle(fontSize: 32),
-            ),
             const SizedBox(height: 64),
             CCheckbox(
               label: 'Checkbox Label',
               value: value,
-              onChange: (value) {
-                setState(() => value = !value);
-              },
+              onChanged: (value) => setState(() => this.value = value ?? false),
             ),
             const SizedBox(height: 24),
             CCheckbox(
               value: value,
-              onChange: (value) {
-                setState(() => value = !value);
-              },
+              onChanged: (value) => setState(() => this.value = value ?? false),
             ),
             const SizedBox(height: 24),
             CCheckbox(
               enable: false,
               label: 'Checkbox Label',
               value: value,
-              onChange: (value) {
-                setState(() => value = !value);
-              },
+              onChanged: (value) => setState(() => this.value = value ?? false),
             ),
             const SizedBox(height: 24),
             CCheckbox(
               enable: false,
               value: value,
-              onChange: (value) {
-                setState(() => value = !value);
-              },
+              onChanged: (value) => setState(() => this.value = value ?? false),
             ),
           ],
         ),

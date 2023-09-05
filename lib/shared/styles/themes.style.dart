@@ -15,16 +15,10 @@ class CThemes {
     elevation: 0,
   );
 
-  static final ButtonThemeData _buttonTheme = ButtonThemeData(
-    hoverColor: CColors.blue70,
-    disabledColor: CColors.gray50,
-    focusColor: CColors.blue60,
-  );
-
   static final _white = ThemeData(
     brightness: Brightness.light,
     primaryColor: CColors.blue60,
-    disabledColor: CColors.gray10,
+    disabledColor: CColors.gray40,
     canvasColor: CColors.gray10,
     scaffoldBackgroundColor: CColors.white0,
     highlightColor: CColors.blue70,
@@ -79,6 +73,7 @@ class CThemes {
       displayColor: CColors.gray90,
       bodyColor: CColors.gray90,
     ),
+    checkboxTheme: checkboxTheme(selected: CColors.gray100, cursor: CColors.white0),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: CColors.blue60,
       onPrimary: CColors.white0,
@@ -94,7 +89,7 @@ class CThemes {
   static final _gray10 = ThemeData(
     brightness: Brightness.light,
     primaryColor: CColors.blue60,
-    disabledColor: CColors.gray10,
+    disabledColor: CColors.gray40,
     canvasColor: CColors.white0,
     scaffoldBackgroundColor: CColors.gray10,
     highlightColor: CColors.blue70,
@@ -151,6 +146,7 @@ class CThemes {
       displayColor: CColors.gray90,
       bodyColor: CColors.gray90,
     ),
+    checkboxTheme: checkboxTheme(selected: CColors.gray100, cursor: CColors.white0),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: CColors.blue60,
       onPrimary: CColors.white0,
@@ -166,7 +162,7 @@ class CThemes {
   static final _gray90 = ThemeData(
     brightness: Brightness.dark,
     primaryColor: CColors.blue60,
-    disabledColor: CColors.gray10,
+    disabledColor: CColors.gray40,
     canvasColor: CColors.gray80,
     scaffoldBackgroundColor: CColors.gray90,
     highlightColor: CColors.blue70,
@@ -221,6 +217,7 @@ class CThemes {
       displayColor: CColors.gray10,
       bodyColor: CColors.gray10,
     ),
+    checkboxTheme: checkboxTheme(selected: CColors.white0, cursor: CColors.gray90),
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(
@@ -238,7 +235,7 @@ class CThemes {
   static final _gray100 = ThemeData(
     brightness: Brightness.dark,
     primaryColor: CColors.blue60,
-    disabledColor: CColors.gray10,
+    disabledColor: CColors.gray40,
     canvasColor: CColors.gray90,
     scaffoldBackgroundColor: CColors.gray100,
     highlightColor: CColors.blue70,
@@ -300,7 +297,7 @@ class CThemes {
       displayColor: CColors.gray10,
       bodyColor: CColors.gray10,
     ),
-    buttonTheme: _buttonTheme,
+    checkboxTheme: checkboxTheme(selected: CColors.white0, cursor: CColors.gray90),
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.dark,
     ).copyWith(

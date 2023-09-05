@@ -1,38 +1,49 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:carbon_flutter/shared/index.dart';
 
-abstract class CCheckboxStyles {
-  static const Map<String, dynamic> borderAnimation = {
-    'duration': Duration(milliseconds: 65),
-    'curve': Curves.linear,
-  };
+CheckboxThemeData checkboxTheme({
+  required Color selected,
+  required Color cursor,
+  Color disabled = CColors.gray40,
+}) {
+  return CheckboxThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(2.0),
+    ),
+    side: MaterialStateBorderSide.resolveWith((states) {
+      if(states.contains(MaterialState.disabled)) {
+        return BorderSide(
+          color: disabled,
+          width: 1,
+        );
+      }
 
-  static const Map<String, dynamic> backgroundAnimation = {
-    'duration': Duration(milliseconds: 100),
-    'curve': Curves.linear,
-  };
+      if (states.contains(MaterialState.focused)) {
+        return BorderSide(
+          color: selected,
+          width: 2,
+        );
+      }
 
-  static const Map<CWidgetState, Color> borderColor = {
-    CWidgetState.enabled: CColors.white0,
-    CWidgetState.focused: CColors.white0,
-    CWidgetState.disabled: CColors.gray70,
-  };
+      return BorderSide(
+        color: selected,
+        width: 1,
+      );
+    }),
+    fillColor: MaterialStateColor.resolveWith((states) {
+      if(states.contains(MaterialState.disabled) && states.contains(MaterialState.selected)) {
+        return disabled;
+      }
 
-  static const Map<CWidgetState, Color> backgroundColor = {
-    CWidgetState.enabled: CColors.white0,
-    CWidgetState.focused: CColors.white0,
-    CWidgetState.disabled: CColors.gray70,
-  };
+      if (states.contains(MaterialState.selected)) {
+        return selected;
+      }
 
-  static const Map<CWidgetState, Color> labelColor = {
-    CWidgetState.enabled: CColors.gray10,
-    CWidgetState.focused: CColors.gray10,
-    CWidgetState.disabled: CColors.gray70,
-  };
-
-  static const Map<CWidgetState, Color> checkmarkColor = {
-    CWidgetState.enabled: CColors.gray100,
-    CWidgetState.focused: CColors.gray100,
-    CWidgetState.disabled: CColors.gray50,
-  };
+      return CColors.transparent;
+    }),
+    checkColor: MaterialStateColor.resolveWith((states) => cursor),
+    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    splashRadius: 0,
+  );
 }
