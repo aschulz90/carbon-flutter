@@ -2,12 +2,6 @@ import 'package:carbon_flutter/carbon.dart';
 import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:flutter/material.dart';
 
-import 'package:carbon_flutter/features/text/index.dart';
-import 'package:carbon_flutter/features/enable/index.dart';
-
-import 'button.props.dart';
-import 'button.styles.dart';
-
 part 'button.mixin.dart';
 
 enum CButtonKind { primary, secondary, tertiary, ghost }
@@ -104,6 +98,7 @@ class _CButtonRegular extends _CButtonBase {
 }
 
 class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
+
   List<Widget> _buildTrailing(CarbonStateColor contentColor) {
     final result = <Widget>[];
 
@@ -124,7 +119,7 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
     if (widget.props.icon != null) {
       result.add(IconTheme(
         data: IconThemeData(
-          color: contentColor.resolve(materialStates),
+          color: contentColor.resolve(_materialStatesController.value),
         ),
         child: widget.props.icon!,
       ));
@@ -134,90 +129,20 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    _setStateVariables();
-    final buttonStyle = widget.props.style ?? _getStyle(context);
-    final backgroundColor = isDangerous ? buttonStyle.dangerColor : buttonStyle.color;
+  Widget _innerContent(CarbonButtonStyle buttonStyle) {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
-    final outerBorder = isDangerous ? buttonStyle.dangerOuterBorder : buttonStyle.outerBorder;
-
-    return CEnable(
-      value: isEnabled,
-      child: IgnorePointer(
-        ignoring: !isEnabled,
-        child: Focus(
-          focusNode: widget.props.focusNode,
-          canRequestFocus: isEnabled,
-          onFocusChange: updateMaterialState(MaterialState.focused),
-          child: MouseRegion(
-            onEnter: (event) => addMaterialState(MaterialState.hovered),
-            onExit: (event) => removeMaterialState(MaterialState.hovered),
-            child: GestureDetector(
-              onTap: widget.props.onTap,
-              onTapDown: (_) => addMaterialState(MaterialState.pressed),
-              onTapUp: (_) => removeMaterialState(MaterialState.pressed),
-              onTapCancel: () => removeMaterialState(MaterialState.pressed),
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: AnimatedContainer(
-                      height: dimensions.height,
-                      duration: backgroundColor.animationDuration,
-                      curve: backgroundColor.animationCurve,
-                      decoration: BoxDecoration(
-                        color: backgroundColor.resolve(materialStates),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: AnimatedContainer(
-                      height: dimensions.height,
-                      duration: buttonStyle.innerBoarder.animationDuration,
-                      curve: buttonStyle.innerBoarder.animationCurve,
-                      decoration: BoxDecoration(
-                        border: buttonStyle.innerBoarder.resolve(materialStates),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: AnimatedContainer(
-                      height: dimensions.height,
-                      duration: outerBorder.animationDuration,
-                      curve: outerBorder.animationCurve,
-                      decoration: BoxDecoration(
-                        border: outerBorder.resolve(materialStates),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: dimensions.height,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: widget.props.size.padding,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CText(
-                            widget.props.label,
-                            style: TextStyle(
-                              fontSize: widget.props.labelSize,
-                              color: contentColor.resolve(materialStates),
-                            ),
-                          ),
-                          ..._buildTrailing(contentColor),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      runAlignment: WrapAlignment.center,
+      children: [
+        CText(
+          widget.props.label,
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
           ),
         ),
-      ),
+        ..._buildTrailing(contentColor),
+      ],
     );
   }
 }
@@ -237,76 +162,13 @@ class _CButtonIconOnly extends _CButtonBase {
 class _CButtonIconOnlyState extends _CButtonStateBase<_CButtonIconOnly> {
 
   @override
-  Widget build(BuildContext context) {
-    _setStateVariables();
-    final buttonStyle = widget.props.style ?? _getStyle(context);
-    final backgroundColor = isDangerous ? buttonStyle.dangerColor : buttonStyle.color;
+  Widget _innerContent(CarbonButtonStyle buttonStyle) {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
-
-    return CEnable(
-      value: isEnabled,
-      child: IgnorePointer(
-        ignoring: !isEnabled,
-        child: Focus(
-          focusNode: widget.props.focusNode,
-          canRequestFocus: isEnabled,
-          onFocusChange: updateMaterialState(MaterialState.focused),
-          child: MouseRegion(
-            onEnter: (event) => addMaterialState(MaterialState.hovered),
-            onExit: (event) => removeMaterialState(MaterialState.hovered),
-            child: GestureDetector(
-              onTap: widget.props.onTap,
-              onTapDown: (_) => addMaterialState(MaterialState.pressed),
-              onTapUp: (_) => removeMaterialState(MaterialState.pressed),
-              onTapCancel: () => removeMaterialState(MaterialState.pressed),
-              child: Stack(
-                children: [
-                  AnimatedContainer(
-                    width: dimensions.width,
-                    height: dimensions.height,
-                    duration: backgroundColor.animationDuration,
-                    curve: backgroundColor.animationCurve,
-                    decoration: BoxDecoration(
-                      color: backgroundColor.resolve(materialStates),
-                    ),
-                  ),
-                  AnimatedContainer(
-                    width: dimensions.width,
-                    height: dimensions.height,
-                    duration: buttonStyle.innerBoarder.animationDuration,
-                    curve: buttonStyle.innerBoarder.animationCurve,
-                    decoration: BoxDecoration(
-                      border: buttonStyle.innerBoarder.resolve(materialStates),
-                    ),
-                  ),
-                  AnimatedContainer(
-                    width: dimensions.width,
-                    height: dimensions.height,
-                    duration: buttonStyle.outerBorder.animationDuration,
-                    curve: buttonStyle.outerBorder.animationCurve,
-                    decoration: BoxDecoration(
-                      border: buttonStyle.outerBorder.resolve(materialStates),
-                    ),
-                  ),
-                  SizedBox(
-                    width: dimensions.width,
-                    height: dimensions.height,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: IconTheme(
-                        data: IconThemeData(
-                          color: contentColor.resolve(materialStates),
-                        ),
-                        child: widget.props.icon,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+    return IconTheme(
+      data: IconThemeData(
+        color: contentColor.resolve(_materialStatesController.value),
       ),
+      child: widget.props.icon,
     );
   }
 }

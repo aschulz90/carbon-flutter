@@ -9,20 +9,50 @@ class CarbonStateBorder extends Border implements MaterialStateProperty<Border> 
     this.animationCurve = Curves.easeInOut,
   });
 
+  CarbonStateBorder.zero()
+      : animationDuration = const Duration(milliseconds: 0),
+        animationCurve = Curves.easeInOut,
+        color = CarbonStateColor.all(Colors.transparent),
+        width = MaterialStatePropertyAll(0);
+
   final CarbonStateColor color;
-  final double width;
+  final MaterialStateProperty<double> width;
 
   final Duration animationDuration;
   final Curve animationCurve;
 
   @override
+  BorderSide get top => BorderSide(
+        color: color,
+        width: width.resolve({}),
+      );
+
+  @override
+  BorderSide get bottom => BorderSide(
+        color: color,
+        width: width.resolve({}),
+      );
+
+  @override
+  BorderSide get left => BorderSide(
+        color: color,
+        width: width.resolve({}),
+      );
+
+  @override
+  BorderSide get right => BorderSide(
+        color: color,
+        width: width.resolve({}),
+      );
+
+  @override
   Border resolve(Set<MaterialState> states) {
-    return Border.all(color: color.resolve(states), width: width);
+    return Border.all(color: color.resolve(states), width: width.resolve(states));
   }
 
   CarbonStateBorder copyWith({
     CarbonStateColor? color,
-    double? width,
+    MaterialStateProperty<double>? width,
     Duration? animationDuration,
     Curve? animationCurve,
   }) {
