@@ -4,6 +4,7 @@ import 'package:carbon_flutter/shared/index.dart';
 CheckboxThemeData checkboxTheme({
   required Color selected,
   required Color cursor,
+  Color focused = CColors.blue60,
   Color disabled = CColors.gray40,
 }) {
   return CheckboxThemeData(
@@ -20,7 +21,7 @@ CheckboxThemeData checkboxTheme({
 
       if (states.contains(MaterialState.focused)) {
         return BorderSide(
-          color: selected,
+          color: focused,
           width: 2,
         );
       }

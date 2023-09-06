@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 class CCheckboxProps {
   /// Called when the value of the checkbox change.
@@ -24,10 +24,13 @@ class CCheckboxProps {
   /// @optional
   final String? label;
 
+  final FocusNode? focusNode;
+
   CCheckboxProps({
     required this.enable,
     required this.value,
     required this.label,
     required this.onChanged,
+    this.focusNode,
   });
 }
