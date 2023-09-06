@@ -139,6 +139,7 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
           widget.props.label,
           style: TextStyle(
             fontWeight: FontWeight.normal,
+            fontSize: widget.props.labelSize,
           ),
         ),
         ..._buildTrailing(contentColor),

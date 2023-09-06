@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 import 'toggle.widget.dart';
 
 class CToggleProps {
@@ -34,6 +36,8 @@ class CToggleProps {
   /// @default: `true`
   final bool showStatusLabel;
 
+  final FocusNode? focusNode;
+
   CToggleProps({
     required this.onToggle,
     required this.enable,
@@ -41,5 +45,6 @@ class CToggleProps {
     required this.labelText,
     required this.size,
     required this.showStatusLabel,
+    this.focusNode,
   });
 }

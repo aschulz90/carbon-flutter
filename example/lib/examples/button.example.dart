@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon.dart';
 
 class CButtonExample extends StatefulWidget {
-  CButtonExample({Key? key}) : super(key: key);
+  const CButtonExample({Key? key}) : super(key: key);
 
   @override
   State<CButtonExample> createState() => _CButtonExampleState();

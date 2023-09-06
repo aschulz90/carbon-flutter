@@ -1,3 +1,4 @@
+import 'package:carbon_flutter/shared/styles/colors.style.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carbon_flutter/features/text/index.dart';
@@ -25,6 +26,7 @@ class CToggle extends StatefulWidget {
     bool showStatusLabel = true,
     String? labelText,
     CToggleSize size = CToggleSize.md,
+    FocusNode? focusNode,
   })  : props = CToggleProps(
           onToggle: onToggle,
           enable: enable,
@@ -32,6 +34,7 @@ class CToggle extends StatefulWidget {
           labelText: labelText,
           size: size,
           showStatusLabel: showStatusLabel,
+          focusNode: focusNode,
         ),
         super(key: key);
 
@@ -73,12 +76,25 @@ class CToggleState extends State<CToggle> with MaterialStateMixin {
       removeMaterialState(MaterialState.disabled);
     }
 
-    if(_value) {
+    if (_value) {
       addMaterialState(MaterialState.selected);
-    }
-    else {
+    } else {
       removeMaterialState(MaterialState.selected);
     }
+  }
+
+  void _handleTap([Intent? _]) {
+    setState(() {
+      _value = !_value;
+      _outlined = !_outlined;
+
+      Future.delayed(
+        const Duration(milliseconds: 750),
+        () => setState(() => _outlined = !_outlined),
+      );
+
+      widget.props.onToggle(_value);
+    });
   }
 
   @override
@@ -99,73 +115,82 @@ class CToggleState extends State<CToggle> with MaterialStateMixin {
           ),
           const SizedBox(height: 16),
         ],
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IgnorePointer(
-              ignoring: !_isEnabled,
-              child: GestureDetector(
-                onTapUp: (_) => setState(() {
-                  _value = !_value;
-                  _outlined = !_outlined;
-
-                  Future.delayed(
-                    const Duration(milliseconds: 750),
-                    () => setState(() => _outlined = !_outlined),
-                  );
-
-                  widget.props.onToggle(_value);
-                }),
-                child: COutline(
-                  animationDuration: 400,
-                  borderRadius: BorderRadius.circular(1000),
-                  outlineWidth: 2,
-                  outlined: _outlined,
-                  child: AnimatedContainer(
-                    width: _dimensions.width,
-                    height: _dimensions.height,
-                    alignment: _value ? Alignment.centerRight : Alignment.centerLeft,
-                    padding: const EdgeInsets.all(3),
-                    duration: _Styles.animation['duration'],
-                    curve: _Styles.animation['curve'],
-                    decoration: BoxDecoration(
-                      color: toggleTheme.trackColor?.resolve(materialStates),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: materialStates.contains(MaterialState.focused) ? CColors.blue60 : Colors.transparent,
+              width: 2,
+            ),
+          ),
+          padding: EdgeInsets.all(2),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IgnorePointer(
+                ignoring: !_isEnabled,
+                child: FocusableActionDetector(
+                  focusNode: widget.props.focusNode,
+                  enabled: _isEnabled,
+                  onFocusChange: updateMaterialState(MaterialState.focused),
+                  onShowFocusHighlight: updateMaterialState(MaterialState.focused),
+                  onShowHoverHighlight: updateMaterialState(MaterialState.hovered),
+                  actions: {
+                    ActivateIntent: CallbackAction<ActivateIntent>(onInvoke: _handleTap),
+                  },
+                  child: GestureDetector(
+                    onTapUp: (_) => _handleTap(),
+                    child: COutline(
+                      animationDuration: 400,
                       borderRadius: BorderRadius.circular(1000),
-                    ),
-                    child: AnimatedContainer(
-                      height: _dimensions.height - 6,
-                      width: _dimensions.height - 6,
-                      alignment: Alignment.center,
-                      duration: _Styles.animation['duration'],
-                      curve: _Styles.animation['curve'],
-                      decoration: BoxDecoration(
-                        color: toggleTheme.thumbColor?.resolve(materialStates),
-                        borderRadius: BorderRadius.circular(1000),
+                      outlineWidth: 2,
+                      outlined: _outlined,
+                      child: AnimatedContainer(
+                        width: _dimensions.width,
+                        height: _dimensions.height,
+                        alignment: _value ? Alignment.centerRight : Alignment.centerLeft,
+                        padding: const EdgeInsets.all(3),
+                        duration: _Styles.animation['duration'],
+                        curve: _Styles.animation['curve'],
+                        decoration: BoxDecoration(
+                          color: toggleTheme.trackColor?.resolve(materialStates),
+                          borderRadius: BorderRadius.circular(1000),
+                        ),
+                        child: AnimatedContainer(
+                          height: _dimensions.height - 6,
+                          width: _dimensions.height - 6,
+                          alignment: Alignment.center,
+                          duration: _Styles.animation['duration'],
+                          curve: _Styles.animation['curve'],
+                          decoration: BoxDecoration(
+                            color: toggleTheme.thumbColor?.resolve(materialStates),
+                            borderRadius: BorderRadius.circular(1000),
+                          ),
+                          child: widget.props.size == CToggleSize.sm
+                              ? Icon(
+                                  Icons.check,
+                                  size: 6,
+                                  color: toggleTheme.trackColor?.resolve(materialStates),
+                                )
+                              : null,
+                        ),
                       ),
-                      child: widget.props.size == CToggleSize.sm
-                          ? Icon(
-                              Icons.check,
-                              size: 6,
-                              color: toggleTheme.trackColor?.resolve(materialStates),
-                            )
-                          : null,
                     ),
                   ),
                 ),
               ),
-            ),
-            if (widget.props.showStatusLabel) ...[
-              const SizedBox(width: 8),
-              CText(
-                _value ? 'On' : 'Off',
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: _isEnabled ? null : theme.disabledColor,
+              if (widget.props.showStatusLabel) ...[
+                const SizedBox(width: 8),
+                CText(
+                  _value ? 'On' : 'Off',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: _isEnabled ? null : theme.disabledColor,
+                  ),
                 ),
-              ),
-            ]
-          ],
+              ]
+            ],
+          ),
         ),
       ],
     );

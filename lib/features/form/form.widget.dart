@@ -3,8 +3,6 @@ import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
-import 'package:carbon_flutter/features/inherited_styles/index.dart';
-import 'package:carbon_flutter/shared/index.dart';
 
 import 'form.props.dart';
 import 'form.styles.dart';
@@ -43,9 +41,6 @@ class CForm extends StatefulWidget {
 class CFormState extends State<CForm> {
   final Set<CTextFieldState> formFields = {};
 
-  CWidgetState _state = CWidgetState.enabled;
-  CFormType _type = CFormType.blank;
-
   CFormType get type => widget.props.type;
 
   bool validate() {
@@ -62,19 +57,8 @@ class CFormState extends State<CForm> {
     return context.inheritedEnable ? widget.props.enable : false;
   }
 
-  void _setStateVariables() {
-    if (!_isEnabled) {
-      _state = CWidgetState.disabled;
-    } else {
-      _state = CWidgetState.enabled;
-    }
-
-    _type = type;
-  }
-
   @override
   Widget build(BuildContext context) {
-    _setStateVariables();
 
     Widget content = Builder(builder: (context) {
       final theme = Theme.of(context);
@@ -91,7 +75,7 @@ class CFormState extends State<CForm> {
               children: [
                 Container(
                   color: theme.colorScheme.background,
-                  padding: _Styles.padding[_type],
+                  padding: _Styles.padding[type],
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -107,7 +91,7 @@ class CFormState extends State<CForm> {
       );
     });
 
-    if (_type == CFormType.group) {
+    if (type == CFormType.group) {
       return CarbonThemeLayer(
         builder: (context, layerIndex, layerColor) => content,
       );
