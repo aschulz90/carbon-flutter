@@ -143,10 +143,10 @@ class CarbonApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return _usesRouter
         ? MaterialApp.router(
-            theme: CThemes.getTheme(theme.style),
-            darkTheme: CThemes.getTheme(darkTheme?.style ?? CTheme.gray90),
-            highContrastTheme: CThemes.getTheme(highContrastTheme?.style ?? theme.style),
-            highContrastDarkTheme: CThemes.getTheme(highContrastDarkTheme?.style ?? darkTheme?.style ?? CTheme.gray90),
+            theme: getTheme(theme.style),
+            darkTheme: getTheme(darkTheme?.style ?? CTheme.gray90),
+            highContrastTheme: getTheme(highContrastTheme?.style ?? theme.style),
+            highContrastDarkTheme: getTheme(highContrastDarkTheme?.style ?? darkTheme?.style ?? CTheme.gray90),
             themeMode: themeMode,
             themeAnimationCurve: themeAnimationCurve,
             themeAnimationDuration: themeAnimationDuration,
@@ -184,10 +184,10 @@ class CarbonApp extends StatelessWidget {
             scrollBehavior: scrollBehavior,
           )
         : MaterialApp(
-            theme: CThemes.getTheme(theme.style),
-            darkTheme: CThemes.getTheme(darkTheme?.style ?? CTheme.gray90),
-            highContrastTheme: CThemes.getTheme(highContrastTheme?.style ?? theme.style),
-            highContrastDarkTheme: CThemes.getTheme(highContrastDarkTheme?.style ?? darkTheme?.style ?? CTheme.gray90),
+            theme: getTheme(theme.style),
+            darkTheme: getTheme(darkTheme?.style ?? CTheme.gray90),
+            highContrastTheme: getTheme(highContrastTheme?.style ?? theme.style),
+            highContrastDarkTheme: getTheme(highContrastDarkTheme?.style ?? darkTheme?.style ?? CTheme.gray90),
             themeMode: themeMode,
             themeAnimationCurve: themeAnimationCurve,
             themeAnimationDuration: themeAnimationDuration,

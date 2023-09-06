@@ -38,6 +38,8 @@ class _CCheckboxState extends State<CCheckbox> {
   void initState() {
     super.initState();
 
+    Form.of(context);
+
     focusNode ??= FocusNode();
 
     focusNode?.addListener(() {
