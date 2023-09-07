@@ -1,5 +1,6 @@
 import 'package:carbon_flutter/features/carbon_app/carbon_app.style.dart';
 import 'package:carbon_flutter/features/checkbox/checkbox.styles.dart';
+import 'package:carbon_flutter/features/radio/radio.style.dart';
 import 'package:carbon_flutter/features/toggle/toggle.styles.dart';
 import 'package:carbon_flutter/shared/styles/colors.style.dart';
 import 'package:carbon_flutter/shared/styles/fonts.style.dart';
@@ -15,6 +16,7 @@ final gray10Theme = ThemeData(
   highlightColor: CColors.blue70,
   indicatorColor: CColors.blue70,
   focusColor: CColors.blue60,
+  unselectedWidgetColor: CColors.gray100,
   hintColor: CColors.gray10,
   fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
   iconTheme: IconThemeData(color: CColors.gray10),
@@ -75,10 +77,11 @@ final gray10Theme = ThemeData(
     disabledTrackColor: CColors.gray20,
     disabledThumbColor: CColors.gray40,
   ),
+  radioTheme: radioThemeLight,
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: CColors.blue60,
     onPrimary: CColors.white0,
-    secondary: CColors.gray70,
+    secondary: CColors.gray100,
     onSecondary: CColors.white0,
     tertiary: CColors.white0,
     onTertiary: CColors.blue60,

@@ -1,5 +1,6 @@
 import 'package:carbon_flutter/features/carbon_app/carbon_app.style.dart';
 import 'package:carbon_flutter/features/checkbox/checkbox.styles.dart';
+import 'package:carbon_flutter/features/radio/radio.style.dart';
 import 'package:carbon_flutter/features/toggle/toggle.styles.dart';
 import 'package:carbon_flutter/shared/styles/colors.style.dart';
 import 'package:carbon_flutter/shared/styles/fonts.style.dart';
@@ -15,6 +16,7 @@ final gray100Theme = ThemeData(
   highlightColor: CColors.blue70,
   indicatorColor: CColors.blue70,
   focusColor: CColors.blue60,
+  unselectedWidgetColor: CColors.white0,
   hintColor: CColors.gray10,
   fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
   iconTheme: IconThemeData(color: CColors.gray10),
@@ -77,15 +79,16 @@ final gray100Theme = ThemeData(
     cursor: CColors.gray90,
   ),
   switchTheme: switchTheme(),
+  radioTheme: radioThemeDark,
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.dark,
   ).copyWith(
     primary: CColors.blue60,
     onPrimary: CColors.white0,
-    secondary: CColors.gray70,
-    onSecondary: CColors.white0,
-    tertiary: CColors.white0,
-    onTertiary: CColors.blue60,
+    secondary: CColors.white0,
+    onSecondary: CColors.gray100,
+    tertiary: CColors.gray90,
+    onTertiary: CColors.white0,
     background: CColors.gray100,
     error: CColors.red60,
   ),
