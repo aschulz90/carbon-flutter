@@ -87,7 +87,7 @@ class CText extends StatelessWidget {
   final StrutStyle? strutStyle;
 
   TextStyle? _textStyle(BuildContext context) {
-    return _isEnabled(context) ? style : disableStyle;
+    return _isEnabled(context) ? style : disableStyle.merge(style);
   }
 
   bool _isEnabled(BuildContext context) {
@@ -100,8 +100,8 @@ class CText extends StatelessWidget {
       style: _textStyle(context)?.merge(
         TextStyle(
           fontFamilyFallback: [
-            if (style!.fontFamilyFallback != null) ...style!.fontFamilyFallback!,
-            'packages/carbon_flutter/${style!.fontFamily ?? CFonts.primaryRegular}',
+            if (style?.fontFamilyFallback != null) ...style!.fontFamilyFallback!,
+            'packages/carbon_flutter/${style?.fontFamily ?? CFonts.primaryRegular}',
           ],
         ),
       ),

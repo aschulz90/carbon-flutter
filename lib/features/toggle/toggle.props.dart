@@ -36,6 +36,7 @@ class CToggleProps {
   /// @default: `true`
   final bool showStatusLabel;
 
+  /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
 
   CToggleProps({

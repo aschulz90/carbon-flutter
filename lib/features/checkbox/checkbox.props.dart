@@ -24,6 +24,7 @@ class CCheckboxProps {
   /// @optional
   final String? label;
 
+  /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
 
   CCheckboxProps({

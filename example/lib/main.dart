@@ -1,4 +1,6 @@
 import 'package:carbon_flutter/carbon.dart';
+import 'package:carbon_flutter/features/radio/radio_group.props.dart';
+import 'package:carbon_flutter/features/radio/radio_group.widget.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
 import 'package:example/examples/index.dart';
 import 'package:example/examples/tiles.example.dart';
@@ -31,41 +33,31 @@ class MyAppState extends State<MyApp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    Radio<CarbonThemeData>(
+                CRadioGroup<CarbonThemeData>(
+                  value: theme,
+                  onChanged: (value) => setState(() {
+                    _theme = value;
+                  }),
+                  radioButtons: [
+                    CRadioButton(
                       value: CarbonThemeData.white(),
-                      groupValue: _theme,
-                      onChanged: (value) => setState(() {
-                        _theme = value;
-                      }),
+                      label: 'White',
                     ),
-                    CText("White"),
-                    Radio<CarbonThemeData>(
-                      value: CarbonThemeData.gray10(),
-                      groupValue: _theme,
-                      onChanged: (value) => setState(() {
-                        _theme = value;
-                      }),
+                    CRadioButton(
+                        value: CarbonThemeData.gray10(),
+                        label: 'Gray10',
                     ),
-                    CText("Gray10"),
-                    Radio<CarbonThemeData>(
-                      value: CarbonThemeData.gray90(),
-                      groupValue: _theme,
-                      onChanged: (value) => setState(() {
-                        _theme = value;
-                      }),
+                    CRadioButton(
+                        value: CarbonThemeData.gray90(),
+                        label: 'Gray90',
                     ),
-                    CText("Gray90"),
-                    Radio<CarbonThemeData>(
-                      value: CarbonThemeData.gray100(),
-                      groupValue: _theme,
-                      onChanged: (value) => setState(() {
-                        _theme = value;
-                      }),
+                    CRadioButton(
+                        value: CarbonThemeData.gray100(),
+                        label: 'Gray100',
                     ),
-                    CText("Gray100"),
                   ],
+                  label: 'Theme',
+                  enabled: true,
                 ),
                 CButton(
                   label: "Forms",
