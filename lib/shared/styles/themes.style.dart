@@ -6,9 +6,10 @@ import 'package:carbon_flutter/shared/styles/theme.white.dart';
 
 import 'package:flutter/material.dart';
 
-ThemeData getTheme(CTheme theme) => switch (theme) {
+ThemeData? getTheme(CTheme? theme) => switch (theme) {
   CTheme.white => whiteTheme,
   CTheme.gray10 => gray10Theme,
   CTheme.gray90 => gray90Theme,
   CTheme.gray100 => gray100Theme,
+  _ => null,
 };

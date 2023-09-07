@@ -1,6 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
-import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:example/examples/index.dart';
 import 'package:example/examples/tiles.example.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  CarbonThemeData? _theme = CarbonThemeData.white();
+
+  CarbonThemeData get theme => _theme ?? CarbonThemeData.white();
+
   @override
   Widget build(BuildContext context) {
     return CarbonApp(
@@ -28,6 +31,42 @@ class MyAppState extends State<MyApp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Row(
+                  children: [
+                    Radio<CarbonThemeData>(
+                      value: CarbonThemeData.white(),
+                      groupValue: _theme,
+                      onChanged: (value) => setState(() {
+                        _theme = value;
+                      }),
+                    ),
+                    CText("White"),
+                    Radio<CarbonThemeData>(
+                      value: CarbonThemeData.gray10(),
+                      groupValue: _theme,
+                      onChanged: (value) => setState(() {
+                        _theme = value;
+                      }),
+                    ),
+                    CText("Gray10"),
+                    Radio<CarbonThemeData>(
+                      value: CarbonThemeData.gray90(),
+                      groupValue: _theme,
+                      onChanged: (value) => setState(() {
+                        _theme = value;
+                      }),
+                    ),
+                    CText("Gray90"),
+                    Radio<CarbonThemeData>(
+                      value: CarbonThemeData.gray100(),
+                      groupValue: _theme,
+                      onChanged: (value) => setState(() {
+                        _theme = value;
+                      }),
+                    ),
+                    CText("Gray100"),
+                  ],
+                ),
                 CButton(
                   label: "Forms",
                   icon: Icon(CIcons.dataFormat),
@@ -128,9 +167,7 @@ class MyAppState extends State<MyApp> {
           );
         }),
       ),
-      theme: CarbonThemeData.gray10(),
-      darkTheme: CarbonThemeData.gray100(),
-      themeMode: ThemeMode.dark,
+      theme: theme,
     );
   }
 }
