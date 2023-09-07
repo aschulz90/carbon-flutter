@@ -25,6 +25,7 @@ class CButton extends StatefulWidget {
     CButtonSize size = CButtonSize.regular,
     FocusNode? focusNode,
     CarbonButtonStyle? style,
+    MaterialStatesController? materialStateController,
     Widget? icon,
   })  : type = CButtonType.regular,
         props = CButtonRegularProps(
@@ -39,6 +40,7 @@ class CButton extends StatefulWidget {
           focusNode: focusNode,
           onTap: onTap,
           style: style,
+          materialStateController: materialStateController,
         ),
         super(key: key);
 
@@ -51,6 +53,7 @@ class CButton extends StatefulWidget {
     CButtonKind kind = CButtonKind.primary,
     CButtonSize size = CButtonSize.regular,
     FocusNode? focusNode,
+    MaterialStatesController? materialStateController,
     CarbonButtonStyle? style,
   })  : type = CButtonType.icon,
         props = CButtonIconOnlyProps(
@@ -62,6 +65,7 @@ class CButton extends StatefulWidget {
           focusNode: focusNode,
           size: size,
           style: style,
+          materialStateController: materialStateController,
         ),
         super(key: key);
 
@@ -98,7 +102,6 @@ class _CButtonRegular extends _CButtonBase {
 }
 
 class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
-
   List<Widget> _buildTrailing(CarbonStateColor contentColor) {
     final result = <Widget>[];
 
@@ -129,21 +132,24 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
   }
 
   @override
-  Widget _innerContent(CarbonButtonStyle buttonStyle) {
+  Widget _innerContent(CarbonButtonStyle buttonStyle, double borderPadding) {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      runAlignment: WrapAlignment.center,
-      children: [
-        CText(
-          widget.props.label,
-          style: TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: widget.props.labelSize,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: widget.props.size.padding - borderPadding),
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        runAlignment: WrapAlignment.center,
+        children: [
+          CText(
+            widget.props.label,
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: widget.props.labelSize,
+            ),
           ),
-        ),
-        ..._buildTrailing(contentColor),
-      ],
+          ..._buildTrailing(contentColor),
+        ],
+      ),
     );
   }
 }
@@ -161,9 +167,8 @@ class _CButtonIconOnly extends _CButtonBase {
 }
 
 class _CButtonIconOnlyState extends _CButtonStateBase<_CButtonIconOnly> {
-
   @override
-  Widget _innerContent(CarbonButtonStyle buttonStyle) {
+  Widget _innerContent(CarbonButtonStyle buttonStyle, double borderPadding) {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
     return IconTheme(
       data: IconThemeData(

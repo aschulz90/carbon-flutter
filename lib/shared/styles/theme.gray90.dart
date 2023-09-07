@@ -1,5 +1,6 @@
 import 'package:carbon_flutter/features/carbon_app/carbon_app.style.dart';
 import 'package:carbon_flutter/features/checkbox/checkbox.styles.dart';
+import 'package:carbon_flutter/features/icon/icon.style.dart';
 import 'package:carbon_flutter/features/radio/radio.style.dart';
 import 'package:carbon_flutter/features/toggle/toggle.styles.dart';
 import 'package:carbon_flutter/shared/styles/colors.style.dart';
@@ -19,7 +20,7 @@ final gray90Theme = ThemeData(
   unselectedWidgetColor: CColors.white0,
   hintColor: CColors.gray10,
   fontFamily: 'packages/carbon_flutter/${CFonts.primaryRegular}',
-  iconTheme: IconThemeData(color: CColors.gray10),
+  iconTheme: iconThemeDark,
   appBarTheme: appBarTheme,
   textSelectionTheme: TextSelectionThemeData(
     cursorColor: CColors.gray10,
@@ -83,6 +84,7 @@ final gray90Theme = ThemeData(
     tertiary: CColors.gray100,
     onTertiary: CColors.white0,
     background: CColors.gray90,
+    onBackground: CColors.white0,
     error: CColors.red60,
   ),
 );

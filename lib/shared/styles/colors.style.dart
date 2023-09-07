@@ -116,29 +116,32 @@ class CarbonStateColor extends MaterialStateColor {
     required this.hoveredColor,
     required this.focusedColor,
     required this.pressedColor,
+    this.selectedColor,
     this.disabledColor = CColors.gray40,
     this.animationDuration = const Duration(milliseconds: 80),
     this.animationCurve = Curves.easeInOut,
-  }) : super(color.value);
+  })  : super(color.value);
 
   CarbonStateColor.all(
     this.color, {
-      this.disabledColor = CColors.gray40,
+    this.disabledColor = CColors.gray40,
     this.animationDuration = const Duration(milliseconds: 80),
     this.animationCurve = Curves.easeInOut,
   })  : hoveredColor = color,
         focusedColor = color,
         pressedColor = color,
+        selectedColor = color,
         super(color.value);
 
   CarbonStateColor.focus(
-      Color color, {
-        this.animationDuration = const Duration(milliseconds: 80),
-        this.animationCurve = Curves.easeInOut,
-      })  : color = Colors.transparent,
+    Color color, {
+    this.animationDuration = const Duration(milliseconds: 80),
+    this.animationCurve = Curves.easeInOut,
+  })  : color = Colors.transparent,
         hoveredColor = Colors.transparent,
         focusedColor = color,
         pressedColor = Colors.transparent,
+        selectedColor = null,
         disabledColor = CColors.gray40,
         super(Colors.transparent.value);
 
@@ -146,6 +149,7 @@ class CarbonStateColor extends MaterialStateColor {
   final Color hoveredColor;
   final Color focusedColor;
   final Color pressedColor;
+  final Color? selectedColor;
   final Color disabledColor;
 
   final Duration animationDuration;
@@ -155,6 +159,10 @@ class CarbonStateColor extends MaterialStateColor {
   Color resolve(Set<MaterialState> states) {
     if (states.contains(MaterialState.disabled)) {
       return disabledColor;
+    }
+
+    if(selectedColor != null && states.contains(MaterialState.selected)) {
+      return selectedColor!;
     }
 
     if (states.contains(MaterialState.focused)) {
@@ -177,6 +185,7 @@ class CarbonStateColor extends MaterialStateColor {
     Color? hoveredColor,
     Color? focusedColor,
     Color? pressedColor,
+    Color? selectedColor,
     Color? disabledColor,
     Duration? animationDuration,
     Curve? animationCurve,
@@ -186,6 +195,7 @@ class CarbonStateColor extends MaterialStateColor {
       hoveredColor: hoveredColor ?? this.hoveredColor,
       focusedColor: focusedColor ?? this.focusedColor,
       pressedColor: pressedColor ?? this.pressedColor,
+      selectedColor: selectedColor ?? this.selectedColor,
       disabledColor: disabledColor ?? this.disabledColor,
       animationDuration: animationDuration ?? this.animationDuration,
       animationCurve: animationCurve ?? this.animationCurve,
@@ -202,6 +212,7 @@ class CarbonStateColor extends MaterialStateColor {
           hoveredColor == other.hoveredColor &&
           focusedColor == other.focusedColor &&
           pressedColor == other.pressedColor &&
+          selectedColor == other.selectedColor &&
           disabledColor == other.disabledColor &&
           animationDuration == other.animationDuration &&
           animationCurve == other.animationCurve;
@@ -213,6 +224,7 @@ class CarbonStateColor extends MaterialStateColor {
       hoveredColor.hashCode ^
       focusedColor.hashCode ^
       pressedColor.hashCode ^
+      selectedColor.hashCode ^
       disabledColor.hashCode ^
       animationDuration.hashCode ^
       animationCurve.hashCode;

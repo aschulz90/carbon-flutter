@@ -1,5 +1,5 @@
 import 'package:carbon_flutter/features/button/button.styles.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'button.widget.dart';
 
@@ -32,7 +32,10 @@ class CButtonBaseProps {
 
   final CarbonButtonStyle? style;
 
+  /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
+
+  final MaterialStatesController? materialStateController;
 
   CButtonBaseProps({
     required this.isEnabled,
@@ -42,6 +45,7 @@ class CButtonBaseProps {
     required this.onTap,
     this.focusNode,
     this.style,
+    this.materialStateController,
   });
 }
 
@@ -78,6 +82,7 @@ class CButtonRegularProps extends CButtonBaseProps {
     super.focusNode,
     super.style,
     required super.onTap,
+    super.materialStateController,
   });
 }
 
@@ -96,5 +101,6 @@ class CButtonIconOnlyProps extends CButtonBaseProps {
     super.focusNode,
     super.style,
     required super.onTap,
+    super.materialStateController,
   });
 }

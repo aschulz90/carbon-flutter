@@ -10,7 +10,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     return context.inheritedEnable ? widget.props.isEnabled : false;
   }
 
-  final MaterialStatesController _materialStatesController = MaterialStatesController();
+  late MaterialStatesController _materialStatesController;
 
   ButtonStyle get _baseButtonStyle => ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -21,6 +21,14 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         padding: MaterialStateProperty.all(EdgeInsets.all(2)),
+        animationDuration: Duration(milliseconds: 65),
+        elevation: MaterialStateProperty.resolveWith((states) {
+          if(states.contains(MaterialState.selected)) {
+            return 2;
+          }
+
+          return 0;
+        }),
       );
 
   CarbonButtonStyle _getStyle(BuildContext context) {
@@ -51,6 +59,8 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
   void initState() {
     super.initState();
 
+    _materialStatesController = widget.props.materialStateController ?? MaterialStatesController();
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _materialStatesController.addListener(() {
         setState(() {
@@ -65,16 +75,16 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     super.didChangeDependencies();
 
     // these values aren't set on the first build and need to be set manually here
-    if(!isEnabled) {
+    if (!isEnabled) {
       _materialStatesController.update(MaterialState.disabled, true);
     }
 
-    if(widget.props.focusNode?.hasFocus == true) {
+    if (widget.props.focusNode?.hasFocus == true) {
       _materialStatesController.update(MaterialState.focused, true);
     }
   }
 
-  Widget _innerContent(CarbonButtonStyle buttonStyle);
+  Widget _innerContent(CarbonButtonStyle buttonStyle, double borderPadding);
 
   Widget _content(CarbonButtonStyle buttonStyle) {
     final innerBorder = (isDangerous ? buttonStyle.dangerInnerBorder : buttonStyle.innerBorder).resolve(_materialStatesController.value);
@@ -84,9 +94,8 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
         decoration: BoxDecoration(
           border: innerBorder,
         ),
-        padding: EdgeInsets.symmetric(horizontal: widget.props.size.padding - (innerBorder.dimensions.horizontal / 2)),
         constraints: BoxConstraints.tightFor(height: widget.props.size.dimensions.height),
-        child: _innerContent(buttonStyle),
+        child: _innerContent(buttonStyle, innerBorder.dimensions.horizontal / 2),
       ),
     );
   }
@@ -126,7 +135,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     return OutlinedButton(
       focusNode: widget.props.focusNode,
       statesController: _materialStatesController,
-      onPressed: isEnabled ? () {} : null,
+      onPressed: isEnabled ? widget.props.onTap : null,
       style: _baseButtonStyle.copyWith(
         shape: MaterialStateProperty.resolveWith((states) {
           return ContinuousRectangleBorder(
@@ -158,7 +167,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     return TextButton(
       focusNode: widget.props.focusNode,
       statesController: _materialStatesController,
-      onPressed: isEnabled ? () {} : null,
+      onPressed: isEnabled ? widget.props.onTap : null,
       style: _baseButtonStyle.copyWith(
         shape: MaterialStateProperty.resolveWith((states) {
           return ContinuousRectangleBorder(

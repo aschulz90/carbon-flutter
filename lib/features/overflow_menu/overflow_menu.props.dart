@@ -28,7 +28,7 @@ class COverflowMenuBaseProps {
 
   /// The size of this menu. It can be `regular`, `sm`, or `md`
   ///
-  /// @default: `COverflowMenuSize.md`
+  /// @default: `COverflowMenuSize.regular`
   final COverflowMenuSize size;
 
   /// Whether you can close the menu by tapping the barrier.

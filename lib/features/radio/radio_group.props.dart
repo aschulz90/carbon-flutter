@@ -1,4 +1,3 @@
-import 'package:carbon_flutter/features/radio/radio.props.dart';
 import 'package:flutter/widgets.dart';
 
 class CRadioGroupButton<T> {
@@ -12,7 +11,7 @@ class CRadioGroupButton<T> {
   /// The value represented by this radio button.
   final T value;
 
-  /// Whether the radio group is enabled or not
+  /// Whether the radio button is enabled or not
   ///
   /// @default: `true`
   final bool enabled;

@@ -1,5 +1,4 @@
 import 'package:carbon_flutter/carbon.dart';
-import 'package:carbon_flutter/features/radio/radio.props.dart';
 import 'package:carbon_flutter/features/radio/radio.widget.dart';
 import 'package:carbon_flutter/features/radio/radio_group.props.dart';
 import 'package:flutter/material.dart';

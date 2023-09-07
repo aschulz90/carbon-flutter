@@ -28,7 +28,7 @@ class COverflowMenu extends StatefulWidget {
     VoidCallback? onClose,
     bool barrierDismissible = true,
     Offset menuOffset = Offset.zero,
-    COverflowMenuSize size = COverflowMenuSize.md,
+    COverflowMenuSize size = COverflowMenuSize.regular,
   })  : assert(items.isNotEmpty),
         props = COverflowMenuProps(
           controller: controller,
@@ -156,23 +156,14 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
             child: CarbonThemeLayer(
               builder: (context, layerIndex, layerColor) {
                 return Material(
-                  color: CColors.transparent,
-                  child: FadeTransition(
-                    opacity: _animation,
+                  color: layerColor,
+                  elevation: 4,
+                  child: SizeTransition(
+                    sizeFactor: _animation,
+                    axis: Axis.vertical,
                     child: Container(
                       width: _menuWidth,
                       height: _menuHeight,
-                      decoration: BoxDecoration(
-                        color: layerColor,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, _isBottom ? 4 : -4),
-                            color: CColors.black100.withOpacity(0.3),
-                            blurRadius: 4,
-                            blurStyle: BlurStyle.normal,
-                          ),
-                        ],
-                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: widget.props.items,
