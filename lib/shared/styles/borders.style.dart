@@ -63,4 +63,18 @@ class CarbonStateBorder extends Border implements MaterialStateProperty<Border> 
       animationCurve: animationCurve ?? this.animationCurve,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      super == other &&
+          other is CarbonStateBorder &&
+          runtimeType == other.runtimeType &&
+          color == other.color &&
+          width == other.width &&
+          animationDuration == other.animationDuration &&
+          animationCurve == other.animationCurve;
+
+  @override
+  int get hashCode => super.hashCode ^ color.hashCode ^ width.hashCode ^ animationDuration.hashCode ^ animationCurve.hashCode;
 }

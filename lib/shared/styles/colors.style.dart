@@ -191,4 +191,29 @@ class CarbonStateColor extends MaterialStateColor {
       animationCurve: animationCurve ?? this.animationCurve,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      super == other &&
+          other is CarbonStateColor &&
+          runtimeType == other.runtimeType &&
+          color == other.color &&
+          hoveredColor == other.hoveredColor &&
+          focusedColor == other.focusedColor &&
+          pressedColor == other.pressedColor &&
+          disabledColor == other.disabledColor &&
+          animationDuration == other.animationDuration &&
+          animationCurve == other.animationCurve;
+
+  @override
+  int get hashCode =>
+      super.hashCode ^
+      color.hashCode ^
+      hoveredColor.hashCode ^
+      focusedColor.hashCode ^
+      pressedColor.hashCode ^
+      disabledColor.hashCode ^
+      animationDuration.hashCode ^
+      animationCurve.hashCode;
 }

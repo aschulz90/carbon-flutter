@@ -104,6 +104,31 @@ class CarbonButtonStyle {
       dangerInnerBorder: dangerInnerBorder ?? this.dangerInnerBorder,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CarbonButtonStyle &&
+          runtimeType == other.runtimeType &&
+          color == other.color &&
+          dangerColor == other.dangerColor &&
+          contentColor == other.contentColor &&
+          dangerContentColor == other.dangerContentColor &&
+          outerBorder == other.outerBorder &&
+          dangerOuterBorder == other.dangerOuterBorder &&
+          innerBorder == other.innerBorder &&
+          dangerInnerBorder == other.dangerInnerBorder;
+
+  @override
+  int get hashCode =>
+      color.hashCode ^
+      dangerColor.hashCode ^
+      contentColor.hashCode ^
+      dangerContentColor.hashCode ^
+      outerBorder.hashCode ^
+      dangerOuterBorder.hashCode ^
+      innerBorder.hashCode ^
+      dangerInnerBorder.hashCode;
 }
 
 final primaryLight = CarbonButtonStyle(

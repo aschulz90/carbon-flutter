@@ -43,6 +43,19 @@ class CarbonButtonTheme {
       ghost: ghost ?? this.ghost,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CarbonButtonTheme &&
+          runtimeType == other.runtimeType &&
+          primary == other.primary &&
+          secondary == other.secondary &&
+          tertiary == other.tertiary &&
+          ghost == other.ghost;
+
+  @override
+  int get hashCode => primary.hashCode ^ secondary.hashCode ^ tertiary.hashCode ^ ghost.hashCode;
 }
 
 final lightNotificationTheme = CarbonNotificationTheme(
@@ -157,4 +170,18 @@ class CarbonThemeData {
           CColors.white0,
         ],
         onLayers = const [];
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CarbonThemeData &&
+          runtimeType == other.runtimeType &&
+          style == other.style &&
+          layers == other.layers &&
+          onLayers == other.onLayers &&
+          buttonTheme == other.buttonTheme &&
+          notificationTheme == other.notificationTheme;
+
+  @override
+  int get hashCode => style.hashCode ^ layers.hashCode ^ onLayers.hashCode ^ buttonTheme.hashCode ^ notificationTheme.hashCode;
 }
