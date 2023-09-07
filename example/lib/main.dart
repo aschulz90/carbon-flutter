@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
+import 'package:carbon_flutter/features/radio/radio.props.dart';
 import 'package:carbon_flutter/features/radio/radio_group.props.dart';
 import 'package:carbon_flutter/features/radio/radio_group.widget.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
@@ -39,19 +40,19 @@ class MyAppState extends State<MyApp> {
                     _theme = value;
                   }),
                   radioButtons: [
-                    CRadioButton(
+                    CRadioGroupButton(
                       value: CarbonThemeData.white(),
                       label: 'White',
                     ),
-                    CRadioButton(
+                    CRadioGroupButton(
                         value: CarbonThemeData.gray10(),
                         label: 'Gray10',
                     ),
-                    CRadioButton(
+                    CRadioGroupButton(
                         value: CarbonThemeData.gray90(),
                         label: 'Gray90',
                     ),
-                    CRadioButton(
+                    CRadioGroupButton(
                         value: CarbonThemeData.gray100(),
                         label: 'Gray100',
                     ),

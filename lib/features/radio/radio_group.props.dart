@@ -1,11 +1,12 @@
+import 'package:carbon_flutter/features/radio/radio.props.dart';
 import 'package:flutter/widgets.dart';
 
-class CRadioButton<T> {
-  CRadioButton({
+class CRadioGroupButton<T> {
+  CRadioGroupButton({
     required this.value,
     required this.label,
-    this.focusNode,
     this.enabled = true,
+    this.focusNode,
   });
 
   /// The value represented by this radio button.
@@ -50,7 +51,7 @@ class CRadioGroupProps<T> {
   final String? label;
 
   /// The buttons to show in the group
-  final List<CRadioButton<T>> radioButtons;
+  final List<CRadioGroupButton<T>> radioButtons;
 
   /// The direction to align the button into
   ///
