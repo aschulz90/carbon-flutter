@@ -14,3 +14,6 @@ export './carbon_app/index.dart';
 export './overflow_menu/index.dart';
 export './inherited_styles/index.dart';
 export './icon/index.dart';
+export './radio/index.dart';
+export './theme/index.dart';
+export './tag/index.dart';

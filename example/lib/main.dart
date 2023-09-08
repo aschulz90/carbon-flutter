@@ -5,6 +5,7 @@ import 'package:carbon_flutter/features/radio/radio_group.widget.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
 import 'package:example/examples/index.dart';
 import 'package:example/examples/overflow.example.dart';
+import 'package:example/examples/tag.example.dart';
 import 'package:example/examples/tiles.example.dart';
 import 'package:flutter/material.dart';
 
@@ -164,6 +165,18 @@ class MyAppState extends State<MyApp> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => COverflowExample(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                CButton(
+                  label: "Tags",
+                  icon: Icon(CIcons.tag),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CTagExample(),
                       ),
                     );
                   },
