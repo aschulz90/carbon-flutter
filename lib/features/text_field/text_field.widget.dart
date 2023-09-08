@@ -1,18 +1,15 @@
 import 'package:carbon_flutter/features/form/index.dart';
-import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:carbon_flutter/shared/index.dart';
 import 'package:carbon_flutter/features/text/index.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
-import 'package:carbon_flutter/features/inherited_styles/index.dart';
 
 import 'text_field.models.dart';
 
 enum CValidationKind { success, warning, error }
 
-enum CTextfieldKind { success, warning, error, primary }
+enum CTextFieldKind { success, warning, error, primary }
 
 class CTextField extends StatefulWidget {
   const CTextField({
@@ -40,13 +37,19 @@ class CTextField extends StatefulWidget {
     this.enableSuggestions = true,
     this.textCapitalization = TextCapitalization.none,
     this.textDirection,
-    this.toolbarOptions,
+    this.contextMenuBuilder,
     this.keyboardAppearance,
     this.scrollController,
     this.scrollPhysics,
     this.autofillHints,
     this.inputFormatters,
     this.isRequired = false,
+    this.expands = false,
+    this.maxLines,
+    this.minLines,
+    this.maxLengthEnforcement,
+    this.maxLength,
+    this.textInputAction,
   }) : super(key: key);
 
   final bool enable;
@@ -69,10 +72,16 @@ class CTextField extends StatefulWidget {
   final Widget? suffixIcon;
   final TextCapitalization textCapitalization;
   final TextDirection? textDirection;
-  final ToolbarOptions? toolbarOptions;
+  final EditableTextContextMenuBuilder? contextMenuBuilder;
   final Brightness? keyboardAppearance;
   final ScrollController? scrollController;
   final ScrollPhysics? scrollPhysics;
+  final int? maxLength;
+  final MaxLengthEnforcement? maxLengthEnforcement;
+  final int? maxLines;
+  final int? minLines;
+  final bool expands;
+  final TextInputAction? textInputAction;
 
   final Iterable<String>? autofillHints;
   final List<TextInputFormatter>? inputFormatters;
@@ -88,9 +97,7 @@ class CTextField extends StatefulWidget {
 }
 
 class CTextFieldState extends State<CTextField> {
-  late FocusNode _focusNode;
-
-  CWidgetState _state = CWidgetState.enabled;
+  FocusNode? _focusNode;
 
   bool _isFocused = false;
 
@@ -100,8 +107,8 @@ class CTextFieldState extends State<CTextField> {
   String? _value;
 
   void _focusNodeListener() {
-    if (_isFocused != _focusNode.hasFocus) {
-      setState(() => _isFocused = _focusNode.hasFocus);
+    if (_isFocused != _focusNode?.hasFocus) {
+      setState(() => _isFocused = _focusNode?.hasFocus == true);
     }
   }
 
@@ -113,7 +120,7 @@ class CTextFieldState extends State<CTextField> {
       _focusNode = FocusNode();
     }
 
-    _focusNode.addListener(_focusNodeListener);
+    _focusNode?.addListener(_focusNodeListener);
     super.initState();
   }
 
@@ -126,23 +133,19 @@ class CTextFieldState extends State<CTextField> {
 
   @override
   void didUpdateWidget(CTextField oldWidget) {
-    if (widget.readOnly) _focusNode.unfocus();
+    if (widget.readOnly) _focusNode?.unfocus();
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
     _cform?.formFields.remove(this);
-    _focusNode.addListener(_focusNodeListener);
+    _focusNode?.dispose();
     super.dispose();
   }
 
   bool get _isEnabled {
     return context.inheritedEnable ? widget.enable : false;
-  }
-
-  Color? get inheritedBackgroundColor {
-    return context.styles['textfield-background-color']?[_state];
   }
 
   void _validate(String? text) {
@@ -163,12 +166,7 @@ class CTextFieldState extends State<CTextField> {
 
   void _setStateVariables() {
     if (!_isEnabled) {
-      _focusNode.unfocus();
-      _state = CWidgetState.disabled;
-    } else if (_isEnabled && (_isFocused || _validationResult != null)) {
-      _state = CWidgetState.focused;
-    } else {
-      _state = CWidgetState.enabled;
+      _focusNode?.unfocus();
     }
   }
 
@@ -194,7 +192,7 @@ class CTextFieldState extends State<CTextField> {
             const SizedBox(height: 8)
           ],
           SizedBox(
-            height: 40,
+            height: widget.expands ? null : 40,
             child: TextField(
               controller: widget.controller,
               focusNode: _focusNode,
@@ -203,7 +201,15 @@ class CTextFieldState extends State<CTextField> {
               textAlignVertical: TextAlignVertical.center,
               textDirection: widget.textDirection,
               readOnly: widget.readOnly,
-              toolbarOptions: widget.toolbarOptions,
+              contextMenuBuilder: widget.contextMenuBuilder,
+              enabled: _isEnabled,
+              maxLength: widget.maxLength,
+              maxLengthEnforcement: widget.maxLengthEnforcement,
+              minLines: widget.minLines,
+              maxLines: widget.maxLines,
+              expands: widget.expands,
+              textInputAction: widget.textInputAction,
+              canRequestFocus: _isEnabled,
               showCursor: widget.showCursor,
               autofocus: widget.autofocus,
               obscuringCharacter: widget.obscuringCharacter,
