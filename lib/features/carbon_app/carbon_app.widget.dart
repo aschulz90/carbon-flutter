@@ -1,4 +1,3 @@
-import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
@@ -137,16 +136,34 @@ class CarbonApp extends StatelessWidget {
 
   bool get _usesRouter => routerDelegate != null;
 
-  Brightness get systemBrightness => MediaQueryData.fromView(WidgetsBinding.instance.window).platformBrightness;
+  CarbonThemeData _getCarbonTheme(BuildContext context) {
+    CarbonThemeData? theme;
+    // Resolve which theme to use based on brightness and high contrast.
+    final ThemeMode mode = themeMode ?? ThemeMode.system;
+    final Brightness platformBrightness = MediaQuery.platformBrightnessOf(context);
+    final bool useDarkTheme = mode == ThemeMode.dark || (mode == ThemeMode.system && platformBrightness == Brightness.dark);
+    final bool highContrast = MediaQuery.highContrastOf(context);
+
+    if (useDarkTheme && highContrast && highContrastDarkTheme != null) {
+      theme = highContrastDarkTheme;
+    } else if (useDarkTheme && darkTheme != null) {
+      theme = darkTheme;
+    } else if (highContrast && highContrastTheme != null) {
+      theme = highContrastTheme;
+    }
+    theme ??= this.theme;
+
+    return theme;
+  }
 
   @override
   Widget build(BuildContext context) {
     return _usesRouter
         ? MaterialApp.router(
-            theme: getTheme(theme.style),
-            darkTheme: getTheme(darkTheme?.style),
-            highContrastTheme: getTheme(highContrastTheme?.style),
-            highContrastDarkTheme: getTheme(highContrastDarkTheme?.style),
+            theme: theme.materialTheme,
+            darkTheme: darkTheme?.materialTheme,
+            highContrastTheme: highContrastTheme?.materialTheme,
+            highContrastDarkTheme: highContrastTheme?.materialTheme,
             themeMode: themeMode,
             themeAnimationCurve: themeAnimationCurve,
             themeAnimationDuration: themeAnimationDuration,
@@ -156,11 +173,7 @@ class CarbonApp extends StatelessWidget {
             routerConfig: routerConfig,
             backButtonDispatcher: backButtonDispatcher,
             builder: (context, child) => CarbonTheme(
-              data: switch (themeMode) {
-                ThemeMode.dark => darkTheme ?? theme,
-                ThemeMode.system => systemBrightness == Brightness.light ? theme : (darkTheme ?? theme),
-                _ => theme,
-              },
+              data: _getCarbonTheme(context),
               child: builder?.call(context, child) ?? child!,
             ),
             title: title,
@@ -184,10 +197,10 @@ class CarbonApp extends StatelessWidget {
             scrollBehavior: scrollBehavior,
           )
         : MaterialApp(
-            theme: getTheme(theme.style),
-            darkTheme: getTheme(darkTheme?.style),
-            highContrastTheme: getTheme(highContrastTheme?.style),
-            highContrastDarkTheme: getTheme(highContrastDarkTheme?.style),
+            theme: theme.materialTheme,
+            darkTheme: darkTheme?.materialTheme,
+            highContrastTheme: highContrastTheme?.materialTheme,
+            highContrastDarkTheme: highContrastTheme?.materialTheme,
             themeMode: themeMode,
             themeAnimationCurve: themeAnimationCurve,
             themeAnimationDuration: themeAnimationDuration,
@@ -200,11 +213,7 @@ class CarbonApp extends StatelessWidget {
             onUnknownRoute: onUnknownRoute,
             navigatorObservers: navigatorObservers ?? const [],
             builder: (context, child) => CarbonTheme(
-              data: switch (themeMode) {
-                ThemeMode.dark => darkTheme ?? theme,
-                ThemeMode.system => systemBrightness == Brightness.light ? theme : (darkTheme ?? theme),
-                _ => theme,
-              },
+              data: _getCarbonTheme(context),
               child: builder?.call(context, child) ?? child!,
             ),
             title: title,

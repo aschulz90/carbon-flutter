@@ -1,4 +1,4 @@
-import 'package:carbon_flutter/features/theme/carbon_theme.style.dart';
+import 'package:carbon_flutter/shared/styles/themes.style.dart';
 import 'package:flutter/material.dart';
 
 class CarbonTheme extends StatelessWidget {
