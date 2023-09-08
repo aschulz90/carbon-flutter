@@ -5,19 +5,19 @@ class CLayer extends StatelessWidget {
   const CLayer({super.key, this.layerIndex, required this.builder});
 
   final int? layerIndex;
-  final Widget Function(BuildContext context, int layerIndex, Color layerColor) builder;
+  final Widget Function(BuildContext context, int layerIndex, MaterialStateColor layerColor) builder;
 
   static int of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<_CarbonThemeLayerInherited>()?.layerIndex ?? 0;
   }
 
-  static Color layerColor(BuildContext context, {int offset = 0}) {
+  static MaterialStateColor layerColor(BuildContext context, {int offset = 0}) {
     final theme = CarbonTheme.of(context);
     final layerIndex = CLayer.of(context);
     return theme.layers[(layerIndex + offset) % theme.layers.length];
   }
 
-  static Color onLayerColor(BuildContext context, {int offset = 0}) {
+  static MaterialStateColor onLayerColor(BuildContext context, {int offset = 0}) {
     final theme = CarbonTheme.of(context);
     final layerIndex = CLayer.of(context);
     return theme.onLayers[(layerIndex + offset) % theme.onLayers.length];

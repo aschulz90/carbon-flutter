@@ -1,92 +1,106 @@
 import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:carbon_flutter/features/tile/tile.props.dart';
+import 'package:carbon_flutter/shared/styles/colors.style.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
-import 'package:carbon_flutter/features/text/index.dart';
 
-class CTile extends StatelessWidget {
+class CTile extends StatefulWidget {
   CTile({
     Key? key,
     bool enabled = true,
     String? title,
-    String? description,
-    String? label,
-    double labelSize = 12,
     double titleSize = 20,
-    double descriptionSize = 14,
-    EdgeInsets padding = const EdgeInsets.all(16),
+    EdgeInsets padding = const EdgeInsets.all(8),
+    double? width,
+    double? height,
+    Duration? animationDuration,
     VoidCallback? onTap,
+    FocusNode? focusNode,
     Widget? child,
   })  : props = CTileProps(
           enabled: enabled,
-          label: label,
           title: title,
-          description: description,
-          labelSize: labelSize,
           titleSize: titleSize,
-          descriptionSize: descriptionSize,
           padding: padding,
+          width: width,
+          height: height,
+          animationDuration: animationDuration ?? Duration(milliseconds: 100),
           onTap: onTap,
+          focusNode: focusNode,
           content: child,
         ),
         super(key: key);
 
   final CTileProps props;
 
-  bool _isEnabled(BuildContext context) {
-    return context.inheritedEnable ? props.enabled : false;
+  @override
+  State<CTile> createState() => _CTileState();
+}
+
+class _CTileState extends State<CTile> with MaterialStateMixin {
+  bool get _isEnabled => context.inheritedEnable ? widget.props.enabled : false;
+
+  bool get _isInteractive => _isEnabled && widget.props.onTap != null;
+
+  bool get hasFocus => _focusNode?.hasFocus == true;
+
+  FocusNode? _focusNode;
+
+  @override
+  void initState() {
+    _focusNode = widget.props.focusNode ?? FocusNode();
+
+    _focusNode?.addListener(() {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  void _handleTap([Intent? _]) {
+    widget.props.onTap?.call();
   }
 
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      ignoring: !_isEnabled(context),
-      child: CLayer(
-        builder: (context, layerIndex, layerColor) {
-          return Container(
-            color: layerColor,
-            padding: props.padding,
-            child: InkWell(
-              onTap: props.onTap,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (props.label != null) ...[
-                    CText(
-                      props.label!,
-                      style: TextStyle(
-                        fontSize: props.labelSize,
-                      ),
+      ignoring: !_isEnabled,
+      child: GestureDetector(
+        onTapDown: (_) => addMaterialState(MaterialState.pressed),
+        onTapUp: (_) => removeMaterialState(MaterialState.pressed),
+        onTapCancel: () => removeMaterialState(MaterialState.pressed),
+        onTap: _handleTap,
+        child: FocusableActionDetector(
+          enabled: _isInteractive,
+          focusNode: _focusNode,
+          onShowHoverHighlight: updateMaterialState(MaterialState.hovered),
+          onShowFocusHighlight: updateMaterialState(MaterialState.focused),
+          actions: {
+            ActivateIntent: CallbackAction<ActivateIntent>(onInvoke: _handleTap),
+          },
+          child: CLayer(
+            builder: (context, layerIndex, layerColor) {
+              return SizedBox(
+                width: widget.props.width,
+                height: widget.props.height,
+                child: AnimatedContainer(
+                  duration: widget.props.animationDuration,
+                  decoration: BoxDecoration(
+                    color: layerColor.resolve(materialStates),
+                  ),
+                  padding: widget.props.padding,
+                  foregroundDecoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: hasFocus ? CColors.blue60 : CColors.transparent,
                     ),
-                    const SizedBox(height: 4),
-                  ],
-                  if (props.title != null) ...[
-                    if (props.label == null) const SizedBox(height: 8),
-                    CText(
-                      props.title!,
-                      style: TextStyle(
-                        fontSize: props.titleSize,
-                      ),
-                    ),
-                    if (props.description != null) const SizedBox(height: 11) else const SizedBox(height: 16),
-                  ],
-                  if (props.description != null) ...[
-                    CText(
-                      props.description!,
-                      style: TextStyle(
-                        fontSize: props.descriptionSize,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                  if (props.content != null) props.content!,
-                ],
-              ),
-            ),
-          );
-        },
+                  ),
+                  child: widget.props.content,
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

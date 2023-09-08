@@ -54,7 +54,7 @@ class _CRadioButtonState<T> extends State<CRadioButton<T>> {
         child: GestureDetector(
           onTap: () => widget.props.onChanged?.call(widget.props.value),
           child: Container(
-            decoration: BoxDecoration(
+            foregroundDecoration: BoxDecoration(
               border: Border.all(
                 color: focusNode?.hasFocus == true ? CColors.blue60 : Colors.transparent,
                 width: 2,

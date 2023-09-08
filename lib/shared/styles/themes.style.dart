@@ -93,11 +93,95 @@ class CarbonNotificationTheme {
   });
 }
 
+final MaterialStateColor _lightLayerColor0 = CarbonStateColor(
+  color: CColors.white0,
+  hoveredColor: CColors.gray10,
+  focusedColor: CColors.gray10,
+  pressedColor: CColors.gray20,
+);
+
+final MaterialStateColor _lightLayerColor1 = CarbonStateColor(
+  color: CColors.gray10,
+  hoveredColor: CColors.gray20,
+  focusedColor: CColors.gray20,
+  pressedColor: CColors.gray30,
+);
+
+final MaterialStateColor _darkLayerColor0 = CarbonStateColor(
+  color: CColors.gray90,
+  hoveredColor: CColors.gray80,
+  focusedColor: CColors.gray80,
+  pressedColor: CColors.gray70,
+);
+
+final MaterialStateColor _darkLayerColor1 = CarbonStateColor(
+  color: CColors.gray80,
+  hoveredColor: CColors.gray70,
+  focusedColor: CColors.gray70,
+  pressedColor: CColors.gray60,
+);
+
+final MaterialStateColor _darkLayerColor2 = CarbonStateColor(
+  color: CColors.gray70,
+  hoveredColor: CColors.gray60,
+  focusedColor: CColors.gray60,
+  pressedColor: CColors.gray50,
+);
+
+final MaterialStateColor _darkLayerColor3 = CarbonStateColor(
+  color: CColors.gray60,
+  hoveredColor: CColors.gray50,
+  focusedColor: CColors.gray50,
+  pressedColor: CColors.gray40,
+);
+
+final MaterialStateColor _darkLayerColor4 = CarbonStateColor(
+  color: CColors.gray50,
+  hoveredColor: CColors.gray40,
+  focusedColor: CColors.gray40,
+  pressedColor: CColors.gray30,
+);
+
+final MaterialStateColor _darkLayerColor5 = CarbonStateColor(
+  color: CColors.gray40,
+  hoveredColor: CColors.gray30,
+  focusedColor: CColors.gray30,
+  pressedColor: CColors.gray20,
+);
+
+final MaterialStateColor _darkLayerColor6 = CarbonStateColor(
+  color: CColors.gray30,
+  hoveredColor: CColors.gray20,
+  focusedColor: CColors.gray20,
+  pressedColor: CColors.gray10,
+);
+
+final MaterialStateColor _darkLayerColor7 = CarbonStateColor(
+  color: CColors.gray20,
+  hoveredColor: CColors.gray10,
+  focusedColor: CColors.gray10,
+  pressedColor: CColors.white0,
+);
+
+final MaterialStateColor _darkLayerColor8 = CarbonStateColor(
+  color: CColors.gray10,
+  hoveredColor: CColors.gray20,
+  focusedColor: CColors.gray20,
+  pressedColor: CColors.gray30,
+);
+
+final MaterialStateColor _darkLayerColor9 = CarbonStateColor(
+  color: CColors.white0,
+  hoveredColor: CColors.gray10,
+  focusedColor: CColors.gray10,
+  pressedColor: CColors.gray20,
+);
+
 class CarbonThemeData {
   final CTheme style;
 
-  final List<Color> layers;
-  final List<Color> onLayers;
+  final List<MaterialStateColor> layers;
+  final List<MaterialStateColor> onLayers;
   final CarbonButtonTheme buttonTheme;
   final CarbonNotificationTheme notificationTheme;
   final ThemeData materialTheme;
@@ -116,29 +200,29 @@ class CarbonThemeData {
         materialTheme = whiteTheme,
         buttonTheme = lightButtonTheme,
         notificationTheme = lightNotificationTheme,
-        layers = const [
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
+        layers = [
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
         ],
-        onLayers = const [
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
+        onLayers = [
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
         ];
 
   CarbonThemeData.gray10()
@@ -146,29 +230,29 @@ class CarbonThemeData {
         materialTheme = gray10Theme,
         buttonTheme = lightButtonTheme,
         notificationTheme = lightNotificationTheme,
-        layers = const [
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
-          CColors.gray10,
-          CColors.white0,
+        layers = [
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
+          _lightLayerColor1,
+          _lightLayerColor0,
         ],
-        onLayers = const [
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
+        onLayers = [
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
         ];
 
   CarbonThemeData.gray90()
@@ -176,29 +260,35 @@ class CarbonThemeData {
         materialTheme = gray90Theme,
         buttonTheme = darkButtonTheme,
         notificationTheme = darkNotificationTheme,
-        layers = const [
-          CColors.gray90,
-          CColors.gray80,
-          CColors.gray70,
-          CColors.gray60,
-          CColors.gray50,
-          CColors.gray40,
-          CColors.gray30,
-          CColors.gray20,
-          CColors.gray10,
-          CColors.white0,
+        layers = [
+          CarbonStateColor(
+            color: CColors.gray100,
+            hoveredColor: CColors.gray90,
+            focusedColor: CColors.gray90,
+            pressedColor: CColors.gray80,
+          ),
+          _darkLayerColor0,
+          _darkLayerColor1,
+          _darkLayerColor2,
+          _darkLayerColor3,
+          _darkLayerColor4,
+          _darkLayerColor5,
+          _darkLayerColor6,
+          _darkLayerColor7,
+          _darkLayerColor8,
+          _darkLayerColor9,
         ],
-        onLayers = const [
-          CColors.white0,
-          CColors.white0,
-          CColors.white0,
-          CColors.white0,
-          CColors.white0,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
+        onLayers = [
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
         ];
 
   CarbonThemeData.gray100()
@@ -206,36 +296,34 @@ class CarbonThemeData {
         materialTheme = gray100Theme,
         buttonTheme = darkButtonTheme,
         notificationTheme = darkNotificationTheme,
-        layers = const [
-          CColors.gray100,
-          CColors.gray90,
-          CColors.gray80,
-          CColors.gray70,
-          CColors.gray60,
-          CColors.gray50,
-          CColors.gray40,
-          CColors.gray30,
-          CColors.gray20,
-          CColors.gray10,
-          CColors.white0,
+        layers = [
+          _darkLayerColor1,
+          _darkLayerColor2,
+          _darkLayerColor3,
+          _darkLayerColor4,
+          _darkLayerColor5,
+          _darkLayerColor6,
+          _darkLayerColor7,
+          _darkLayerColor8,
+          _darkLayerColor9,
         ],
-        onLayers = const [
-          CColors.white0,
-          CColors.white0,
-          CColors.white0,
-          CColors.white0,
-          CColors.white0,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
-          CColors.gray100,
+        onLayers = [
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.white0),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
+          CarbonStateColor.all(CColors.gray100),
         ];
 
   CarbonThemeData copyWith({
     CTheme? style,
-    List<Color>? layers,
-    List<Color>? onLayers,
+    List<MaterialStateColor>? layers,
+    List<MaterialStateColor>? onLayers,
     CarbonButtonTheme? buttonTheme,
     CarbonNotificationTheme? notificationTheme,
     ThemeData? materialTheme,
