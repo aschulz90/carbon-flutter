@@ -183,6 +183,14 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (!isEnabled) {
+      _materialStatesController.value.add(MaterialState.disabled);
+    }
+    else {
+      _materialStatesController.value.remove(MaterialState.disabled);
+    }
+
     switch (widget.props.kind) {
       case CButtonKind.primary:
       case CButtonKind.secondary:
