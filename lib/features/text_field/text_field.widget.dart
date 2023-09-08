@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/features/form/index.dart';
+import 'package:carbon_flutter/shared/styles/colors.style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +17,7 @@ class CTextField extends StatefulWidget {
     Key? key,
     this.enable = true,
     this.validator,
+    this.autoValidate = false,
     this.label,
     this.hint,
     this.description,
@@ -91,6 +93,7 @@ class CTextField extends StatefulWidget {
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
   final CValidationResult? Function(String? value)? validator;
+  final bool autoValidate;
 
   @override
   CTextFieldState createState() => CTextFieldState();
@@ -114,13 +117,9 @@ class CTextFieldState extends State<CTextField> {
 
   @override
   void initState() {
-    if (widget.focusNode != null) {
-      _focusNode = widget.focusNode!;
-    } else {
-      _focusNode = FocusNode();
-    }
-
+    _focusNode = widget.focusNode ?? FocusNode();;
     _focusNode?.addListener(_focusNodeListener);
+
     super.initState();
   }
 
@@ -134,6 +133,7 @@ class CTextFieldState extends State<CTextField> {
   @override
   void didUpdateWidget(CTextField oldWidget) {
     if (widget.readOnly) _focusNode?.unfocus();
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -149,10 +149,15 @@ class CTextFieldState extends State<CTextField> {
   }
 
   void _validate(String? text) {
-    _validationResult = widget.validator!(text);
+    _validationResult = widget.validator?.call(text);
   }
 
   bool validate() {
+    setState(() {
+      _validate(_value);
+    });
+
+
     if (_value == null) {
       return widget.isRequired ? false : true;
     }
@@ -168,6 +173,28 @@ class CTextFieldState extends State<CTextField> {
     if (!_isEnabled) {
       _focusNode?.unfocus();
     }
+  }
+
+  InputBorder? _getBorder(BuildContext context) {
+    if(_validationResult?.kind == CValidationKind.error) {
+      return Theme.of(context).inputDecorationTheme.errorBorder;
+    }
+
+    if(widget.autoValidate) {
+      return switch (_validationResult?.kind) {
+        CValidationKind.warning => OutlineInputBorder(
+          borderRadius: BorderRadius.circular(0),
+          borderSide: BorderSide(color: CColors.yellow30, width: 2),
+        ),
+        CValidationKind.success => OutlineInputBorder(
+          borderRadius: BorderRadius.circular(0),
+          borderSide: BorderSide(color: CColors.green60, width: 2),
+        ),
+        _ => null,
+      };
+    }
+
+    return null;
   }
 
   @override
@@ -220,7 +247,9 @@ class CTextFieldState extends State<CTextField> {
                 setState(() {
                   _value = value;
 
-                  if (widget.validator != null) _validate(value);
+                  if(widget.autoValidate) {
+                    _validate(value);
+                  }
                 });
 
                 widget.onChanged?.call(value);
@@ -235,6 +264,7 @@ class CTextFieldState extends State<CTextField> {
               autofillHints: widget.autofillHints,
               style: TextStyle(
                 fontSize: 14,
+                height: 1,
               ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(
@@ -243,10 +273,7 @@ class CTextFieldState extends State<CTextField> {
                   bottom: isEnabled && _isFocused ? 12.5 : 15,
                 ),
                 hintText: widget.hint,
-                enabledBorder: switch (_validationResult?.kind) {
-                  CValidationKind.error => Theme.of(context).inputDecorationTheme.errorBorder,
-                  _ => null,
-                },
+                enabledBorder: _getBorder(context),
                 prefixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
                 // 44 + 2 (width of border)
                 suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),

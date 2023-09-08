@@ -18,13 +18,13 @@ class CForm extends StatefulWidget {
     Key? key,
     required List<Widget> children,
     bool enable = true,
-    Widget? action,
+    FormActionBuilder? actionBuilder,
     CFormType type = CFormType.blank,
   })  : props = CFormProps(
           enable: enable,
           children: children,
           type: type,
-          action: action,
+          actionBuilder: actionBuilder,
         ),
         super(key: key);
 
@@ -44,13 +44,14 @@ class CFormState extends State<CForm> {
   CFormType get type => widget.props.type;
 
   bool validate() {
+    bool result = true;
     for (final field in formFields) {
       if (!field.validate()) {
-        return false;
+        result = false;
       }
     }
 
-    return true;
+    return result;
   }
 
   bool get _isEnabled {
@@ -59,6 +60,7 @@ class CFormState extends State<CForm> {
 
   @override
   Widget build(BuildContext context) {
+    final actionBuilder = widget.props.actionBuilder;
 
     Widget content = Builder(builder: (context) {
       final theme = Theme.of(context);
@@ -83,7 +85,10 @@ class CFormState extends State<CForm> {
                     children: widget.props.children,
                   ),
                 ),
-                if (widget.props.action != null) widget.props.action!,
+                if (actionBuilder != null)
+                  Builder(
+                    builder: (context) => actionBuilder.call(context, this),
+                  ),
               ],
             ),
           ),

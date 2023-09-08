@@ -23,17 +23,15 @@ class _CFormExampleState extends State<CFormExample> {
               width: MediaQuery.of(context).size.width * 0.6,
               child: CForm(
                 type: CFormType.blank,
-                action: Builder(
-                  builder: (context) {
-                    return CButton(
-                      label: 'Action Button',
-                      onPressed: () {
-                          CForm.of(context)?.validate();
-                      },
-                      icon: Icon(CIcons.add, size: 16),
-                    );
-                  }
-                ),
+                actionBuilder: (context, form) {
+                  return CButton(
+                    label: 'Action Button',
+                    onPressed: () {
+                      form.validate();
+                    },
+                    icon: Icon(CIcons.add, size: 16),
+                  );
+                },
                 children: [
                   CTextField(
                     label: 'Label',

@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 
 import 'form.widget.dart';
 
+typedef FormActionBuilder = Widget Function(BuildContext context, CFormState form);
+
 class CFormProps {
   /// The content of the form.
   ///
@@ -21,12 +23,12 @@ class CFormProps {
   /// An action widget to display at the end of the form.
   ///
   /// @optional
-  final Widget? action;
+  final FormActionBuilder? actionBuilder;
 
   CFormProps({
     required this.enable,
     required this.children,
     required this.type,
-    required this.action,
+    required this.actionBuilder,
   });
 }
