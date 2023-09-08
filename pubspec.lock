@@ -54,14 +54,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_hooks:
-    dependency: transitive
-    description:
-      name: flutter_hooks
-      sha256: "2b202559a4ed3656bbb7aae9d8b335fb0037b23acc7ae3f377d1ba0b95c21aec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.18.5+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -107,14 +99,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -123,22 +107,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  pmvvm:
-    dependency: "direct main"
-    description:
-      name: pmvvm
-      sha256: "509f76d3679e821351f5683e4d499712b3009f04568b3803b3a4cdd3993bd567"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.1"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      sha256: "8d7d4c2df46d6a6270a4e10404bfecb18a937e3e00f710c260d0a10415ce6b7b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -192,14 +160,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
-  tint:
-    dependency: transitive
-    description:
-      name: tint
-      sha256: d856019547532d4ea24171f554b319081c004c37741e7946eae30cb09f24e1c7
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   vector_math:
     dependency: "direct main"
     description:
@@ -218,4 +178,4 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=1.17.0"

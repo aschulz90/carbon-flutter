@@ -1,8 +1,5 @@
-import 'dart:ui';
 import 'dart:core';
 import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
-import 'package:pmvvm/pmvvm.dart';
-import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
 
 import 'overflow_menu.props.dart';
@@ -44,6 +41,29 @@ class COverflowMenu extends StatefulWidget {
 
   final COverflowMenuProps props;
 
+  static COverflowMenuState? maybeOf(BuildContext context) {
+    final _OverflowMenuScope? scope = context.dependOnInheritedWidgetOfExactType<_OverflowMenuScope>();
+    return scope?._menuState;
+  }
+
+  static COverflowMenuState of(BuildContext context) {
+    final COverflowMenuState? menuState = maybeOf(context);
+    assert(() {
+      if (menuState == null) {
+        throw FlutterError(
+          'COverflowMenu.of() was called with a context that does not contain a COverflowMenu widget.\n'
+              'No COverflowMenu widget ancestor could be found starting from the context that '
+              'was passed to COverflowMenu.of(). This can happen because you are using a widget '
+              'that looks for a COverflowMenu ancestor, but no such ancestor exists.\n'
+              'The context used was:\n'
+              '  $context',
+        );
+      }
+      return true;
+    }());
+    return menuState!;
+  }
+
   @override
   COverflowMenuState createState() => COverflowMenuState();
 }
@@ -63,6 +83,9 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
   OverlayState? _overlayState;
 
   bool _isOpen = false;
+  bool get isOpen => _isOpen;
+
+  COverflowMenuProps get props => widget.props;
 
   Size get _menuItemDimension => _Styles.dimensions[_size]!;
 
@@ -101,11 +124,11 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
   void _showOverlay() {
     Future.delayed(Duration.zero, () async {
       _size = widget.props.size;
-      _screenSize = window.physicalSize / window.devicePixelRatio;
+      _screenSize = View.of(context).physicalSize / View.of(context).devicePixelRatio;
       _menuOffset = _calculateMenuOffset();
 
       // Init the overlay entry.
-      _overlayState = Overlay.of(_childContext!)!;
+      _overlayState = Overlay.of(_childContext!);
       _overlayEntry = OverlayEntry(builder: (_) => _buildOverflowMenu());
 
       _animationController.addListener(_refreshOverlayState);
@@ -137,8 +160,8 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
   }
 
   Widget _buildOverflowMenu() {
-    return Provider.value(
-      value: widget.props,
+    return _OverflowMenuScope(
+      menuState: this,
       child: Stack(
         children: [
           if (widget.props.barrierDismissible)
@@ -161,7 +184,7 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
                   child: SizeTransition(
                     sizeFactor: _animation,
                     axis: Axis.vertical,
-                    child: Container(
+                    child: SizedBox(
                       width: _menuWidth,
                       height: _menuHeight,
                       child: Column(
@@ -231,4 +254,19 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
 
     return SizedBox(key: _menuKey, child: widget.props.child);
   }
+}
+
+class _OverflowMenuScope extends InheritedWidget {
+  const _OverflowMenuScope({
+    required super.child,
+    required COverflowMenuState menuState,
+  }) : _menuState = menuState;
+
+  final COverflowMenuState _menuState;
+
+  /// The [COverflowMenu] associated with this widget.
+  COverflowMenu get menu => _menuState.widget;
+
+  @override
+  bool updateShouldNotify(_OverflowMenuScope old) => _menuState != old._menuState;
 }

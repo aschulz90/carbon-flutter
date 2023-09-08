@@ -2,7 +2,6 @@ import 'package:carbon_flutter/features/button/button.widget.dart';
 import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
-import 'package:pmvvm/pmvvm.dart';
 
 import 'notification.props.dart';
 import 'notification.styles.dart';
@@ -155,91 +154,88 @@ class _CNotificationInline extends _NotificationWidget {
 
     if (props.timeout != null) _startTimer();
 
-    return Provider.value(
-      value: contrast,
-      child: CarbonThemeLayer(
-        builder: (context, layerIndex, layerColor) {
-          final carbonTheme = CarbonTheme.of(context);
-          final backgroundColor = _getBackgroundColor(context);
-          final contentColor = isHighContrast ? carbonTheme.notificationTheme.highContrastContentColor : Theme.of(context).textTheme.bodyMedium?.color;
+    return CarbonThemeLayer(
+      builder: (context, layerIndex, layerColor) {
+        final carbonTheme = CarbonTheme.of(context);
+        final backgroundColor = _getBackgroundColor(context);
+        final contentColor = isHighContrast ? carbonTheme.notificationTheme.highContrastContentColor : Theme.of(context).textTheme.bodyMedium?.color;
 
-          return Container(
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: _Styles.inlineNotificationBorder[contrast]![kind]!,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(14),
-                  child: Icon(_Assets.kindIcon[kind]!,
-                    color: _Assets.kindIconColor[kind],
+        return Container(
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            border: _Styles.inlineNotificationBorder[contrast]![kind]!,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(14),
+                child: Icon(_Assets.kindIcon[kind]!,
+                  color: _Assets.kindIconColor[kind],
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: _Styles.contentPadding,
+                  child: Wrap(
+                    children: [
+                      DefaultTextStyle(
+                        style: TextStyle(
+                          color: contentColor,
+                          fontFamily: CFonts.primarySemibold,
+                          package: assetsPackage,
+                        ),
+                        child: props.title,
+                      ),
+                      const SizedBox(width: 4),
+                      DefaultTextStyle(
+                        style: TextStyle(
+                          color: contentColor,
+                          fontFamily: CFonts.primaryRegular,
+                          package: assetsPackage,
+                        ),
+                        child: props.subtitle,
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
+              ),
+              if (props.actions != null) ...[
+                const SizedBox(width: 14),
+                SizedBox(
+                  height: 48,
                   child: Padding(
-                    padding: _Styles.contentPadding,
-                    child: Wrap(
-                      children: [
-                        DefaultTextStyle(
-                          style: TextStyle(
-                            color: contentColor,
-                            fontFamily: CFonts.primarySemibold,
-                            package: assetsPackage,
-                          ),
-                          child: props.title,
-                        ),
-                        const SizedBox(width: 4),
-                        DefaultTextStyle(
-                          style: TextStyle(
-                            color: contentColor,
-                            fontFamily: CFonts.primaryRegular,
-                            package: assetsPackage,
-                          ),
-                          child: props.subtitle,
-                        ),
-                      ],
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: _buildActions(),
+                      ),
                     ),
                   ),
                 ),
-                if (props.actions != null) ...[
-                  const SizedBox(width: 14),
-                  SizedBox(
-                    height: 48,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: _buildActions(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                ],
-                if (props.onCloseButtonTap != null)
-                  CButton.icon(
-                    kind: CButtonKind.ghost,
-                    icon: Builder(
-                      builder: (ctx) => Icon(
-                        _Assets.closeIcon[contrast]!,
-                        size: 20,
-                        color: contentColor,
-                      ),
-                    ),
-                    onPressed: props.onCloseButtonTap!,
-                  ),
+                const SizedBox(width: 14),
               ],
-            ),
-          );
-        },
-      ),
+              if (props.onCloseButtonTap != null)
+                CButton.icon(
+                  kind: CButtonKind.ghost,
+                  icon: Builder(
+                    builder: (ctx) => Icon(
+                      _Assets.closeIcon[contrast]!,
+                      size: 20,
+                      color: contentColor,
+                    ),
+                  ),
+                  onPressed: props.onCloseButtonTap!,
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -268,92 +264,89 @@ class _CNotificationToast extends _NotificationWidget {
 
     if (props.timeout != null) _startTimer();
 
-    return Provider.value(
-      value: contrast,
-      child: CarbonThemeLayer(
-        builder: (context, layerIndex, layerColor) {
-          final carbonTheme = CarbonTheme.of(context);
-          final backgroundColor = _getBackgroundColor(context);
-          final contentColor = isHighContrast ? carbonTheme.notificationTheme.highContrastContentColor : Theme.of(context).textTheme.bodyMedium?.color;
+    return CarbonThemeLayer(
+      builder: (context, layerIndex, layerColor) {
+        final carbonTheme = CarbonTheme.of(context);
+        final backgroundColor = _getBackgroundColor(context);
+        final contentColor = isHighContrast ? carbonTheme.notificationTheme.highContrastContentColor : Theme.of(context).textTheme.bodyMedium?.color;
 
-          return Container(
-            width: 288,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: _Styles.toastNotificationBorder[kind]!,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(14),
-                  child: Icon(_Assets.kindIcon[kind]!,
-                    color: _Assets.kindIconColor[kind],
-                  ),
+        return Container(
+          width: 288,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            border: _Styles.toastNotificationBorder[kind]!,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(14),
+                child: Icon(_Assets.kindIcon[kind]!,
+                  color: _Assets.kindIconColor[kind],
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: _Styles.contentPadding,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Flexible(
-                          child: DefaultTextStyle(
-                            style: TextStyle(
-                              color: contentColor,
-                              fontFamily: CFonts.primarySemibold,
-                              package: assetsPackage,
-                            ),
-                            child: props.title,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: _Styles.contentPadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: DefaultTextStyle(
+                          style: TextStyle(
+                            color: contentColor,
+                            fontFamily: CFonts.primarySemibold,
+                            package: assetsPackage,
                           ),
+                          child: props.title,
                         ),
-                        Flexible(
-                          child: DefaultTextStyle(
-                            style: TextStyle(
-                              color: contentColor,
-                              fontFamily: CFonts.primaryRegular,
-                              package: assetsPackage,
-                            ),
-                            child: props.subtitle,
-                          ),
-                        ),
-                        if (props.caption != null) ...[
-                          const SizedBox(height: 24),
-                          DefaultTextStyle(
-                            style: TextStyle(
-                              color: contentColor,
-                              fontFamily: CFonts.primaryRegular,
-                              package: assetsPackage,
-                            ),
-                            child: props.caption!,
-                          ),
-                        ]
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 14),
-                if (props.onCloseButtonTap != null)
-                  CButton.icon(
-                    kind: CButtonKind.ghost,
-                    icon: Builder(
-                      builder: (ctx) => Icon(
-                        _Assets.closeIcon[contrast]!,
-                        size: 20,
-                        color: contentColor,
                       ),
-                    ),
-                    onPressed: props.onCloseButtonTap!,
+                      Flexible(
+                        child: DefaultTextStyle(
+                          style: TextStyle(
+                            color: contentColor,
+                            fontFamily: CFonts.primaryRegular,
+                            package: assetsPackage,
+                          ),
+                          child: props.subtitle,
+                        ),
+                      ),
+                      if (props.caption != null) ...[
+                        const SizedBox(height: 24),
+                        DefaultTextStyle(
+                          style: TextStyle(
+                            color: contentColor,
+                            fontFamily: CFonts.primaryRegular,
+                            package: assetsPackage,
+                          ),
+                          child: props.caption!,
+                        ),
+                      ]
+                    ],
                   ),
-              ],
-            ),
-          );
-        },
-      ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              if (props.onCloseButtonTap != null)
+                CButton.icon(
+                  kind: CButtonKind.ghost,
+                  icon: Builder(
+                    builder: (ctx) => Icon(
+                      _Assets.closeIcon[contrast]!,
+                      size: 20,
+                      color: contentColor,
+                    ),
+                  ),
+                  onPressed: props.onCloseButtonTap!,
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

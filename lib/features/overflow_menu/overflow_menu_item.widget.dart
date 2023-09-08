@@ -2,7 +2,6 @@ import 'package:carbon_flutter/features/enable/index.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:pmvvm/pmvvm.dart';
 import 'overflow_menu.props.dart';
 import 'overflow_menu.widget.dart';
 import 'overflow_menu_item.styles.dart';
@@ -46,7 +45,7 @@ class COverflowMenuItemState extends State<COverflowMenuItem> with AfterInitMixi
 
   @override
   void didInitState() {
-    _menuProps = context.fetch<COverflowMenuProps>();
+    _menuProps = COverflowMenu.of(context).props;
   }
 
   void _setStateVariables() {

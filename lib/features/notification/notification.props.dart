@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-import 'action_button.widget.dart';
 import 'notification.widget.dart';
 
 class NotificationAction {
