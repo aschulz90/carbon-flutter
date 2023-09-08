@@ -4,13 +4,13 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
   Size get dimensions => widget.props.size.dimensions;
 
   bool get isDangerous => widget.props.isDangerous;
-  bool hasFocus = false;
 
   bool get isEnabled {
     return context.inheritedEnable ? widget.props.isEnabled : false;
   }
 
   late MaterialStatesController _materialStatesController;
+  FocusNode? _focusNode;
 
   ButtonStyle get _baseButtonStyle => ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -23,7 +23,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
         padding: MaterialStateProperty.all(EdgeInsets.all(2)),
         animationDuration: Duration(milliseconds: 65),
         elevation: MaterialStateProperty.resolveWith((states) {
-          if(states.contains(MaterialState.selected)) {
+          if (states.contains(MaterialState.selected)) {
             return 2;
           }
 
@@ -60,13 +60,10 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     super.initState();
 
     _materialStatesController = widget.props.materialStateController ?? MaterialStatesController();
+    _focusNode = widget.props.focusNode ?? FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _materialStatesController.addListener(() {
-        setState(() {
-          hasFocus = _materialStatesController.value.contains(MaterialState.focused);
-        });
-      });
+    _focusNode?.addListener(() {
+      _materialStatesController.update(MaterialState.focused, _focusNode?.hasFocus == true);
     });
   }
 
@@ -76,11 +73,11 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
 
     // these values aren't set on the first build and need to be set manually here
     if (!isEnabled) {
-      _materialStatesController.update(MaterialState.disabled, true);
+      _materialStatesController.value.add(MaterialState.disabled);
     }
 
-    if (widget.props.focusNode?.hasFocus == true) {
-      _materialStatesController.update(MaterialState.focused, true);
+    if (_focusNode?.hasFocus == true) {
+      _materialStatesController.value.remove(MaterialState.disabled);
     }
   }
 
@@ -107,7 +104,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     final outerBorder = (isDangerous ? buttonStyle.dangerOuterBorder : buttonStyle.outerBorder);
 
     return FilledButton(
-      focusNode: widget.props.focusNode,
+      focusNode: _focusNode,
       statesController: _materialStatesController,
       onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
@@ -133,7 +130,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     final outerBorder = (isDangerous ? buttonStyle.dangerOuterBorder : buttonStyle.outerBorder);
 
     return OutlinedButton(
-      focusNode: widget.props.focusNode,
+      focusNode: _focusNode,
       statesController: _materialStatesController,
       onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
@@ -165,7 +162,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     final outerBorder = (isDangerous ? buttonStyle.dangerOuterBorder : buttonStyle.outerBorder);
 
     return TextButton(
-      focusNode: widget.props.focusNode,
+      focusNode: _focusNode,
       statesController: _materialStatesController,
       onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
