@@ -17,3 +17,4 @@ export './icon/index.dart';
 export './radio/index.dart';
 export './theme/index.dart';
 export './tag/index.dart';
+export './layer/index.dart';

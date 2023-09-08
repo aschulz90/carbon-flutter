@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -176,7 +177,7 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
           Positioned(
             left: _menuOffset.dx,
             top: _menuOffset.dy,
-            child: CarbonThemeLayer(
+            child: CLayer(
               builder: (context, layerIndex, layerColor) {
                 return Material(
                   color: layerColor,

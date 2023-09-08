@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/features/button/button.widget.dart';
+import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:carbon_flutter/shared/index.dart';
 import 'package:flutter/material.dart';
@@ -101,10 +102,10 @@ abstract class _NotificationWidget extends StatelessWidget {
     }
 
     return switch (kind) {
-      CNotificationKind.error => theme.notificationTheme.errorBackgroundColor ?? CarbonTheme.layerColor(context),
-      CNotificationKind.info => theme.notificationTheme.infoBackgroundColor ?? CarbonTheme.layerColor(context),
-      CNotificationKind.success => theme.notificationTheme.successBackgroundColor ?? CarbonTheme.layerColor(context),
-      CNotificationKind.warning => theme.notificationTheme.warningBackgroundColor ?? CarbonTheme.layerColor(context),
+      CNotificationKind.error => theme.notificationTheme.errorBackgroundColor ?? CLayer.layerColor(context),
+      CNotificationKind.info => theme.notificationTheme.infoBackgroundColor ?? CLayer.layerColor(context),
+      CNotificationKind.success => theme.notificationTheme.successBackgroundColor ?? CLayer.layerColor(context),
+      CNotificationKind.warning => theme.notificationTheme.warningBackgroundColor ?? CLayer.layerColor(context),
     };
   }
 }
@@ -154,7 +155,7 @@ class _CNotificationInline extends _NotificationWidget {
 
     if (props.timeout != null) _startTimer();
 
-    return CarbonThemeLayer(
+    return CLayer(
       builder: (context, layerIndex, layerColor) {
         final carbonTheme = CarbonTheme.of(context);
         final backgroundColor = _getBackgroundColor(context);
@@ -264,7 +265,7 @@ class _CNotificationToast extends _NotificationWidget {
 
     if (props.timeout != null) _startTimer();
 
-    return CarbonThemeLayer(
+    return CLayer(
       builder: (context, layerIndex, layerColor) {
         final carbonTheme = CarbonTheme.of(context);
         final backgroundColor = _getBackgroundColor(context);

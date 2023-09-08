@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
+import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:flutter/material.dart';
 
 /// A ghost button to display/hide an overflow menu when pressed.
@@ -77,7 +78,7 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
     _setStateVariables();
 
     final buttonStyle = CarbonTheme.of(context).buttonTheme.ghost;
-    final nextLayerColor = CarbonTheme.layerColor(context, offset: 1);
+    final nextLayerColor = CLayer.layerColor(context, offset: 1);
     final iconColor = IconTheme.of(context).color ?? Theme.of(context).colorScheme.onBackground;
 
     return COverflowMenu(

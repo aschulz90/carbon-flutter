@@ -9,6 +9,7 @@ class CTileProps {
   final double labelSize;
   final double titleSize;
   final double descriptionSize;
+  final EdgeInsets padding;
 
   final VoidCallback? onTap;
 
@@ -24,5 +25,6 @@ class CTileProps {
     required this.descriptionSize,
     required this.onTap,
     required this.content,
+    required this.padding,
   });
 }

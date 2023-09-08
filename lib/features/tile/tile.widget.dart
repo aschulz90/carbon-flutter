@@ -1,4 +1,4 @@
-import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
+import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:carbon_flutter/features/tile/tile.props.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
@@ -14,6 +14,7 @@ class CTile extends StatelessWidget {
     double labelSize = 12,
     double titleSize = 20,
     double descriptionSize = 14,
+    EdgeInsets padding = const EdgeInsets.all(16),
     VoidCallback? onTap,
     Widget? child,
   })  : props = CTileProps(
@@ -24,6 +25,7 @@ class CTile extends StatelessWidget {
           labelSize: labelSize,
           titleSize: titleSize,
           descriptionSize: descriptionSize,
+          padding: padding,
           onTap: onTap,
           content: child,
         ),
@@ -39,14 +41,13 @@ class CTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return IgnorePointer(
       ignoring: !_isEnabled(context),
-      child: CarbonThemeLayer(
+      child: CLayer(
         builder: (context, layerIndex, layerColor) {
-          return InkWell(
-            onTap: props.onTap,
-            splashColor: Colors.transparent,
-            child: Container(
-              color: layerColor,
-              padding: EdgeInsets.all(16),
+          return Container(
+            color: layerColor,
+            padding: props.padding,
+            child: InkWell(
+              onTap: props.onTap,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -61,10 +62,10 @@ class CTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                   ],
-                  if (props.label != null) ...[
+                  if (props.title != null) ...[
                     if (props.label == null) const SizedBox(height: 8),
                     CText(
-                      props.label!,
+                      props.title!,
                       style: TextStyle(
                         fontSize: props.titleSize,
                       ),

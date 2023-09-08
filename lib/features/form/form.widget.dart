@@ -1,3 +1,4 @@
+import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:carbon_flutter/features/text_field/index.dart';
 import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,7 @@ class CFormState extends State<CForm> {
     });
 
     if (type == CFormType.group) {
-      return CarbonThemeLayer(
+      return CLayer(
         builder: (context, layerIndex, layerColor) => content,
       );
     } else {
