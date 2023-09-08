@@ -47,7 +47,12 @@ class CarbonStateBorder extends Border implements MaterialStateProperty<Border> 
 
   @override
   Border resolve(Set<MaterialState> states) {
-    return Border.all(color: color.resolve(states), width: width.resolve(states));
+    final width = this.width.resolve(states);
+    return Border.all(
+      color: color.resolve(states),
+      width: width,
+      style: width > 0 ? BorderStyle.solid : BorderStyle.none,
+    );
   }
 
   CarbonStateBorder copyWith({

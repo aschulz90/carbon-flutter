@@ -120,7 +120,7 @@ class CarbonStateColor extends MaterialStateColor {
     this.disabledColor = CColors.gray40,
     this.animationDuration = const Duration(milliseconds: 80),
     this.animationCurve = Curves.easeInOut,
-  })  : super(color.value);
+  }) : super(color.value);
 
   CarbonStateColor.all(
     this.color, {
@@ -135,6 +135,7 @@ class CarbonStateColor extends MaterialStateColor {
 
   CarbonStateColor.focus(
     Color color, {
+    this.disabledColor = CColors.gray40,
     this.animationDuration = const Duration(milliseconds: 80),
     this.animationCurve = Curves.easeInOut,
   })  : color = Colors.transparent,
@@ -142,7 +143,6 @@ class CarbonStateColor extends MaterialStateColor {
         focusedColor = color,
         pressedColor = Colors.transparent,
         selectedColor = null,
-        disabledColor = CColors.gray40,
         super(Colors.transparent.value);
 
   final Color color;
@@ -161,7 +161,7 @@ class CarbonStateColor extends MaterialStateColor {
       return disabledColor;
     }
 
-    if(selectedColor != null && states.contains(MaterialState.selected)) {
+    if (selectedColor != null && states.contains(MaterialState.selected)) {
       return selectedColor!;
     }
 

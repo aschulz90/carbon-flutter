@@ -25,7 +25,7 @@ final defaultLightInnerBorder = CarbonStateBorder(
     focusedColor: CColors.white0,
   ),
   width: MaterialStateProperty.resolveWith((states) {
-    if(states.contains(MaterialState.focused)) {
+    if (states.contains(MaterialState.focused)) {
       return 2;
     }
 
@@ -41,7 +41,7 @@ final defaultDarkInnerBorder = CarbonStateBorder(
     focusedColor: CColors.gray90,
   ),
   width: MaterialStateProperty.resolveWith((states) {
-    if(states.contains(MaterialState.focused)) {
+    if (states.contains(MaterialState.focused)) {
       return 1;
     }
 
@@ -210,37 +210,34 @@ final tertiaryLight = CarbonButtonStyle(
 );
 
 final tertiaryDark = CarbonButtonStyle(
-  color: CarbonStateColor(
-    color: CColors.transparent,
-    hoveredColor: CColors.white0,
-    focusedColor: CColors.white0,
-    pressedColor: CColors.gray10,
-  ),
-  dangerColor: defaultDangerColor.copyWith(
-    color: CColors.transparent,
-  ),
-  contentColor: CarbonStateColor(
-    color: CColors.white0,
-    hoveredColor: CColors.gray100,
-    focusedColor: CColors.gray100,
-    pressedColor: CColors.gray100,
-    disabledColor: CColors.gray30,
-  ),
-  dangerContentColor: defaultDangerContentColor.copyWith(
-    color: CColors.red60,
-  ),
-  innerBorder: defaultDarkInnerBorder,
-  outerBorder: CarbonStateBorder(
-    color: CarbonStateColor.all(CColors.white0),
-    width: MaterialStateProperty.all(2),
-  ),
-  dangerOuterBorder: CarbonStateBorder(
-    color: defaultDangerColor.copyWith(
-      focusedColor: CColors.white0
+    color: CarbonStateColor(
+      color: CColors.transparent,
+      hoveredColor: CColors.white0,
+      focusedColor: CColors.white0,
+      pressedColor: CColors.gray10,
     ),
-    width: MaterialStateProperty.all(2),
-  )
-);
+    dangerColor: defaultDangerColor.copyWith(
+      color: CColors.transparent,
+    ),
+    contentColor: CarbonStateColor(
+      color: CColors.white0,
+      hoveredColor: CColors.gray100,
+      focusedColor: CColors.gray100,
+      pressedColor: CColors.gray100,
+      disabledColor: CColors.gray30,
+    ),
+    dangerContentColor: defaultDangerContentColor.copyWith(
+      color: CColors.red60,
+    ),
+    innerBorder: defaultDarkInnerBorder,
+    outerBorder: CarbonStateBorder(
+      color: CarbonStateColor.all(CColors.white0),
+      width: MaterialStateProperty.all(2),
+    ),
+    dangerOuterBorder: CarbonStateBorder(
+      color: defaultDangerColor.copyWith(focusedColor: CColors.white0),
+      width: MaterialStateProperty.all(2),
+    ));
 
 final ghostLight = CarbonButtonStyle(
   color: CarbonStateColor(
@@ -248,6 +245,7 @@ final ghostLight = CarbonButtonStyle(
     hoveredColor: CColors.gray10,
     focusedColor: CColors.transparent,
     pressedColor: CColors.gray20,
+    disabledColor: CColors.transparent,
   ),
   dangerColor: defaultDangerColor.copyWith(
     color: CColors.transparent,
@@ -263,12 +261,15 @@ final ghostLight = CarbonButtonStyle(
     width: MaterialStatePropertyAll(0),
   ),
   outerBorder: CarbonStateBorder(
-    color: CarbonStateColor.focus(CColors.blue60),
+    color: CarbonStateColor.focus(
+      CColors.blue60,
+      disabledColor: CColors.transparent,
+    ),
     width: MaterialStateProperty.resolveWith((states) {
-      if(states.contains(MaterialState.focused)) {
-        return 2;
+      if (states.contains(MaterialState.focused)) {
+        return 2.0;
       }
-      return 0;
+      return 0.0;
     }),
   ),
 );
@@ -279,6 +280,7 @@ final ghostDark = CarbonButtonStyle(
     hoveredColor: CColors.gray80,
     focusedColor: CColors.transparent,
     pressedColor: CColors.gray70,
+    disabledColor: CColors.transparent,
   ),
   dangerColor: defaultDangerColor.copyWith(
     color: CColors.transparent,
@@ -294,8 +296,11 @@ final ghostDark = CarbonButtonStyle(
     width: MaterialStateProperty.all(0),
   ),
   outerBorder: CarbonStateBorder(
-    color: CarbonStateColor.focus(CColors.white0),
-    width: MaterialStateProperty.all(2),
+    color: CarbonStateColor.focus(
+      CColors.white0,
+      disabledColor: CColors.transparent,
+    ),
+    width: MaterialStateProperty.all(2.0),
   ),
 );
 
