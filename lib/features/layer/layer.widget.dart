@@ -25,16 +25,21 @@ class CLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final newLayerIndex = layerIndex ?? CLayer.of(context) + 1;
-    final newLayerColor = CarbonTheme.of(context).layers[newLayerIndex];
-    final newNextLayerColor = CarbonTheme.of(context).layers[newLayerIndex + 1];
     final theme = Theme.of(context);
+    final carbonTheme = CarbonTheme.of(context);
+    final newLayerIndex = (layerIndex ?? CLayer.of(context) + 1) % carbonTheme.layers.length;
+    final newLayerColor = carbonTheme.layers[newLayerIndex];
+    final newNextLayerColor = carbonTheme.layers[(newLayerIndex + 1) % carbonTheme.layers.length];
+
     return _CarbonThemeLayerInherited(
       layerIndex: newLayerIndex,
       child: Theme(
         data: theme.copyWith(
           inputDecorationTheme: theme.inputDecorationTheme.copyWith(
             fillColor: newNextLayerColor,
+            hintStyle: TextStyle(
+              color: newNextLayerColor.resolve({MaterialState.pressed}),
+            ),
           ),
           canvasColor: newLayerColor,
           colorScheme: theme.colorScheme.copyWith(
@@ -42,11 +47,9 @@ class CLayer extends StatelessWidget {
             surface: newNextLayerColor,
           ),
         ),
-        child: Builder(
-            builder: (context) {
-              return builder.call(context, newLayerIndex, newLayerColor);
-            }
-        ),
+        child: Builder(builder: (context) {
+          return builder.call(context, newLayerIndex, newLayerColor);
+        }),
       ),
     );
   }

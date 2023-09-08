@@ -261,12 +261,6 @@ class CarbonThemeData {
         buttonTheme = darkButtonTheme,
         notificationTheme = darkNotificationTheme,
         layers = [
-          CarbonStateColor(
-            color: CColors.gray100,
-            hoveredColor: CColors.gray90,
-            focusedColor: CColors.gray90,
-            pressedColor: CColors.gray80,
-          ),
           _darkLayerColor0,
           _darkLayerColor1,
           _darkLayerColor2,
@@ -297,6 +291,12 @@ class CarbonThemeData {
         buttonTheme = darkButtonTheme,
         notificationTheme = darkNotificationTheme,
         layers = [
+          CarbonStateColor(
+            color: CColors.gray100,
+            hoveredColor: CColors.gray90,
+            focusedColor: CColors.gray90,
+            pressedColor: CColors.gray80,
+          ),
           _darkLayerColor1,
           _darkLayerColor2,
           _darkLayerColor3,
