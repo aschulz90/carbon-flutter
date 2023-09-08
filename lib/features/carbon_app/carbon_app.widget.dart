@@ -174,7 +174,12 @@ class CarbonApp extends StatelessWidget {
             backButtonDispatcher: backButtonDispatcher,
             builder: (context, child) => CarbonTheme(
               data: _getCarbonTheme(context),
-              child: builder?.call(context, child) ?? child!,
+              // Need to wrap in another builder to get the context with the carbon theme
+              child: Builder(
+                builder: (context) {
+                  return builder?.call(context, child) ?? child!;
+                }
+              ),
             ),
             title: title,
             onGenerateTitle: onGenerateTitle,
@@ -214,7 +219,12 @@ class CarbonApp extends StatelessWidget {
             navigatorObservers: navigatorObservers ?? const [],
             builder: (context, child) => CarbonTheme(
               data: _getCarbonTheme(context),
-              child: builder?.call(context, child) ?? child!,
+              // Need to wrap in another builder to get the context with the carbon theme
+              child: Builder(
+                builder: (context) {
+                  return builder?.call(context, child) ?? child!;
+                }
+              ),
             ),
             title: title,
             onGenerateTitle: onGenerateTitle,
