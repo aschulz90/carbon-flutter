@@ -90,7 +90,7 @@ class _CNotificationExampleState extends State<CNotificationExample> {
                           children: [
                             CButton(
                               label: 'Action',
-                              onTap: () {},
+                              onPressed: () {},
                               kind: CButtonKind.tertiary,
                               style: isHighContrast ? tertiaryDark : tertiaryLight,
                             ),

@@ -109,7 +109,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     return FilledButton(
       focusNode: widget.props.focusNode,
       statesController: _materialStatesController,
-      onPressed: isEnabled ? widget.props.onTap : null,
+      onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
         shape: MaterialStateProperty.resolveWith((states) {
           return ContinuousRectangleBorder(
@@ -135,7 +135,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     return OutlinedButton(
       focusNode: widget.props.focusNode,
       statesController: _materialStatesController,
-      onPressed: isEnabled ? widget.props.onTap : null,
+      onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
         shape: MaterialStateProperty.resolveWith((states) {
           return ContinuousRectangleBorder(
@@ -167,7 +167,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     return TextButton(
       focusNode: widget.props.focusNode,
       statesController: _materialStatesController,
-      onPressed: isEnabled ? widget.props.onTap : null,
+      onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
         shape: MaterialStateProperty.resolveWith((states) {
           return ContinuousRectangleBorder(

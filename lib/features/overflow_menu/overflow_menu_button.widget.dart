@@ -1,5 +1,4 @@
 import 'package:carbon_flutter/carbon.dart';
-import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:flutter/material.dart';
 
 /// A ghost button to display/hide an overflow menu when pressed.
@@ -97,8 +96,8 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
           enable: item.props.enable,
           hasDivider: item.props.hasDivider,
           isDelete: item.props.isDelete,
-          onTap: () {
-            item.props.onTap?.call();
+          onPressed: () {
+            item.props.onPressed?.call();
             _closeMenu();
           },
           child: item.props.child,
@@ -106,7 +105,7 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
       }).toList(),
       child: CButton.icon(
         icon: widget.props.icon,
-        onTap: () => _isOpen ? _closeMenu() : _openMenu(),
+        onPressed: () => _isOpen ? _closeMenu() : _openMenu(),
         kind: CButtonKind.ghost,
         isEnabled: _isEnabled,
         size: switch (widget.props.size) {

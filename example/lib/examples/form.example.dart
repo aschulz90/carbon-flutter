@@ -27,7 +27,7 @@ class _CFormExampleState extends State<CFormExample> {
                   builder: (context) {
                     return CButton(
                       label: 'Action Button',
-                      onTap: () {
+                      onPressed: () {
                           CForm.of(context)?.validate();
                       },
                       icon: Icon(CIcons.add, size: 16),

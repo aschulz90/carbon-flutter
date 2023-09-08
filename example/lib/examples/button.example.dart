@@ -67,7 +67,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton.icon(
@@ -75,7 +75,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
                     size: size,
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton(
@@ -85,7 +85,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -99,7 +99,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton.icon(
@@ -108,7 +108,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -123,7 +123,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton.icon(
@@ -132,7 +132,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton(
@@ -143,7 +143,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -158,7 +158,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton.icon(
@@ -167,7 +167,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton(
@@ -178,7 +178,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -193,7 +193,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton.icon(
@@ -203,7 +203,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                   const SizedBox(width: 16),
                   CButton(
@@ -214,7 +214,7 @@ class _CButtonExampleState extends State<CButtonExample> {
                     icon: Builder(
                       builder: (ctx) => Icon(CIcons.add, size: 16),
                     ),
-                    onTap: () {},
+                    onPressed: () {},
                   ),
                 ],
               ),

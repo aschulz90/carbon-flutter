@@ -16,13 +16,13 @@ class COverflowMenuItem extends StatefulWidget {
   COverflowMenuItem({
     Key? key,
     required Widget child,
-    VoidCallback? onTap,
+    VoidCallback? onPressed,
     bool enable = true,
     bool hasDivider = false,
     bool isDelete = false,
   })  : props = COverflowMenuItemProps(
           child: child,
-          onTap: onTap,
+          onPressed: onPressed,
           enable: enable,
           hasDivider: hasDivider,
           isDelete: isDelete,
@@ -77,7 +77,7 @@ class COverflowMenuItemState extends State<COverflowMenuItem> with AfterInitMixi
       child: IgnorePointer(
         ignoring: !widget.props.enable,
         child: GestureDetector(
-          onTap: () => widget.props.onTap?.call(),
+          onTap: () => widget.props.onPressed?.call(),
           onTapDown: (_) => setState(() => _focused = true),
           onTapUp: (_) => setState(() => _focused = false),
           onTapCancel: () => setState(() => _focused = false),

@@ -61,7 +61,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Forms",
                   icon: Icon(CIcons.dataFormat),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CFormExample(),
@@ -73,7 +73,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Buttons",
                   icon: Icon(Icons.smart_button),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CButtonExample(),
@@ -85,7 +85,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Tiles",
                   icon: Icon(CIcons.shapeExcept),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CTilesExample(),
@@ -97,7 +97,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Breadcrumbs",
                   icon: Icon(CIcons.account),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CBreadcrumbExample(),
@@ -109,7 +109,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Links",
                   icon: Icon(CIcons.link),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CLinkExamplePage(),
@@ -121,7 +121,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Notifications",
                   icon: Icon(CIcons.notification),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CNotificationExample(),
@@ -133,7 +133,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Checkboxes",
                   icon: Icon(CIcons.checkboxChecked),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CCheckboxExamplePage(),
@@ -145,7 +145,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Toggles",
                   icon: Icon(CIcons.checkmark),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CToggleExamplePage(),
@@ -157,7 +157,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Overflows",
                   icon: Icon(CIcons.overflowMenuHorizontal),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => COverflowExample(),
@@ -169,7 +169,7 @@ class MyAppState extends State<MyApp> {
                 CButton(
                   label: "Tags",
                   icon: Icon(CIcons.tag),
-                  onTap: () {
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => CTagExample(),

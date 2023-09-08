@@ -115,7 +115,7 @@ class COverflowMenuItemProps {
   /// Called when the item is tapped.
   ///
   /// @optional
-  final VoidCallback? onTap;
+  final VoidCallback? onPressed;
 
   /// Whether the item is enabled.
   ///
@@ -134,7 +134,7 @@ class COverflowMenuItemProps {
 
   COverflowMenuItemProps({
     required this.child,
-    required this.onTap,
+    required this.onPressed,
     required this.enable,
     required this.hasDivider,
     required this.isDelete,

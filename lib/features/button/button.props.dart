@@ -7,7 +7,7 @@ class CButtonBaseProps {
   /// Called when the button is tapped.
   ///
   /// @required
-  final VoidCallback onTap;
+  final VoidCallback? onPressed;
 
   /// Whether the button is enabled or not.
   ///
@@ -42,7 +42,7 @@ class CButtonBaseProps {
     this.isDangerous = false,
     required this.kind,
     required this.size,
-    required this.onTap,
+    required this.onPressed,
     this.focusNode,
     this.style,
     this.materialStateController,
@@ -81,7 +81,7 @@ class CButtonRegularProps extends CButtonBaseProps {
     required super.size,
     super.focusNode,
     super.style,
-    required super.onTap,
+    required super.onPressed,
     super.materialStateController,
   });
 }
@@ -100,7 +100,7 @@ class CButtonIconOnlyProps extends CButtonBaseProps {
     required super.size,
     super.focusNode,
     super.style,
-    required super.onTap,
+    required super.onPressed,
     super.materialStateController,
   });
 }

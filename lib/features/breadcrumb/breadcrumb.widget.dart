@@ -99,7 +99,7 @@ class CBreadcrumb extends StatelessWidget {
       (item) {
         return COverflowMenuItem(
           child: item.props.child,
-          onTap: () {
+          onPressed: () {
             item.props.onTap();
             _menu.close();
           },
