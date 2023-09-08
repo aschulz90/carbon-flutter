@@ -23,6 +23,12 @@ class CarbonTheme extends StatelessWidget {
     return theme.layers[(layerIndex + offset) % theme.layers.length];
   }
 
+  static Color onLayerColor(BuildContext context, {int offset = 0}) {
+    final theme = of(context);
+    final layerIndex = CarbonThemeLayer.of(context);
+    return theme.onLayers[(layerIndex + offset) % theme.onLayers.length];
+  }
+
   @override
   Widget build(BuildContext context) {
     return _CarbonThemeInherited(

@@ -102,6 +102,15 @@ class CarbonThemeData {
   final CarbonNotificationTheme notificationTheme;
   final ThemeData materialTheme;
 
+  CarbonThemeData({
+    required this.style,
+    required this.layers,
+    required this.onLayers,
+    required this.buttonTheme,
+    required this.notificationTheme,
+    required this.materialTheme,
+  });
+
   CarbonThemeData.white()
       : style = CTheme.white,
         materialTheme = whiteTheme,
@@ -119,7 +128,18 @@ class CarbonThemeData {
           CColors.white0,
           CColors.gray10,
         ],
-        onLayers = const [];
+        onLayers = const [
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+        ];
 
   CarbonThemeData.gray10()
       : style = CTheme.gray10,
@@ -138,7 +158,18 @@ class CarbonThemeData {
           CColors.gray10,
           CColors.white0,
         ],
-        onLayers = const [];
+        onLayers = const [
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+        ];
 
   CarbonThemeData.gray90()
       : style = CTheme.gray90,
@@ -157,7 +188,18 @@ class CarbonThemeData {
           CColors.gray10,
           CColors.white0,
         ],
-        onLayers = const [];
+        onLayers = const [
+          CColors.white0,
+          CColors.white0,
+          CColors.white0,
+          CColors.white0,
+          CColors.white0,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+        ];
 
   CarbonThemeData.gray100()
       : style = CTheme.gray100,
@@ -177,7 +219,36 @@ class CarbonThemeData {
           CColors.gray10,
           CColors.white0,
         ],
-        onLayers = const [];
+        onLayers = const [
+          CColors.white0,
+          CColors.white0,
+          CColors.white0,
+          CColors.white0,
+          CColors.white0,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+          CColors.gray100,
+        ];
+
+  CarbonThemeData copyWith({
+    CTheme? style,
+    List<Color>? layers,
+    List<Color>? onLayers,
+    CarbonButtonTheme? buttonTheme,
+    CarbonNotificationTheme? notificationTheme,
+    ThemeData? materialTheme,
+  }) {
+    return CarbonThemeData(
+      style: style ?? this.style,
+      layers: layers ?? this.layers,
+      onLayers: onLayers ?? this.onLayers,
+      buttonTheme: buttonTheme ?? this.buttonTheme,
+      notificationTheme: notificationTheme ?? this.notificationTheme,
+      materialTheme: materialTheme ?? this.materialTheme,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -188,8 +259,9 @@ class CarbonThemeData {
           layers == other.layers &&
           onLayers == other.onLayers &&
           buttonTheme == other.buttonTheme &&
-          notificationTheme == other.notificationTheme;
+          notificationTheme == other.notificationTheme &&
+          materialTheme == other.materialTheme;
 
   @override
-  int get hashCode => style.hashCode ^ layers.hashCode ^ onLayers.hashCode ^ buttonTheme.hashCode ^ notificationTheme.hashCode;
+  int get hashCode => style.hashCode ^ layers.hashCode ^ onLayers.hashCode ^ buttonTheme.hashCode ^ notificationTheme.hashCode ^ materialTheme.hashCode;
 }
