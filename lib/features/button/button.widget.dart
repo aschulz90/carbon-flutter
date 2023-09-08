@@ -1,5 +1,4 @@
 import 'package:carbon_flutter/carbon.dart';
-import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:flutter/material.dart';
 
 part 'button.mixin.dart';
@@ -17,7 +16,7 @@ class CButton extends StatefulWidget {
     Key? key,
     required String label,
     required VoidCallback onTap,
-    double labelSize = 14,
+    double? labelSize,
     bool isEnabled = true,
     bool isDangerous = false,
     bool expand = false,
@@ -143,8 +142,8 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
           CText(
             widget.props.label,
             style: TextStyle(
-              fontWeight: FontWeight.normal,
               fontSize: widget.props.labelSize,
+              height: 1,
             ),
           ),
           ..._buildTrailing(contentColor),

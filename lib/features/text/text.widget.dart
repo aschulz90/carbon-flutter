@@ -3,7 +3,8 @@ import 'package:carbon_flutter/shared/index.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
 
 class CText extends StatelessWidget {
-  const CText(this.data, {
+  const CText(
+    this.data, {
     Key? key,
     this.enable = true,
     this.isRequired = false,

@@ -227,6 +227,9 @@ class CTextFieldState extends State<CTextField> {
               scrollController: widget.scrollController,
               scrollPhysics: widget.scrollPhysics,
               autofillHints: widget.autofillHints,
+              style: TextStyle(
+                fontSize: 14,
+              ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(
                   left: 14,

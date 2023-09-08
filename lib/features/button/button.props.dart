@@ -68,7 +68,7 @@ class CButtonRegularProps extends CButtonBaseProps {
   /// The size (in logical pixels) to use when painting the label.
   ///
   /// @default: `14.0`
-  final double labelSize;
+  final double? labelSize;
 
   CButtonRegularProps({
     required this.icon,

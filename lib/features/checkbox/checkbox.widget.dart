@@ -74,14 +74,11 @@ class _CCheckboxState extends State<CCheckbox> {
                 ),
               ),
               if (widget.props.label != null) ...[
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 2.0),
-                  child: CText(
-                    widget.props.label!,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: isEnabled ? null : theme.disabledColor,
-                    ),
+                CText(
+                  widget.props.label!,
+                  style: TextStyle(
+                    color: isEnabled ? null : theme.disabledColor,
+                    height: 1,
                   ),
                 ),
               ],

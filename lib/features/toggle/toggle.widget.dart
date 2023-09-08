@@ -184,7 +184,7 @@ class CToggleState extends State<CToggle> with MaterialStateMixin {
                 const SizedBox(width: 8),
                 CText(
                   _value ? 'On' : 'Off',
-                  style: theme.textTheme.labelMedium?.copyWith(
+                  style: TextStyle(
                     color: _isEnabled ? null : theme.disabledColor,
                   ),
                 ),

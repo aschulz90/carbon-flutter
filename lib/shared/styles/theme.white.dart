@@ -31,17 +31,17 @@ final whiteTheme = ThemeData(
     filled: true,
     fillColor: CColors.gray10,
     labelStyle: TextStyle(
-      fontSize: 14.0,
+      fontSize: 12.0,
       fontFamily: CFonts.primaryRegular,
       color: CColors.gray60,
     ),
     helperStyle: TextStyle(
-      fontSize: 14.0,
+      fontSize: 12.0,
       fontFamily: CFonts.primaryRegular,
       color: CColors.gray60,
     ),
     hintStyle: TextStyle(
-      fontSize: 15.0,
+      fontSize: 14.0,
       fontFamily: CFonts.primaryRegular,
       color: CColors.gray40,
     ),
