@@ -30,6 +30,8 @@ class CButtonBaseProps {
   /// @default: `CButtonSize.regular`
   final CButtonSize size;
 
+  final bool constrainMaxSize;
+
   final CarbonButtonStyle? style;
 
   /// {@macro flutter.widgets.Focus.focusNode}
@@ -42,6 +44,7 @@ class CButtonBaseProps {
     this.isDangerous = false,
     required this.kind,
     required this.size,
+    required this.constrainMaxSize,
     required this.onPressed,
     this.focusNode,
     this.style,
@@ -79,6 +82,7 @@ class CButtonRegularProps extends CButtonBaseProps {
     super.isDangerous,
     required super.kind,
     required super.size,
+    required super.constrainMaxSize,
     super.focusNode,
     super.style,
     required super.onPressed,
@@ -98,6 +102,7 @@ class CButtonIconOnlyProps extends CButtonBaseProps {
     super.isDangerous,
     required super.kind,
     required super.size,
+    required super.constrainMaxSize,
     super.focusNode,
     super.style,
     required super.onPressed,

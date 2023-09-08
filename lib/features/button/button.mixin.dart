@@ -17,7 +17,12 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
           ContinuousRectangleBorder(),
         ),
         minimumSize: MaterialStateProperty.all(widget.props.size.dimensions),
-        maximumSize: MaterialStateProperty.all(Size(200, widget.props.size.dimensions.height)),
+        maximumSize: MaterialStateProperty.all(
+          Size(
+            widget.props.constrainMaxSize ? widget.props.size.dimensions.width : 300,
+            widget.props.size.dimensions.height,
+          ),
+        ),
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         padding: MaterialStateProperty.all(EdgeInsets.all(2)),
@@ -63,7 +68,9 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
     _focusNode = widget.props.focusNode ?? FocusNode();
 
     _focusNode?.addListener(() {
-      _materialStatesController.update(MaterialState.focused, _focusNode?.hasFocus == true);
+      setState(() {
+        _materialStatesController.update(MaterialState.focused, _focusNode?.hasFocus == true);
+      });
     });
   }
 
@@ -91,7 +98,11 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
         decoration: BoxDecoration(
           border: innerBorder,
         ),
-        constraints: BoxConstraints.tightFor(height: widget.props.size.dimensions.height),
+        constraints: BoxConstraints(
+          minHeight: widget.props.size.dimensions.height,
+          maxHeight: widget.props.size.dimensions.height,
+          minWidth: widget.props.size.dimensions.width,
+        ),
         child: _innerContent(buttonStyle, innerBorder.dimensions.horizontal / 2),
       ),
     );
@@ -183,11 +194,9 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-
     if (!isEnabled) {
       _materialStatesController.value.add(MaterialState.disabled);
-    }
-    else {
+    } else {
       _materialStatesController.value.remove(MaterialState.disabled);
     }
 

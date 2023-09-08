@@ -37,6 +37,7 @@ class CButton extends StatefulWidget {
           isDangerous: isDangerous,
           kind: kind,
           size: size,
+          constrainMaxSize: false,
           focusNode: focusNode,
           onPressed: onPressed,
           style: style,
@@ -64,6 +65,7 @@ class CButton extends StatefulWidget {
           kind: kind,
           focusNode: focusNode,
           size: size,
+          constrainMaxSize: true,
           style: style,
           materialStateController: materialStateController,
         ),
@@ -170,11 +172,15 @@ class _CButtonIconOnlyState extends _CButtonStateBase<_CButtonIconOnly> {
   @override
   Widget _innerContent(CarbonButtonStyle buttonStyle, double borderPadding) {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
-    return IconTheme(
-      data: IconThemeData(
-        color: contentColor.resolve(_materialStatesController.value),
+    return SizedBox(
+      width: widget.props.size.dimensions.width,
+      height: widget.props.size.dimensions.height,
+      child: IconTheme(
+        data: IconThemeData(
+          color: contentColor.resolve(_materialStatesController.value),
+        ),
+        child: widget.props.icon,
       ),
-      child: widget.props.icon,
     );
   }
 }
