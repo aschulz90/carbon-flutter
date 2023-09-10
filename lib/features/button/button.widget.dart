@@ -1,5 +1,4 @@
 import 'package:carbon_flutter/carbon.dart';
-import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:flutter/material.dart';
 
 part 'button.mixin.dart';
@@ -138,9 +137,10 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: widget.props.size.padding - borderPadding),
-      child: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        runAlignment: WrapAlignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           CText(
             widget.props.label,

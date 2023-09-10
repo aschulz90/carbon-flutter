@@ -1,8 +1,6 @@
 import 'package:carbon_flutter/features/layer/layer.widget.dart';
 import 'package:carbon_flutter/features/text_field/index.dart';
-import 'package:carbon_flutter/features/theme/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:carbon_flutter/features/enable/index.dart';
 
 import 'form.props.dart';
@@ -18,12 +16,19 @@ class CForm extends StatefulWidget {
   CForm({
     Key? key,
     required List<Widget> children,
+    EdgeInsets padding = const EdgeInsets.only(
+      top: 16,
+      left: 16,
+      right: 16,
+      bottom: 24,
+    ),
     bool enable = true,
     FormActionBuilder? actionBuilder,
     CFormType type = CFormType.blank,
   })  : props = CFormProps(
           enable: enable,
           children: children,
+          padding: padding,
           type: type,
           actionBuilder: actionBuilder,
         ),
@@ -78,7 +83,7 @@ class CFormState extends State<CForm> {
               children: [
                 Container(
                   color: theme.colorScheme.background,
-                  padding: _Styles.padding[type],
+                  padding: widget.props.padding,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,

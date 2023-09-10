@@ -19,7 +19,7 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
         minimumSize: MaterialStateProperty.all(widget.props.size.dimensions),
         maximumSize: MaterialStateProperty.all(
           Size(
-            widget.props.constrainMaxSize ? widget.props.size.dimensions.width : 300,
+            widget.props.constrainMaxSize ? widget.props.size.dimensions.width : double.infinity,
             widget.props.size.dimensions.height,
           ),
         ),

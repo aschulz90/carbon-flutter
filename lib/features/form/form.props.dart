@@ -10,6 +10,8 @@ class CFormProps {
   /// @required
   final List<Widget> children;
 
+  final EdgeInsets padding;
+
   /// Whether the form is enabled or not.
   ///
   /// @default: `true`
@@ -28,6 +30,7 @@ class CFormProps {
   CFormProps({
     required this.enable,
     required this.children,
+    required this.padding,
     required this.type,
     required this.actionBuilder,
   });
