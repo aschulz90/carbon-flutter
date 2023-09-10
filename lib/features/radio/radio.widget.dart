@@ -1,7 +1,6 @@
 import 'package:carbon_flutter/features/enable/index.dart';
 import 'package:carbon_flutter/features/radio/radio.props.dart';
 import 'package:carbon_flutter/features/text/text.widget.dart';
-import 'package:carbon_flutter/shared/styles/colors.style.dart';
 import 'package:flutter/material.dart';
 
 class CRadioButton<T> extends StatefulWidget {
@@ -46,6 +45,7 @@ class _CRadioButtonState<T> extends State<CRadioButton<T>> {
   @override
   Widget build(BuildContext context) {
     final isEnabled = context.inheritedEnable ? widget.props.enabled : false;
+    final theme = Theme.of(context);
 
     return CEnable(
       value: isEnabled,
@@ -55,9 +55,11 @@ class _CRadioButtonState<T> extends State<CRadioButton<T>> {
           onTap: () => widget.props.onChanged?.call(widget.props.value),
           child: Container(
             foregroundDecoration: BoxDecoration(
-              border: Border.all(
-                color: focusNode?.hasFocus == true ? CColors.blue60 : Colors.transparent,
+              border: focusNode?.hasFocus == true ? Border.all(
+                color: theme.focusColor,
                 width: 2,
+              ) : Border.all(
+                style: BorderStyle.none,
               ),
             ),
             padding: EdgeInsets.only(right: 8),

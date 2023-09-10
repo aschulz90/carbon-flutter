@@ -178,10 +178,13 @@ abstract class _CButtonStateBase<T extends _CButtonBase> extends State<T> {
       onPressed: isEnabled ? widget.props.onPressed : null,
       style: _baseButtonStyle.copyWith(
         shape: MaterialStateProperty.resolveWith((states) {
+          final color = outerBorder.color.resolve(states);
+          final width = outerBorder.width.resolve(states);
           return ContinuousRectangleBorder(
             side: BorderSide(
-              color: outerBorder.color.resolve(states),
-              width: outerBorder.width.resolve(states),
+              color: color,
+              width: width,
+              style: width > 0 ? BorderStyle.solid : BorderStyle.none,
             ),
           );
         }),

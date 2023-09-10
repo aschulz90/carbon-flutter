@@ -117,9 +117,11 @@ class CToggleState extends State<CToggle> with MaterialStateMixin {
         ],
         Container(
           decoration: BoxDecoration(
-            border: Border.all(
-              color: materialStates.contains(MaterialState.focused) ? CColors.blue60 : Colors.transparent,
+            border: materialStates.contains(MaterialState.focused) ? Border.all(
+              color: theme.focusColor,
               width: 2,
+            ) : Border.all(
+              style: BorderStyle.none,
             ),
           ),
           padding: EdgeInsets.all(2),

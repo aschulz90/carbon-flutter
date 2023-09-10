@@ -48,10 +48,12 @@ class CarbonStateBorder extends Border implements MaterialStateProperty<Border> 
   @override
   Border resolve(Set<MaterialState> states) {
     final width = this.width.resolve(states);
+    final color = this.color.resolve(states);
+    final showBorder = width > 0 && color.alpha > 0;
     return Border.all(
-      color: color.resolve(states),
+      color: color,
       width: width,
-      style: width > 0 ? BorderStyle.solid : BorderStyle.none,
+      style: showBorder ? BorderStyle.solid : BorderStyle.none,
     );
   }
 

@@ -95,9 +95,9 @@ class CarbonNotificationTheme {
 
 final MaterialStateColor _lightLayerColor0 = CarbonStateColor(
   color: CColors.white0,
-  hoveredColor: CColors.gray10,
-  focusedColor: CColors.gray10,
-  pressedColor: CColors.gray20,
+  hoveredColor: CColors.gray20,
+  focusedColor: CColors.gray20,
+  pressedColor: CColors.gray30,
 );
 
 final MaterialStateColor _lightLayerColor1 = CarbonStateColor(
@@ -337,6 +337,71 @@ class CarbonThemeData {
       materialTheme: materialTheme ?? this.materialTheme,
     );
   }
+
+  CarbonThemeData withPrimaryColor(CarbonStateColor color) => CarbonThemeData(
+        style: style,
+        layers: layers,
+        onLayers: onLayers,
+        buttonTheme: buttonTheme.copyWith(
+          primary: buttonTheme.primary.copyWith(
+            color: color,
+          ),
+          tertiary: buttonTheme.tertiary.copyWith(
+            color: color.copyWith(
+              color: Colors.transparent,
+            ),
+            contentColor: buttonTheme.tertiary.contentColor.copyWith(
+              color: color,
+            ),
+            outerBorder: buttonTheme.tertiary.outerBorder.copyWith(
+              color: color,
+            ),
+          ),
+          ghost: buttonTheme.ghost.copyWith(
+            contentColor: CarbonStateColor.all(color),
+            outerBorder: buttonTheme.ghost.outerBorder.copyWith(
+              color: color,
+            ),
+            dangerOuterBorder: buttonTheme.ghost.dangerOuterBorder.copyWith(
+              color: color,
+            ),
+          ),
+        ),
+        notificationTheme: notificationTheme,
+        materialTheme: materialTheme.copyWith(
+          colorScheme: materialTheme.colorScheme.copyWith(
+            primary: color,
+            onTertiary: color,
+          ),
+          primaryColor: color,
+          focusColor: color,
+          inputDecorationTheme: materialTheme.inputDecorationTheme.copyWith(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color: color, width: 2),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color: color, width: 2),
+            ),
+          ),
+          checkboxTheme: materialTheme.checkboxTheme.copyWith(
+            side: MaterialStateBorderSide.resolveWith((states) {
+              if (states.contains(MaterialState.focused)) {
+                return BorderSide(
+                  color: color,
+                  width: 2,
+                );
+              }
+
+              return BorderSide(
+                color: color.resolve(states),
+                width: 1,
+              );
+            }),
+          ),
+        ),
+      );
 
   @override
   bool operator ==(Object other) =>

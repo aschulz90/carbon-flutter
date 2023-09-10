@@ -63,6 +63,7 @@ class _CTileState extends State<CTile> with MaterialStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return IgnorePointer(
       ignoring: !_isEnabled,
       child: GestureDetector(
@@ -90,9 +91,11 @@ class _CTileState extends State<CTile> with MaterialStateMixin {
                   ),
                   padding: widget.props.padding,
                   foregroundDecoration: BoxDecoration(
-                    border: Border.all(
+                    border: hasFocus == true ? Border.all(
+                      color: theme.focusColor,
                       width: 2,
-                      color: hasFocus ? CColors.blue60 : CColors.transparent,
+                    ) : Border.all(
+                      style: BorderStyle.none,
                     ),
                   ),
                   child: widget.props.content,

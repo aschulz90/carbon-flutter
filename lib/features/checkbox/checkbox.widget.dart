@@ -56,9 +56,11 @@ class _CCheckboxState extends State<CCheckbox> {
         onTap: () => widget.props.onChanged?.call(!widget.props.value),
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(
-              color: focusNode?.hasFocus == true ? CColors.blue60 : Colors.transparent,
+            border: focusNode?.hasFocus == true ? Border.all(
+              color: theme.focusColor,
               width: 2,
+            ) : Border.all(
+              style: BorderStyle.none,
             ),
           ),
           padding: EdgeInsets.only(right: widget.props.label != null ? 8 : 0),
