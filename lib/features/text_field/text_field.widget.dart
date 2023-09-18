@@ -149,24 +149,25 @@ class CTextFieldState extends State<CTextField> {
   }
 
   void _validate(String? text) {
-    _validationResult = widget.validator?.call(text);
+    setState(() {
+      _validationResult = widget.validator?.call(text);
+    });
   }
 
   bool validate() {
     setState(() {
-      _validate(_value);
+      _validationResult = widget.validator?.call(_value);
     });
 
+    if(_validationResult?.kind == CValidationKind.error) {
+      return false;
+    }
 
     if (_value == null) {
       return widget.isRequired ? false : true;
     }
 
-    if (_validationResult == null || _validationResult?.kind == CValidationKind.success) {
-      return true;
-    } else {
-      return false;
-    }
+    return true;
   }
 
   void _setStateVariables() {
@@ -195,6 +196,41 @@ class CTextFieldState extends State<CTextField> {
     }
 
     return null;
+  }
+
+  List<Widget> _getDescription(BuildContext context) {
+    final theme = Theme.of(context);
+    final validationResult = _validationResult;
+
+    if(validationResult != null) {
+      return [
+        const SizedBox(height: 8),
+        CText(
+          validationResult.message,
+          style: theme.inputDecorationTheme.errorStyle?.copyWith(
+            color: switch (_validationResult?.kind) {
+              CValidationKind.warning => CColors.yellow30,
+              CValidationKind.success => CColors.green60,
+              _ => CColors.red60,
+            },
+          ),
+        ),
+      ];
+    }
+
+    final desciption = widget.description;
+
+    if(desciption != null) {
+      return [
+        const SizedBox(height: 8),
+        CText(
+          desciption,
+          style: theme.inputDecorationTheme.helperStyle,
+        ),
+      ];
+    }
+
+    return [];
   }
 
   @override
@@ -290,13 +326,7 @@ class CTextFieldState extends State<CTextField> {
               ),
             ),
           ),
-          if (widget.description != null) ...[
-            const SizedBox(height: 8),
-            CText(
-               _validationResult == null ? widget.description! : _validationResult!.message,
-              style: theme.inputDecorationTheme.helperStyle,
-            ),
-          ],
+          ..._getDescription(context),
         ],
       ),
     );

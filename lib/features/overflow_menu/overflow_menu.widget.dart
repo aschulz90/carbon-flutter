@@ -118,6 +118,7 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
   @override
   void dispose() {
     _animationController.dispose();
+    _overlayEntry?.remove();
     super.dispose();
   }
 

@@ -40,6 +40,11 @@ final whiteTheme = ThemeData(
       fontFamily: CFonts.primaryRegular,
       color: CColors.gray60,
     ),
+    errorStyle: TextStyle(
+      fontSize: 12.0,
+      fontFamily: CFonts.primaryRegular,
+      color: CColors.red60,
+    ),
     hintStyle: TextStyle(
       fontSize: 14.0,
       fontFamily: CFonts.primaryRegular,

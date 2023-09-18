@@ -42,6 +42,11 @@ final gray10Theme = ThemeData(
       fontFamily: CFonts.primaryRegular,
       color: CColors.gray70,
     ),
+    errorStyle: TextStyle(
+      fontSize: 12.0,
+      fontFamily: CFonts.primaryRegular,
+      color: CColors.red60,
+    ),
     hintStyle: TextStyle(
       fontSize: 15.0,
       fontFamily: CFonts.primaryRegular,
