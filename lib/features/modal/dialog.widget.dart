@@ -29,21 +29,24 @@ class CDialog extends StatelessWidget {
   final FormActionBuilder? formActions;
 
   List<Widget> _getContent(BuildContext context) {
-
-    if(formActions != null) {
+    if (formActions != null) {
       return [
-        CForm(
-          actionBuilder: formActions,
+        Flexible(
           child: SingleChildScrollView(
-            child: child,
+            child: CForm(
+              actionBuilder: formActions,
+              child: child,
+            ),
           ),
-        )
+        ),
       ];
     }
 
     return [
-      SingleChildScrollView(
-        child: child,
+      Flexible(
+        child: SingleChildScrollView(
+          child: child,
+        ),
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
