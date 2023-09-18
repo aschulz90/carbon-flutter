@@ -15,7 +15,7 @@ typedef _Styles = CFormStyles;
 class CForm extends StatefulWidget {
   CForm({
     Key? key,
-    required List<Widget> children,
+    required Widget child,
     EdgeInsets padding = const EdgeInsets.only(
       top: 16,
       left: 16,
@@ -27,7 +27,7 @@ class CForm extends StatefulWidget {
     CFormType type = CFormType.blank,
   })  : props = CFormProps(
           enable: enable,
-          children: children,
+          child: child,
           padding: padding,
           type: type,
           actionBuilder: actionBuilder,
@@ -84,12 +84,7 @@ class CFormState extends State<CForm> {
                 Container(
                   color: theme.colorScheme.background,
                   padding: widget.props.padding,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: widget.props.children,
-                  ),
+                  child: widget.props.child,
                 ),
                 if (actionBuilder != null)
                   Builder(

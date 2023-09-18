@@ -8,7 +8,7 @@ class CFormProps {
   /// The content of the form.
   ///
   /// @required
-  final List<Widget> children;
+  final Widget child;
 
   final EdgeInsets padding;
 
@@ -29,7 +29,7 @@ class CFormProps {
 
   CFormProps({
     required this.enable,
-    required this.children,
+    required this.child,
     required this.padding,
     required this.type,
     required this.actionBuilder,

@@ -32,61 +32,66 @@ class _CFormExampleState extends State<CFormExample> {
                     icon: Icon(CIcons.add, size: 16),
                   );
                 },
-                children: [
-                  CTextField(
-                    label: 'Label',
-                    hint: 'Hint',
-                    description: 'Description',
-                  ),
-                  const SizedBox(height: 16),
-                  CTextField(
-                    label: 'Label',
-                    hint: 'Hint',
-                    description: 'Description',
-                    validator: (value) {
-                      return CValidationResult(
-                        kind: CValidationKind.error,
-                        icon: Icon(Icons.error, color: CColors.red40,),
-                        message: 'Your input is incorrect',
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  CTextField(
-                    label: 'Label',
-                    hint: 'Hint',
-                    description: 'Description',
-                    validator: (value) {
-                      return CValidationResult(
-                        kind: CValidationKind.success,
-                        message: 'Your input is correct.',
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  CTextField(
-                    label: 'Label',
-                    hint: 'Hint',
-                    description: 'Description',
-                    validator: (value) {
-                      return CValidationResult(
-                        kind: CValidationKind.warning,
-                        icon: Icon(Icons.warning, color: CColors.yellow20,),
-                        message: 'Your input is missing something.',
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  CTextField(
-                    label: 'Label',
-                    hint: 'Hint',
-                    description: 'Description',
-                    validator: (value) {
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                ],
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CTextField(
+                      label: 'Label',
+                      hint: 'Hint',
+                      description: 'Description',
+                    ),
+                    const SizedBox(height: 16),
+                    CTextField(
+                      label: 'Label',
+                      hint: 'Hint',
+                      description: 'Description',
+                      validator: (value) {
+                        return CValidationResult(
+                          kind: CValidationKind.error,
+                          icon: Icon(Icons.error, color: CColors.red40,),
+                          message: 'Your input is incorrect',
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    CTextField(
+                      label: 'Label',
+                      hint: 'Hint',
+                      description: 'Description',
+                      validator: (value) {
+                        return CValidationResult(
+                          kind: CValidationKind.success,
+                          message: 'Your input is correct.',
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    CTextField(
+                      label: 'Label',
+                      hint: 'Hint',
+                      description: 'Description',
+                      validator: (value) {
+                        return CValidationResult(
+                          kind: CValidationKind.warning,
+                          icon: Icon(Icons.warning, color: CColors.yellow20,),
+                          message: 'Your input is missing something.',
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    CTextField(
+                      label: 'Label',
+                      hint: 'Hint',
+                      description: 'Description',
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                )
               ),
             ),
           ),
