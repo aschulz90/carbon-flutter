@@ -186,6 +186,7 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
             left: _menuOffset.dx,
             top: _menuOffset.dy,
             child: CLayer(
+              layerIndex: CLayer.of(context) + 1,
               builder: (context, layerIndex, layerColor) {
                 return Material(
                   color: layerColor,
