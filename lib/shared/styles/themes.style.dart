@@ -359,12 +359,6 @@ class CarbonThemeData {
           ),
           ghost: buttonTheme.ghost.copyWith(
             contentColor: CarbonStateColor.all(color),
-            outerBorder: buttonTheme.ghost.outerBorder.copyWith(
-              color: color,
-            ),
-            dangerOuterBorder: buttonTheme.ghost.dangerOuterBorder.copyWith(
-              color: color,
-            ),
           ),
         ),
         notificationTheme: notificationTheme,
