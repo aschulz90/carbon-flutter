@@ -7,6 +7,9 @@ class CDialog extends StatelessWidget {
     required this.child,
     this.actions = const [],
     this.title,
+    this.titleStyle = const TextStyle(
+      fontSize: 24,
+    ),
   }) : formActions = null;
 
   const CDialog.form({
@@ -14,9 +17,13 @@ class CDialog extends StatelessWidget {
     required this.child,
     required this.formActions,
     this.title,
+    this.titleStyle = const TextStyle(
+      fontSize: 24,
+    ),
   }) : actions = const [];
 
   final String? title;
+  final TextStyle titleStyle;
   final Widget child;
   final List<CButton> actions;
   final FormActionBuilder? formActions;
@@ -39,7 +46,8 @@ class CDialog extends StatelessWidget {
         child: child,
       ),
       Row(
-        children: actions.map((e) => Expanded(child: e)).toList(),
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: actions,
       ),
     ];
   }
@@ -64,7 +72,7 @@ class CDialog extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: CText(
                       title ?? "",
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: titleStyle,
                     ),
                   ),
                   CButton.icon(
