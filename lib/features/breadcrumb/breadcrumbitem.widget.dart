@@ -1,5 +1,6 @@
+import 'package:carbon_flutter/features/index.dart';
+import 'package:carbon_flutter/features/link/link.props.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:carbon_flutter/shared/index.dart';
 
 import 'breadcrumbitem.props.dart';
@@ -12,11 +13,11 @@ typedef _Styles = CBreadcrumbItemStyles;
 class CBreadcrumbItem extends StatefulWidget {
   CBreadcrumbItem({
     Key? key,
-    required Widget child,
-    required VoidCallback onTap,
+    required String label,
+    required OnLinkClickedCallback onTap,
     bool isCurrentPage = false,
   })  : props = CBreadcrumbItemProps(
-          child: child,
+          label: label,
           isCurrentPage: isCurrentPage,
           onTap: onTap,
         ),
@@ -47,7 +48,9 @@ class CBreadcrumbItemState extends State<CBreadcrumbItem> {
     final theme = Theme.of(context);
 
     return GestureDetector(
-      onTap: widget.props.onTap,
+      onTap: () {
+        widget.props.onTap.call(widget.props.url);
+      },
       onTapDown: (_) => setState(() => _focused = true),
       onTapUp: (_) => setState(() => _focused = false),
       onTapCancel: () => setState(() => _focused = false),
@@ -63,7 +66,7 @@ class CBreadcrumbItemState extends State<CBreadcrumbItem> {
           style: theme.textTheme.bodyMedium!.copyWith(
             color: widget.props.isCurrentPage ? null : CColors.blue40,
           ),
-          child: widget.props.child,
+          child: CText(widget.props.label),
         ),
       ),
     );

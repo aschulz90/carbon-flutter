@@ -145,6 +145,19 @@ class CarbonStateColor extends MaterialStateColor {
         selectedColor = null,
         super(Colors.transparent.value);
 
+  CarbonStateColor.fromMaterial(
+        MaterialStateColor color, {
+        this.disabledColor = CColors.gray40,
+        this.animationDuration = const Duration(milliseconds: 80),
+        this.animationCurve = Curves.easeInOut,
+      }
+      ): color = color,
+        hoveredColor = color.resolve({MaterialState.hovered}),
+        focusedColor = color.resolve({MaterialState.focused}),
+        pressedColor = color.resolve({MaterialState.pressed}),
+        selectedColor = color.resolve({MaterialState.selected}),
+        super(color.value);
+
   final Color color;
   final Color hoveredColor;
   final Color focusedColor;

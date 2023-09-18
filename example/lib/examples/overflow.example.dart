@@ -14,13 +14,22 @@ class COverflowExample extends StatelessWidget {
             icon: Icon(CIcons.overflowMenuVertical),
             items: [
               COverflowMenuItem(
-                child: CText("Entry 1"),
+                entry: COverflowMenuEntryButton(
+                  label: "Entry 1",
+                  onPressed: () {},
+                ),
               ),
               COverflowMenuItem(
-                child: CText("Entry 2"),
+                entry: COverflowMenuEntryButton(
+                  label: "Entry 2",
+                  onPressed: () {},
+                ),
               ),
               COverflowMenuItem(
-                child: CText("Entry 3"),
+                entry: COverflowMenuEntryButton(
+                  label: "Entry 3",
+                  onPressed: () {},
+                ),
               ),
             ],
           ),
@@ -37,13 +46,24 @@ class COverflowExample extends StatelessWidget {
                     icon: Icon(CIcons.overflowMenuVertical),
                     items: [
                       COverflowMenuItem(
-                        child: CText("Entry 1"),
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 1",
+                          onPressed: () {},
+                        ),
                       ),
                       COverflowMenuItem(
-                        child: CText("Entry 2"),
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 2",
+                          onPressed: () {},
+                        ),
                       ),
                       COverflowMenuItem(
-                        child: CText("Entry 3"),
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 3",
+                          onPressed: () {},
+                          isDangerous: true,
+                          icon: Icon(CIcons.delete),
+                        ),
                       ),
                     ],
                   ),
@@ -56,13 +76,86 @@ class COverflowExample extends StatelessWidget {
                     icon: Icon(CIcons.overflowMenuVertical),
                     items: [
                       COverflowMenuItem(
-                        child: CText("Entry 1"),
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 1",
+                          onPressed: () {},
+                        ),
                       ),
                       COverflowMenuItem(
-                        child: CText("Entry 2"),
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 2",
+                          onPressed: () {},
+                        ),
                       ),
                       COverflowMenuItem(
-                        child: CText("Entry 3"),
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 3",
+                          onPressed: () {},
+                          isDangerous: true,
+                          icon: Icon(CIcons.delete),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  COverflowMenuButton(
+                    size: COverflowMenuSize.md,
+                    icon: Icon(CIcons.overflowMenuVertical),
+                    items: [
+                      COverflowMenuItem(
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 1",
+                          onPressed: () {},
+                        ),
+                      ),
+                      COverflowMenuItem(
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 2",
+                          onPressed: () {},
+                        ),
+                      ),
+                      COverflowMenuItem(
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 3",
+                          onPressed: () {},
+                          isDangerous: true,
+                          icon: Icon(CIcons.delete),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  COverflowMenuButton(
+                    size: COverflowMenuSize.sm,
+                    icon: Icon(CIcons.overflowMenuVertical),
+                    items: [
+                      COverflowMenuItem(
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 1",
+                          onPressed: () {},
+                        ),
+                      ),
+                      COverflowMenuItem(
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 2",
+                          onPressed: () {},
+                        ),
+                      ),
+                      COverflowMenuItem(
+                        entry: COverflowMenuEntryButton(
+                          label: "Entry 3",
+                          onPressed: () {},
+                          isDangerous: true,
+                          icon: Icon(CIcons.delete),
+                        ),
                       ),
                     ],
                   ),

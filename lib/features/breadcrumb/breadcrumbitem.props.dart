@@ -1,15 +1,17 @@
-import 'package:flutter/widgets.dart';
+import 'package:carbon_flutter/features/link/link.props.dart';
 
 class CBreadcrumbItemProps {
   /// The content of the item.
   ///
   /// @required
-  final Widget child;
+  final String label;
+
+  final String url;
 
   /// Called when the item is tapped.
   ///
   /// @required
-  final VoidCallback onTap;
+  final OnLinkClickedCallback onTap;
 
   /// Whether this breadcrumb item represents the current page or not.
   ///
@@ -17,8 +19,9 @@ class CBreadcrumbItemProps {
   final bool isCurrentPage;
 
   CBreadcrumbItemProps({
-    required this.child,
+    required this.label,
     required this.isCurrentPage,
     required this.onTap,
+    this.url = "",
   });
 }

@@ -1,3 +1,5 @@
+typedef OnLinkClickedCallback = void Function(String url);
+
 class CLinkProps {
   /// The destination that this link leads to.
   ///
@@ -7,7 +9,7 @@ class CLinkProps {
   /// Called when the link is tapped, it also passes the [url] value.
   ///
   /// @required
-  final void Function(String url) onTap;
+  final OnLinkClickedCallback onTap;
 
   /// A caption text to display instead of the [url].
   /// If it's null, then the URL will be displayed.

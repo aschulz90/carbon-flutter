@@ -20,22 +20,22 @@ class CBreadcrumbExample extends StatelessWidget {
             const SizedBox(height: 48),
             CBreadcrumb(
               children: [
-                CBreadcrumbItem(child: CText('Item 1'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item 2'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item 3'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item 4'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item 5'), onTap: () {}),
+                CBreadcrumbItem(label: 'Item 1', onTap: (_) {}),
+                CBreadcrumbItem(label: 'Item 2', onTap: (_) {}),
+                CBreadcrumbItem(label: 'Item 3', onTap: (_) {}),
+                CBreadcrumbItem(label: 'Item 4', onTap: (_) {}),
+                CBreadcrumbItem(label: 'Item 5', onTap: (_) {}),
               ],
             ),
             const SizedBox(height: 48),
             CBreadcrumb(
               children: [
-                CBreadcrumbItem(child: CText('Item 1'), onTap: () {}),
-                CBreadcrumbItem(child: CText('Item 2'), onTap: () {}),
+                CBreadcrumbItem(label: 'Item 1', onTap: (_) {}),
+                CBreadcrumbItem(label: 'Item 1', onTap: (_) {}),
                 CBreadcrumbItem(
-                  onTap: () {},
+                  onTap: (_) {},
                   isCurrentPage: true,
-                  child: CText('Item 3'),
+                  label: 'Item 3',
                 ),
               ],
             ),

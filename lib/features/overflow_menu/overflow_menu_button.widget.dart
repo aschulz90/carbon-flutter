@@ -1,5 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
-import 'package:carbon_flutter/features/layer/layer.widget.dart';
+import 'package:carbon_flutter/features/overflow_menu/overflow_menu_item.styles.dart';
 import 'package:flutter/material.dart';
 
 /// A ghost button to display/hide an overflow menu when pressed.
@@ -41,12 +41,10 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
   bool get _isOpen => _controller.isOpen;
 
   void _openMenu() {
-    _materialStatesController.update(MaterialState.selected, true);
     _controller.open();
   }
 
   void _closeMenu() {
-    _materialStatesController.update(MaterialState.selected, false);
     _controller.close();
   }
 
@@ -57,6 +55,12 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
   @override
   void initState() {
     super.initState();
+
+    _controller.addListener(() {
+      setState(() {
+        _materialStatesController.update(MaterialState.selected, _isOpen);
+      });
+    });
   }
 
   @override
@@ -79,6 +83,7 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
 
     final buttonStyle = CarbonTheme.of(context).buttonTheme.ghost;
     final nextLayerColor = CLayer.layerColor(context, offset: 1);
+    final nextOnLayerColor = CLayer.onLayerColor(context, offset: 1);
     final iconColor = IconTheme.of(context).color ?? Theme.of(context).colorScheme.onBackground;
 
     return COverflowMenu(
@@ -96,12 +101,7 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
           key: item.key,
           enable: item.props.enable,
           hasDivider: item.props.hasDivider,
-          isDelete: item.props.isDelete,
-          onPressed: () {
-            item.props.onPressed?.call();
-            _closeMenu();
-          },
-          child: item.props.child,
+          entry: item.props.entry,
         );
       }).toList(),
       child: CButton.icon(
@@ -120,11 +120,15 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
             color: Colors.transparent,
             pressedColor: nextLayerColor,
             selectedColor: nextLayerColor,
+            animationDuration: COverflowMenuItemStyles.animationDuration,
+            animationCurve: COverflowMenuItemStyles.animationCurve,
           ),
           contentColor: CarbonStateColor.all(
-            iconColor,
+            _isOpen ? nextOnLayerColor : iconColor,
+            animationDuration: COverflowMenuItemStyles.animationDuration,
+            animationCurve: COverflowMenuItemStyles.animationCurve,
           ).copyWith(
-            selectedColor: Theme.of(context).colorScheme.onBackground,
+            selectedColor: nextOnLayerColor,
           ),
         ),
       ),

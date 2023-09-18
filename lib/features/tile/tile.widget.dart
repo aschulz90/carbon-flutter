@@ -64,46 +64,53 @@ class _CTileState extends State<CTile> with MaterialStateMixin {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return IgnorePointer(
+
+    Widget content = IgnorePointer(
       ignoring: !_isEnabled,
-      child: GestureDetector(
-        onTapDown: (_) => addMaterialState(MaterialState.pressed),
-        onTapUp: (_) => removeMaterialState(MaterialState.pressed),
-        onTapCancel: () => removeMaterialState(MaterialState.pressed),
-        onTap: _handleTap,
-        child: FocusableActionDetector(
-          enabled: _isInteractive,
-          focusNode: _focusNode,
-          onShowHoverHighlight: updateMaterialState(MaterialState.hovered),
-          onShowFocusHighlight: updateMaterialState(MaterialState.focused),
-          actions: {
-            ActivateIntent: CallbackAction<ActivateIntent>(onInvoke: _handleTap),
-          },
-          child: CLayer(
-            builder: (context, layerIndex, layerColor) {
-              return SizedBox(
-                width: widget.props.width,
-                height: widget.props.height,
-                child: AnimatedContainer(
-                  duration: widget.props.animationDuration,
-                  decoration: BoxDecoration(
-                    color: layerColor.resolve(materialStates),
-                  ),
-                  padding: widget.props.padding,
-                  foregroundDecoration: BoxDecoration(
-                    border: hasFocus == true ? Border.all(
-                      color: theme.focusColor,
-                      width: 2,
-                    ) : Border.all(
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  child: widget.props.content,
+      child: CLayer(
+        builder: (context, layerIndex, layerColor) {
+          return SizedBox(
+            width: widget.props.width,
+            height: widget.props.height,
+            child: AnimatedContainer(
+              duration: widget.props.animationDuration,
+              decoration: BoxDecoration(
+                color: layerColor.resolve(materialStates),
+              ),
+              padding: widget.props.padding,
+              foregroundDecoration: BoxDecoration(
+                border: hasFocus == true ? Border.all(
+                  color: theme.focusColor,
+                  width: 2,
+                ) : Border.all(
+                  style: BorderStyle.none,
                 ),
-              );
-            },
-          ),
-        ),
+              ),
+              child: widget.props.content,
+            ),
+          );
+        },
+      ),
+    );
+
+    if(!_isInteractive) {
+      return content;
+    }
+
+    return GestureDetector(
+      onTapDown: (_) => addMaterialState(MaterialState.pressed),
+      onTapUp: (_) => removeMaterialState(MaterialState.pressed),
+      onTapCancel: () => removeMaterialState(MaterialState.pressed),
+      onTap: _handleTap,
+      child: FocusableActionDetector(
+        enabled: _isInteractive,
+        focusNode: _focusNode,
+        onShowHoverHighlight: updateMaterialState(MaterialState.hovered),
+        onShowFocusHighlight: updateMaterialState(MaterialState.focused),
+        actions: {
+          ActivateIntent: CallbackAction<ActivateIntent>(onInvoke: _handleTap),
+        },
+        child: content,
       ),
     );
   }

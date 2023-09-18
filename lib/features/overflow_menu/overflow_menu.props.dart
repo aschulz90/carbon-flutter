@@ -110,12 +110,7 @@ class COverflowMenuItemProps {
   /// The content of the item.
   ///
   /// @required
-  final Widget child;
-
-  /// Called when the item is tapped.
-  ///
-  /// @optional
-  final VoidCallback? onPressed;
+  final COverflowMenuEntry entry;
 
   /// Whether the item is enabled.
   ///
@@ -127,16 +122,9 @@ class COverflowMenuItemProps {
   /// @default: `false`
   final bool hasDivider;
 
-  /// To make this menu item a danger ghost button.
-  ///
-  /// @default: `false`
-  final bool isDelete;
-
   COverflowMenuItemProps({
-    required this.child,
-    required this.onPressed,
+    required this.entry,
     required this.enable,
     required this.hasDivider,
-    required this.isDelete,
   });
 }

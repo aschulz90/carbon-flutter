@@ -58,6 +58,8 @@ class CButtonRegularProps extends CButtonBaseProps {
   /// @required
   final String label;
 
+  final TextStyle? textStyle;
+
   /// An optional icon to display in the button.
   ///
   /// @optional
@@ -68,16 +70,10 @@ class CButtonRegularProps extends CButtonBaseProps {
   /// @default: `false`
   final bool expand;
 
-  /// The size (in logical pixels) to use when painting the label.
-  ///
-  /// @default: `14.0`
-  final double? labelSize;
-
   CButtonRegularProps({
     required this.icon,
     required this.expand,
     required this.label,
-    required this.labelSize,
     required super.isEnabled,
     super.isDangerous,
     required super.kind,
@@ -85,6 +81,7 @@ class CButtonRegularProps extends CButtonBaseProps {
     required super.constrainMaxSize,
     super.focusNode,
     super.style,
+    this.textStyle,
     required super.onPressed,
     super.materialStateController,
   });

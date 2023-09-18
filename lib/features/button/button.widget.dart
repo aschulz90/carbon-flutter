@@ -24,6 +24,7 @@ class CButton extends StatefulWidget {
     CButtonSize size = CButtonSize.regular,
     FocusNode? focusNode,
     CarbonButtonStyle? style,
+    TextStyle? textStyle,
     MaterialStatesController? materialStateController,
     Widget? icon,
   })  : type = CButtonType.regular,
@@ -31,7 +32,6 @@ class CButton extends StatefulWidget {
           icon: icon,
           expand: expand,
           label: label,
-          labelSize: labelSize,
           isEnabled: isEnabled,
           isDangerous: isDangerous,
           kind: kind,
@@ -40,6 +40,7 @@ class CButton extends StatefulWidget {
           focusNode: focusNode,
           onPressed: onPressed,
           style: style,
+          textStyle: textStyle,
           materialStateController: materialStateController,
         ),
         super(key: key);
@@ -135,6 +136,9 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
   @override
   Widget _innerContent(CarbonButtonStyle buttonStyle, double borderPadding) {
     final contentColor = isDangerous ? buttonStyle.dangerContentColor : buttonStyle.contentColor;
+    final labelStyle = widget.props.textStyle ?? TextStyle(
+      fontSize: 14,
+    );
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: widget.props.size.padding - borderPadding),
       child: Row(
@@ -144,8 +148,7 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
         children: [
           CText(
             widget.props.label,
-            style: TextStyle(
-              fontSize: widget.props.labelSize,
+            style: labelStyle.copyWith(
               height: 1,
             ),
           ),

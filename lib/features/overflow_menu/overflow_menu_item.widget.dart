@@ -1,9 +1,6 @@
-import 'package:carbon_flutter/features/enable/index.dart';
-import 'package:carbon_flutter/shared/index.dart';
+import 'package:carbon_flutter/carbon.dart';
 import 'package:flutter/widgets.dart';
 
-import 'overflow_menu.props.dart';
-import 'overflow_menu.widget.dart';
 import 'overflow_menu_item.styles.dart';
 
 enum COverflowMenuItemKind { primary, delete }
@@ -14,17 +11,13 @@ typedef _Styles = COverflowMenuItemStyles;
 class COverflowMenuItem extends StatefulWidget {
   COverflowMenuItem({
     Key? key,
-    required Widget child,
-    VoidCallback? onPressed,
+    required COverflowMenuEntry entry,
     bool enable = true,
     bool hasDivider = false,
-    bool isDelete = false,
   })  : props = COverflowMenuItemProps(
-          child: child,
-          onPressed: onPressed,
+          entry: entry,
           enable: enable,
           hasDivider: hasDivider,
-          isDelete: isDelete,
         ),
         super(key: key);
 
@@ -36,65 +29,77 @@ class COverflowMenuItem extends StatefulWidget {
 
 class COverflowMenuItemState extends State<COverflowMenuItem> with AfterInitMixin {
   late COverflowMenuProps _menuProps;
-  late COverflowMenuSize _size;
-
-  CWidgetState _state = CWidgetState.enabled;
-  COverflowMenuItemKind _kind = COverflowMenuItemKind.primary;
-
-  bool _focused = false;
 
   @override
   void didInitState() {
     _menuProps = COverflowMenu.of(context).props;
   }
 
-  void _setStateVariables() {
-    if (!widget.props.enable) {
-      _state = CWidgetState.disabled;
-    } else if (widget.props.enable && _focused) {
-      _state = CWidgetState.focused;
-    } else {
-      _state = CWidgetState.enabled;
-    }
+  @override
+  Widget build(BuildContext context) {
 
-    if (widget.props.isDelete) {
-      _kind = COverflowMenuItemKind.delete;
-    } else {
-      _kind = COverflowMenuItemKind.primary;
-    }
-
-    _size = _menuProps.size;
+    return AnimatedContainer(
+      curve: _Styles.animationCurve,
+      duration: _Styles.animationDuration,
+      height: _Styles.dimensions[_menuProps.size]!.height,
+      width: _Styles.dimensions[_menuProps.size]!.width,
+      alignment: Alignment.centerLeft,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: widget.props.hasDivider ? BorderSide(color: _Styles.dividerColor) : BorderSide.none,
+        ),
+      ),
+      child: widget.props.entry,
+    );
   }
+}
+
+abstract class COverflowMenuEntry extends StatelessWidget {
+  const COverflowMenuEntry({super.key});
+}
+
+class COverflowMenuEntryButton extends COverflowMenuEntry {
+  const COverflowMenuEntryButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.isDangerous = false,
+    this.isEnabled = true,
+    this.icon,
+    this.focusNode,
+  });
+
+  final String label;
+  final VoidCallback onPressed;
+  final bool isEnabled;
+  final bool isDangerous;
+  final Widget? icon;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
-    _setStateVariables();
+    final menu = COverflowMenu.of(context);
+    final menuProps = menu.props;
 
-    return CEnable(
-      value: widget.props.enable,
-      inheritFromParent: false,
-      child: IgnorePointer(
-        ignoring: !widget.props.enable,
-        child: GestureDetector(
-          onTap: () => widget.props.onPressed?.call(),
-          onTapDown: (_) => setState(() => _focused = true),
-          onTapUp: (_) => setState(() => _focused = false),
-          onTapCancel: () => setState(() => _focused = false),
-          child: AnimatedContainer(
-            curve: _Styles.animation['curve'],
-            duration: _Styles.animation['duration'],
-            height: _Styles.dimensions[_size]!.height,
-            width: _Styles.dimensions[_size]!.width,
-            alignment: Alignment.centerLeft,
-            padding: _Styles.padding[_size],
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: widget.props.hasDivider ? BorderSide(color: _Styles.dividerColor) : BorderSide.none,
-              ),
-            ),
-            child: widget.props.child,
-          ),
-        ),
+    return CButton(
+      kind: CButtonKind.ghost,
+      size: switch(menuProps.size) {
+        COverflowMenuSize.regular => CButtonSize.regular,
+        COverflowMenuSize.sm => CButtonSize.small,
+        COverflowMenuSize.md => CButtonSize.medium,
+      },
+      expand: true,
+      isDangerous: isDangerous,
+      label: label,
+      onPressed: () {
+        onPressed();
+        menu.close();
+      },
+      icon: icon,
+      focusNode: focusNode,
+      style: CarbonTheme.of(context).buttonTheme.ghost.copyWith(
+        color: CarbonStateColor.fromMaterial(CLayer.layerColor(context)),
+        contentColor: CarbonStateColor.fromMaterial(CLayer.onLayerColor(context)),
       ),
     );
   }

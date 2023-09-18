@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:carbon_flutter/features/layer/layer.widget.dart';
-import 'package:carbon_flutter/features/theme/carbon_theme.widget.dart';
 import 'package:flutter/material.dart';
 
 import 'overflow_menu.props.dart';
@@ -120,6 +119,14 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  void close() {
+    widget.props.controller.close();
+  }
+
+  void open() {
+    widget.props.controller.open();
   }
 
   void _showOverlay() {

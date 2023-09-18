@@ -4,10 +4,7 @@ import 'package:carbon_flutter/features/overflow_menu/index.dart';
 import 'package:carbon_flutter/features/text/index.dart';
 
 import 'breadcrumb.props.dart';
-import 'breadcrumb.styles.dart';
 import 'breadcrumbitem.widget.dart';
-
-typedef _Styles = CBreadcrumbStyles;
 
 /// The breadcrumb is a secondary navigation pattern that
 /// helps a user understand the hierarchy among levels and
@@ -68,8 +65,8 @@ class CBreadcrumb extends StatelessWidget {
       items: _buildMenuItems(hiddenItems),
       child: CBreadcrumbItem(
         key: _menuKey,
-        child: CText('...'),
-        onTap: () {
+        label: '...',
+        onTap: (_) {
           _menu.open();
         },
       ),
@@ -98,11 +95,13 @@ class CBreadcrumb extends StatelessWidget {
     return items.map(
       (item) {
         return COverflowMenuItem(
-          child: item.props.child,
-          onPressed: () {
-            item.props.onTap();
-            _menu.close();
-          },
+          entry: COverflowMenuEntryButton(
+            label: item.props.label,
+            onPressed: () {
+              item.props.onTap(item.props.url);
+              _menu.close();
+            },
+          ),
         );
       },
     ).toList();
