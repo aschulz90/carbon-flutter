@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:carbon_flutter/features/layer/layer.widget.dart';
+import 'package:carbon_flutter/features/overflow_menu/overflow_menu_item.styles.dart';
 import 'package:flutter/material.dart';
 
 import 'overflow_menu.props.dart';
@@ -8,8 +9,6 @@ import 'overflow_menu.util.dart';
 import 'overflow_menu_item.widget.dart';
 
 enum COverflowMenuDirection { top, bottom }
-
-enum COverflowMenuSize { regular, sm, md }
 
 typedef _Styles = COverflowMenuStyles;
 
@@ -25,7 +24,7 @@ class COverflowMenu extends StatefulWidget {
     VoidCallback? onClose,
     bool barrierDismissible = true,
     Offset menuOffset = Offset.zero,
-    COverflowMenuSize size = COverflowMenuSize.regular,
+    COverFlowMenuSize size = COverFlowMenuSize.regular,
   })  : assert(items.isNotEmpty),
         props = COverflowMenuProps(
           controller: controller,
@@ -76,7 +75,7 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
   late COverflowMenuDirection _direction;
   late Size _screenSize;
   late Offset _menuOffset;
-  late COverflowMenuSize _size;
+  late COverFlowMenuSize _size;
 
   BuildContext? _childContext;
   OverlayEntry? _overlayEntry;
@@ -87,7 +86,7 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
 
   COverflowMenuProps get props => widget.props;
 
-  Size get _menuItemDimension => _Styles.dimensions[_size]!;
+  Size get _menuItemDimension => _size.itemSize;
 
   double get _menuWidth => _menuItemDimension.width;
   double get _menuHeight => _menuItemDimension.height * widget.props.items.length;
@@ -194,9 +193,12 @@ class COverflowMenuState extends State<COverflowMenu> with TickerProviderStateMi
                   child: SizeTransition(
                     sizeFactor: _animation,
                     axis: Axis.vertical,
-                    child: SizedBox(
-                      width: _menuWidth,
-                      height: _menuHeight,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: _menuHeight,
+                        maxHeight: _menuHeight,
+                        minWidth: _menuWidth,
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: widget.props.items,

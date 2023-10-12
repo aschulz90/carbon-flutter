@@ -152,10 +152,10 @@ final primaryDark = primaryLight.copyWith(
 
 final secondaryLight = CarbonButtonStyle(
   color: CarbonStateColor(
-    color: CColors.gray70,
-    hoveredColor: CColors.gray60,
-    focusedColor: CColors.gray60,
-    pressedColor: CColors.gray50,
+    color: CColors.gray80,
+    hoveredColor: CColors.gray70,
+    focusedColor: CColors.gray80,
+    pressedColor: CColors.gray60,
   ),
   contentColor: CarbonStateColor.all(CColors.white0, disabledColor: CColors.gray30),
   innerBorder: defaultLightInnerBorder,
@@ -164,10 +164,10 @@ final secondaryLight = CarbonButtonStyle(
 
 final secondaryDark = secondaryLight.copyWith(
   color: CarbonStateColor(
-    color: CColors.gray50,
-    hoveredColor: CColors.gray60,
+    color: CColors.gray60,
+    hoveredColor: CColors.gray70,
     focusedColor: CColors.gray60,
-    pressedColor: CColors.gray70,
+    pressedColor: CColors.gray80,
   ),
   innerBorder: defaultDarkInnerBorder,
   outerBorder: defaultDarkOuterBorder,
@@ -308,19 +308,19 @@ final class CButtonSize {
   final Size dimensions;
   final double padding;
 
-  const CButtonSize._({required this.dimensions, required this.padding});
+  const CButtonSize({required this.dimensions, required this.padding});
 
-  static const regular = CButtonSize._(
+  static const regular = CButtonSize(
     dimensions: Size(48, 48),
     padding: 16.0,
   );
 
-  static const medium = CButtonSize._(
+  static const medium = CButtonSize(
     dimensions: Size(40, 40),
     padding: 16.0,
   );
 
-  static const small = CButtonSize._(
+  static const small = CButtonSize(
     dimensions: Size(32, 32),
     padding: 13.0,
   );

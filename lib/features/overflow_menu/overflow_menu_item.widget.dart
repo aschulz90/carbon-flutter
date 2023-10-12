@@ -37,19 +37,23 @@ class COverflowMenuItemState extends State<COverflowMenuItem> with AfterInitMixi
 
   @override
   Widget build(BuildContext context) {
-
     return AnimatedContainer(
       curve: _Styles.animationCurve,
       duration: _Styles.animationDuration,
-      height: _Styles.dimensions[_menuProps.size]!.height,
-      width: _Styles.dimensions[_menuProps.size]!.width,
+      height: _menuProps.size.itemSize.height,
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
         border: Border(
           bottom: widget.props.hasDivider ? BorderSide(color: _Styles.dividerColor) : BorderSide.none,
         ),
       ),
-      child: widget.props.entry,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: _menuProps.size.itemSize.width,
+          maxWidth: _menuProps.size.itemSize.width,
+        ),
+        child: widget.props.entry,
+      ),
     );
   }
 }
@@ -83,11 +87,7 @@ class COverflowMenuEntryButton extends COverflowMenuEntry {
 
     return CButton(
       kind: CButtonKind.ghost,
-      size: switch(menuProps.size) {
-        COverflowMenuSize.regular => CButtonSize.regular,
-        COverflowMenuSize.sm => CButtonSize.small,
-        COverflowMenuSize.md => CButtonSize.medium,
-      },
+      size: menuProps.size.buttonSize,
       expand: true,
       isDangerous: isDangerous,
       label: label,
@@ -98,9 +98,9 @@ class COverflowMenuEntryButton extends COverflowMenuEntry {
       icon: icon,
       focusNode: focusNode,
       style: CarbonTheme.of(context).buttonTheme.ghost.copyWith(
-        color: CarbonStateColor.fromMaterial(CLayer.layerColor(context)),
-        contentColor: CarbonStateColor.fromMaterial(CLayer.onLayerColor(context)),
-      ),
+            color: CarbonStateColor.fromMaterial(CLayer.layerColor(context)),
+            contentColor: CarbonStateColor.fromMaterial(CLayer.onLayerColor(context)),
+          ),
     );
   }
 }

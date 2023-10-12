@@ -14,7 +14,7 @@ class COverflowMenuButton extends StatefulWidget {
     VoidCallback? onClose,
     VoidCallback? onOpen,
     Offset menuOffset = Offset.zero,
-    COverflowMenuSize size = COverflowMenuSize.regular,
+    COverFlowMenuSize size = COverFlowMenuSize.regular,
   })  : assert(items.isNotEmpty),
         props = COverflowMenuButtonProps(
           icon: icon,
@@ -109,11 +109,7 @@ class COverflowMenuButtonState extends State<COverflowMenuButton> {
         onPressed: () => _isOpen ? _closeMenu() : _openMenu(),
         kind: CButtonKind.ghost,
         isEnabled: _isEnabled,
-        size: switch (widget.props.size) {
-          COverflowMenuSize.regular => CButtonSize.regular,
-          COverflowMenuSize.sm => CButtonSize.small,
-          COverflowMenuSize.md => CButtonSize.medium,
-        },
+        size: widget.props.size.buttonSize,
         materialStateController: _materialStatesController,
         style: buttonStyle.copyWith(
           color: buttonStyle.color.copyWith(

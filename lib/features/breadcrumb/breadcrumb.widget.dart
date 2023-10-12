@@ -1,3 +1,4 @@
+import 'package:carbon_flutter/features/overflow_menu/overflow_menu_item.styles.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:carbon_flutter/features/overflow_menu/index.dart';
@@ -61,7 +62,7 @@ class CBreadcrumb extends StatelessWidget {
 
     final overflowItem = COverflowMenu(
       controller: _menu,
-      size: COverflowMenuSize.sm,
+      size: COverFlowMenuSize.sm,
       items: _buildMenuItems(hiddenItems),
       child: CBreadcrumbItem(
         key: _menuKey,

@@ -10,7 +10,5 @@ abstract class COverflowMenuStyles {
     'curve': Curves.linear,
   };
 
-  static const Map<COverflowMenuSize, Size> dimensions = COverflowMenuItemStyles.dimensions;
-
   static const Color backgroundColor = CColors.gray90;
 }

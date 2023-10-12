@@ -1,7 +1,7 @@
+import 'package:carbon_flutter/features/overflow_menu/overflow_menu_item.styles.dart';
 import 'package:flutter/widgets.dart';
 
 import 'overflow_menu.util.dart';
-import 'overflow_menu.widget.dart';
 import 'overflow_menu_item.widget.dart';
 
 class COverflowMenuBaseProps {
@@ -29,7 +29,7 @@ class COverflowMenuBaseProps {
   /// The size of this menu. It can be `regular`, `sm`, or `md`
   ///
   /// @default: `COverflowMenuSize.regular`
-  final COverflowMenuSize size;
+  final COverFlowMenuSize size;
 
   /// Whether you can close the menu by tapping the barrier.
   ///
@@ -64,7 +64,7 @@ class COverflowMenuProps extends COverflowMenuBaseProps {
     required Offset menuOffset,
     required VoidCallback? onClose,
     required VoidCallback? onOpen,
-    required COverflowMenuSize size,
+    required COverFlowMenuSize size,
     required bool barrierDismissible,
   }) : super(
           items: items,
@@ -94,7 +94,7 @@ class COverflowMenuButtonProps extends COverflowMenuBaseProps {
     required Offset menuOffset,
     required VoidCallback? onClose,
     required VoidCallback? onOpen,
-    required COverflowMenuSize size,
+    required COverFlowMenuSize size,
     required bool barrierDismissible,
   }) : super(
           items: items,

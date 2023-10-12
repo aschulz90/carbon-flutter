@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
+import 'package:carbon_flutter/features/overflow_menu/overflow_menu_item.styles.dart';
 import 'package:flutter/material.dart';
 
 class COverflowExample extends StatelessWidget {
@@ -103,7 +104,7 @@ class COverflowExample extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   COverflowMenuButton(
-                    size: COverflowMenuSize.md,
+                    size: COverFlowMenuSize.md,
                     icon: Icon(CIcons.overflowMenuVertical),
                     items: [
                       COverflowMenuItem(
@@ -134,7 +135,7 @@ class COverflowExample extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   COverflowMenuButton(
-                    size: COverflowMenuSize.sm,
+                    size: COverFlowMenuSize.sm,
                     icon: Icon(CIcons.overflowMenuVertical),
                     items: [
                       COverflowMenuItem(
