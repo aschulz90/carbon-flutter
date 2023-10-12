@@ -359,6 +359,12 @@ class CarbonThemeData {
           ),
           ghost: buttonTheme.ghost.copyWith(
             contentColor: CarbonStateColor.all(color),
+            outerBorder: buttonTheme.ghost.outerBorder.copyWith(
+              color: CarbonStateColor.focus(
+                materialTheme.brightness == Brightness.light ? color : CColors.white0,
+                disabledColor: CColors.transparent,
+              ),
+            ),
           ),
         ),
         notificationTheme: notificationTheme,
@@ -369,6 +375,12 @@ class CarbonThemeData {
           ),
           primaryColor: color,
           focusColor: color,
+          highlightColor: color.hoveredColor,
+          indicatorColor: color.hoveredColor,
+          textSelectionTheme: materialTheme.textSelectionTheme.copyWith(
+            selectionColor: color.pressedColor,
+            selectionHandleColor: color.pressedColor,
+          ),
           inputDecorationTheme: materialTheme.inputDecorationTheme.copyWith(
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
