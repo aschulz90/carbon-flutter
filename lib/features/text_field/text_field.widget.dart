@@ -113,6 +113,7 @@ class CTextFieldState extends State<CTextField> {
   CValidationResult? _validationResult;
 
   late String? _value = widget.initialValue;
+  late final TextEditingController textController = widget.controller ?? TextEditingController(text: widget.initialValue);
 
   CValidationResult? _currentValidationResult() => widget.error ?? _validationResult;
 
@@ -263,7 +264,7 @@ class CTextFieldState extends State<CTextField> {
             const SizedBox(height: 8)
           ],
           TextField(
-            controller: widget.controller ?? TextEditingController(text: widget.initialValue),
+            controller: textController,
             focusNode: _focusNode,
             keyboardType: widget.keyboardType,
             textCapitalization: widget.textCapitalization,
