@@ -16,8 +16,10 @@ class CTextField extends StatefulWidget {
   const CTextField({
     Key? key,
     this.enable = true,
+    this.initialValue,
     this.validator,
     this.autoValidate = false,
+    this.error,
     this.label,
     this.hint,
     this.description,
@@ -52,8 +54,10 @@ class CTextField extends StatefulWidget {
     this.maxLengthEnforcement,
     this.maxLength,
     this.textInputAction,
-  }) : super(key: key);
+  })  : assert(initialValue == null || controller == null),
+        super(key: key);
 
+  final String? initialValue;
   final bool enable;
 
   final String? label;
@@ -93,6 +97,7 @@ class CTextField extends StatefulWidget {
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
   final CValidationResult? Function(String? value)? validator;
+  final CValidationResult? error;
   final bool autoValidate;
 
   @override
@@ -107,7 +112,9 @@ class CTextFieldState extends State<CTextField> {
   CFormState? _cform;
   CValidationResult? _validationResult;
 
-  String? _value;
+  late String? _value = widget.initialValue;
+
+  CValidationResult? _currentValidationResult() => widget.error ?? _validationResult;
 
   void _focusNodeListener() {
     if (_isFocused != _focusNode?.hasFocus) {
@@ -117,7 +124,8 @@ class CTextFieldState extends State<CTextField> {
 
   @override
   void initState() {
-    _focusNode = widget.focusNode ?? FocusNode();;
+    _focusNode = widget.focusNode ?? FocusNode();
+    ;
     _focusNode?.addListener(_focusNodeListener);
 
     super.initState();
@@ -159,7 +167,7 @@ class CTextFieldState extends State<CTextField> {
       _validationResult = widget.validator?.call(_value);
     });
 
-    if(_validationResult?.kind == CValidationKind.error) {
+    if (_validationResult?.kind == CValidationKind.error) {
       return false;
     }
 
@@ -177,20 +185,20 @@ class CTextFieldState extends State<CTextField> {
   }
 
   InputBorder? _getBorder(BuildContext context) {
-    if(_validationResult?.kind == CValidationKind.error) {
+    if (_currentValidationResult()?.kind == CValidationKind.error) {
       return Theme.of(context).inputDecorationTheme.errorBorder;
     }
 
-    if(widget.autoValidate) {
-      return switch (_validationResult?.kind) {
+    if (widget.autoValidate) {
+      return switch (_currentValidationResult()?.kind) {
         CValidationKind.warning => OutlineInputBorder(
-          borderRadius: BorderRadius.circular(0),
-          borderSide: BorderSide(color: CColors.yellow30, width: 2),
-        ),
+            borderRadius: BorderRadius.circular(0),
+            borderSide: BorderSide(color: CColors.yellow30, width: 2),
+          ),
         CValidationKind.success => OutlineInputBorder(
-          borderRadius: BorderRadius.circular(0),
-          borderSide: BorderSide(color: CColors.green60, width: 2),
-        ),
+            borderRadius: BorderRadius.circular(0),
+            borderSide: BorderSide(color: CColors.green60, width: 2),
+          ),
         _ => null,
       };
     }
@@ -200,15 +208,15 @@ class CTextFieldState extends State<CTextField> {
 
   List<Widget> _getDescription(BuildContext context) {
     final theme = Theme.of(context);
-    final validationResult = _validationResult;
+    final validationResult = _currentValidationResult();
 
-    if(validationResult != null) {
+    if (validationResult != null) {
       return [
         const SizedBox(height: 8),
         CText(
           validationResult.message,
           style: theme.inputDecorationTheme.errorStyle?.copyWith(
-            color: switch (_validationResult?.kind) {
+            color: switch (validationResult.kind) {
               CValidationKind.warning => CColors.yellow30,
               CValidationKind.success => CColors.green60,
               _ => CColors.red60,
@@ -220,7 +228,7 @@ class CTextFieldState extends State<CTextField> {
 
     final desciption = widget.description;
 
-    if(desciption != null) {
+    if (desciption != null) {
       return [
         const SizedBox(height: 8),
         CText(
@@ -248,82 +256,94 @@ class CTextFieldState extends State<CTextField> {
         children: <Widget>[
           if (widget.label != null) ...[
             CText(
-               widget.label!,
+              widget.label!,
               isRequired: widget.isRequired,
               style: theme.inputDecorationTheme.labelStyle,
             ),
             const SizedBox(height: 8)
           ],
-          SizedBox(
-            height: widget.expands ? null : 40,
-            child: TextField(
-              controller: widget.controller,
-              focusNode: _focusNode,
-              keyboardType: widget.keyboardType,
-              textCapitalization: widget.textCapitalization,
-              textAlignVertical: TextAlignVertical.center,
-              textDirection: widget.textDirection,
-              readOnly: widget.readOnly,
-              contextMenuBuilder: widget.contextMenuBuilder,
-              enabled: _isEnabled,
-              maxLength: widget.maxLength,
-              maxLengthEnforcement: widget.maxLengthEnforcement,
-              minLines: widget.minLines,
-              maxLines: widget.maxLines,
-              expands: widget.expands,
-              textInputAction: widget.textInputAction,
-              canRequestFocus: _isEnabled,
-              showCursor: widget.showCursor,
-              autofocus: widget.autofocus,
-              obscuringCharacter: widget.obscuringCharacter,
-              obscureText: widget.obscureText,
-              autocorrect: widget.autocorrect,
-              enableSuggestions: widget.enableSuggestions,
-              onChanged: (value) {
-                setState(() {
-                  _value = value;
+          TextField(
+            controller: widget.controller ?? TextEditingController(text: widget.initialValue),
+            focusNode: _focusNode,
+            keyboardType: widget.keyboardType,
+            textCapitalization: widget.textCapitalization,
+            textAlignVertical: TextAlignVertical.center,
+            textDirection: widget.textDirection,
+            readOnly: widget.readOnly,
+            contextMenuBuilder: widget.contextMenuBuilder,
+            enabled: _isEnabled,
+            maxLength: widget.maxLength,
+            maxLengthEnforcement: widget.maxLengthEnforcement,
+            minLines: widget.minLines,
+            maxLines: widget.maxLines,
+            expands: widget.expands,
+            textInputAction: widget.textInputAction,
+            canRequestFocus: _isEnabled,
+            showCursor: widget.showCursor,
+            autofocus: widget.autofocus,
+            obscuringCharacter: widget.obscuringCharacter,
+            obscureText: widget.obscureText,
+            autocorrect: widget.autocorrect,
+            enableSuggestions: widget.enableSuggestions,
+            onChanged: (value) {
+              setState(() {
+                _value = value;
 
-                  if(widget.autoValidate) {
-                    _validate(value);
-                  }
-                });
+                if (widget.autoValidate) {
+                  _validate(value);
+                }
+              });
 
-                widget.onChanged?.call(value);
-              },
-              onEditingComplete: widget.onEditingComplete,
-              onSubmitted: widget.onSubmitted,
-              inputFormatters: widget.inputFormatters,
-              keyboardAppearance: widget.keyboardAppearance,
-              onTap: widget.onTap,
-              scrollController: widget.scrollController,
-              scrollPhysics: widget.scrollPhysics,
-              autofillHints: widget.autofillHints,
-              style: TextStyle(
-                fontSize: 14,
-                height: 1,
+              widget.onChanged?.call(value);
+            },
+            onSubmitted: (value) {
+              setState(() {
+                _value = value;
+              });
+
+              widget.onSubmitted?.call(value);
+            },
+            onEditingComplete: () {
+              if (widget.autoValidate) {
+                _validate(_value);
+              }
+
+              widget.onEditingComplete?.call();
+            },
+            inputFormatters: widget.inputFormatters,
+            keyboardAppearance: widget.keyboardAppearance,
+            onTap: widget.onTap,
+            scrollController: widget.scrollController,
+            scrollPhysics: widget.scrollPhysics,
+            autofillHints: widget.autofillHints,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1,
+            ),
+            decoration: InputDecoration(
+              constraints: BoxConstraints(
+                maxHeight: widget.expands ? double.infinity : (widget.maxLength == null ? 40 : 70),
               ),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(
-                  left: 14,
-                  top: isEnabled && _isFocused ? 8 : 8,
-                  bottom: isEnabled && _isFocused ? 12.5 : 15,
-                ),
-                hintText: widget.hint,
-                enabledBorder: _getBorder(context),
-                prefixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
-                // 44 + 2 (width of border)
-                suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
-                // 44 + 2 (width of border)
-                prefixIcon: widget.prefixIcon,
-                suffixIcon: (() {
-                  if (widget.suffixIcon == null && _validationResult?.icon == null) return null;
-
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _validationResult?.icon ?? widget.suffixIcon,
-                  );
-                })(),
+              contentPadding: EdgeInsets.only(
+                left: 14,
+                top: 4,
+                bottom: isEnabled && _isFocused ? 12.5 : 15,
               ),
+              hintText: widget.hint,
+              enabledBorder: _getBorder(context),
+              prefixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
+              // 44 + 2 (width of border)
+              suffixIconConstraints: BoxConstraints(minWidth: 46, maxWidth: 46),
+              // 44 + 2 (width of border)
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: (() {
+                if (widget.suffixIcon == null && _currentValidationResult()?.icon == null) return null;
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _currentValidationResult()?.icon ?? widget.suffixIcon,
+                );
+              })(),
             ),
           ),
           ..._getDescription(context),
