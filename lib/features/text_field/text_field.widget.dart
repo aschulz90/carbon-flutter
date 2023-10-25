@@ -112,7 +112,6 @@ class CTextFieldState extends State<CTextField> {
   CFormState? _cform;
   CValidationResult? _validationResult;
 
-  late String? _value = widget.initialValue;
   late final TextEditingController textController = widget.controller ?? TextEditingController(text: widget.initialValue);
 
   CValidationResult? _currentValidationResult() => widget.error ?? _validationResult;
@@ -126,7 +125,7 @@ class CTextFieldState extends State<CTextField> {
   @override
   void initState() {
     _focusNode = widget.focusNode ?? FocusNode();
-    ;
+    
     _focusNode?.addListener(_focusNodeListener);
 
     super.initState();
@@ -165,14 +164,14 @@ class CTextFieldState extends State<CTextField> {
 
   bool validate() {
     setState(() {
-      _validationResult = widget.validator?.call(_value);
+      _validationResult = widget.validator?.call(textController.text);
     });
 
     if (_validationResult?.kind == CValidationKind.error) {
       return false;
     }
 
-    if (_value == null) {
+    if (textController.text.isEmpty) {
       return widget.isRequired ? false : true;
     }
 
@@ -287,26 +286,18 @@ class CTextFieldState extends State<CTextField> {
             autocorrect: widget.autocorrect,
             enableSuggestions: widget.enableSuggestions,
             onChanged: (value) {
-              setState(() {
-                _value = value;
-
-                if (widget.autoValidate) {
-                  _validate(value);
-                }
-              });
+              if (widget.autoValidate) {
+                _validate(value);
+              }
 
               widget.onChanged?.call(value);
             },
             onSubmitted: (value) {
-              setState(() {
-                _value = value;
-              });
-
               widget.onSubmitted?.call(value);
             },
             onEditingComplete: () {
               if (widget.autoValidate) {
-                _validate(_value);
+                _validate(textController.text);
               }
 
               widget.onEditingComplete?.call();

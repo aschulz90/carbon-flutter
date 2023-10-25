@@ -117,7 +117,7 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
     } else if (widget.props.icon != null) {
       result.add(const SizedBox(width: 32));
     } else {
-      result.add(const SizedBox(width: 64));
+      result.add(const SizedBox(width: 48));
     }
 
     /// add button icon
@@ -143,8 +143,8 @@ class _CButtonRegularState extends _CButtonStateBase<_CButtonRegular> {
       padding: EdgeInsets.symmetric(horizontal: widget.props.size.padding - borderPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CText(
             widget.props.label,

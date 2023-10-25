@@ -1,4 +1,5 @@
 import 'package:carbon_flutter/carbon.dart';
+import 'package:carbon_flutter/features/modal/dialog.style.dart';
 import 'package:flutter/material.dart';
 
 class CDialog extends StatelessWidget {
@@ -6,10 +7,10 @@ class CDialog extends StatelessWidget {
     super.key,
     required this.child,
     this.actions = const [],
+    this.expandActions = false,
     this.title,
-    this.titleStyle = const TextStyle(
-      fontSize: 24,
-    ),
+    this.titleStyle = CDialogStyles.titleStyle,
+    this.constraints = CDialogStyles.constraints,
   }) : formActions = null;
 
   const CDialog.form({
@@ -17,16 +18,19 @@ class CDialog extends StatelessWidget {
     required this.child,
     required this.formActions,
     this.title,
-    this.titleStyle = const TextStyle(
-      fontSize: 24,
-    ),
-  }) : actions = const [];
+    this.titleStyle = CDialogStyles.titleStyle,
+    this.constraints = CDialogStyles.constraints,
+  })  : actions = const [],
+        expandActions = false;
 
   final String? title;
-  final TextStyle titleStyle;
+  final TextStyle? titleStyle;
   final Widget child;
   final List<CButton> actions;
+  final bool expandActions;
   final FormActionBuilder? formActions;
+
+  final BoxConstraints constraints;
 
   List<Widget> _getContent(BuildContext context) {
     if (formActions != null) {
@@ -50,7 +54,7 @@ class CDialog extends StatelessWidget {
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: actions,
+        children: expandActions ? actions.map((e) => Expanded(child: e)).toList() : actions,
       ),
     ];
   }
@@ -65,31 +69,34 @@ class CDialog extends StatelessWidget {
         return Dialog(
           backgroundColor: layerColor,
           shape: const ContinuousRectangleBorder(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: CText(
-                      title ?? "",
-                      style: titleStyle,
+          child: ConstrainedBox(
+            constraints: constraints,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: CText(
+                        title ?? "",
+                        style: titleStyle,
+                      ),
                     ),
-                  ),
-                  CButton.icon(
-                    kind: CButtonKind.ghost,
-                    onPressed: Navigator.of(context).pop,
-                    icon: Icon(
-                      Icons.close,
-                      color: theme.colorScheme.onBackground,
+                    CButton.icon(
+                      kind: CButtonKind.ghost,
+                      onPressed: Navigator.of(context).pop,
+                      icon: Icon(
+                        CIcons.close,
+                        color: theme.colorScheme.onBackground,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              ..._getContent(context),
-            ],
+                  ],
+                ),
+                ..._getContent(context),
+              ],
+            ),
           ),
         );
       },
